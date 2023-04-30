@@ -25,5 +25,3 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
-
-// Set up route for handling requests to /api/user endpoint
