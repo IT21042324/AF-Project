@@ -3,6 +3,9 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+//To import all routes from allRoutes.js
+const allRoutes = require("./allRoutes");
+
 //Creating an express app
 const app = express();
 
@@ -25,3 +28,6 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
+
+//importing all routes from allRoutes.js
+app.use(allRoutes);
