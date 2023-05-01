@@ -8,6 +8,7 @@ import { useState } from "react";
 function Header() {
   // Setting initial state for showing the user profile popup
   const [showPopup, setShowPopup] = useState(false);
+  const [userIsloggedIn, setUserIsLoggedIn] = useState(false);
 
   // Defining function for closing the user profile popup
   const handleClosePopup = () => {
@@ -20,34 +21,31 @@ function Header() {
   // Rendering the Header component
   return (
     <header>
-      <h1>RB&NS</h1>
+      <h1>Little Island</h1>
       <NavBar />
       <div className="navbar-icons">
         <div>
-          <div style={{ display: "flex" }}>
-            <div style={{ marginTop: "5px" }}>
-              <Link to="/" onClick={logoutFunction}>
-                <h6 style={{ float: "right", color: "red" }}>Logout</h6>
-              </Link>
+          {userIsloggedIn ? (
+            <div style={{ display: "flex" }}>
+              <div style={{ marginTop: "5px" }}>
+                <Link to="/" onClick={logoutFunction}>
+                  <h6 style={{ float: "right", color: "red" }}>Logout</h6>
+                </Link>
+              </div>
+              &nbsp;&nbsp;&nbsp;
+              <img
+                style={{
+                  width: "25px",
+                  height: "25px",
+                  borderRadius: "40px",
+                  marginTop: "10px",
+                }}
+              />
             </div>
-            &nbsp;&nbsp;&nbsp;
-            <img
-              style={{
-                width: "25px",
-                height: "25px",
-                borderRadius: "40px",
-                marginTop: "10px",
-              }}
-            />
-          </div>
-          <Link to="/login">Login</Link>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </div>
-
-        <Link to="/buyer/Cart">
-          <div className="cart">
-            <FontAwesomeIcon icon={faShoppingCart} />
-          </div>
-        </Link>
       </div>
 
       <div
