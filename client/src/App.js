@@ -1,11 +1,8 @@
-import "./App.css";
+import { EntrepreneurPage } from "./pages/entrepreneur/Entrepreneur";
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
-  );
-}
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+
+function App() {}
 
 export default App;
