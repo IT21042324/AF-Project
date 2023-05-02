@@ -11,7 +11,10 @@ const {
   deleteAllUserProducts,
   addOrUpdateDiscussionThread,
   deleteDiscussionThread,
+  incrementLikeCounter,
+  decrementLikeCounter,
 } = require("../controller/product");
+
 // Route for adding a new item
 router.post("/addProduct", postProduct);
 
@@ -44,6 +47,12 @@ router.patch("/discussion/addOrUpdateDiscussion", addOrUpdateDiscussionThread);
 
 //Route to delete the discussion thread
 router.patch("/discussion/deleteDiscussion", deleteDiscussionThread);
+
+//Route to increse the like counter
+router.patch("/incrementLikeCounter", incrementLikeCounter);
+
+//Route to decrese the like counter
+router.patch("/decrementLikeCounter", decrementLikeCounter);
 
 //export all routes
 module.exports = router;
