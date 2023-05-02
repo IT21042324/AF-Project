@@ -28,23 +28,23 @@ export const UseUserContext = () => {
 
   function getUserRole() {
     const userSaved = localStorage.getItem("user");
+
     if (userSaved) {
       const user = JSON.parse(userSaved);
       return user.role;
     }
   }
 
-  function setUserRole(role) {
-    const userSaved = localStorage.getItem("user");
-    if (userSaved) {
-      const user = JSON.parse(userSaved);
-      user.role = role;
-      localStorage.setItem("user", JSON.stringify(user));
-      dispatch({
-        type: "SetUser",
-        payload: [user],
-      });
-    }
+  function setUser(user) {
+    localStorage.setItem("user", JSON.stringify(user));
+  }
+
+  function setSelectedUserRole(role) {
+    dispatch({ type: "SetSelectedUserRole", payload: role });
+  }
+
+  function getSelectedUserRole() {
+    return selectedUserRole;
   }
 
   function logoutUser() {
@@ -60,9 +60,11 @@ export const UseUserContext = () => {
     dispatch,
     user1,
     selectedUserRole,
+    setSelectedUserRole,
+    getSelectedUserRole,
     getUser,
     getUserRole,
-    setUserRole,
+    setUser,
     logoutUser,
   };
 };

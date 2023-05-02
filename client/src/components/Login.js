@@ -1,33 +1,25 @@
 import { Link } from "react-router-dom";
 import pic from "../assets/login.png";
-import { useRef } from "react";
-import { NavBar } from "./NavBar";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { UseUserContext } from "../context/useUserContext";
+import { UseBackendAPI } from "../backendAPI/useBackendAPI";
 
 export function Login() {
+  const { login } = UseBackendAPI();
+
   //Creating refs to hold values of login form values
-  const userName = useRef();
-  const password = useRef();
+  const userName = useRef(),
+    password = useRef();
 
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const validateForm = () => {
-    if (userName.current.value.trim() === "") {
-      return "Username is required";
-    }
-    if (password.current.value.trim() === "") {
-      return "Password is required";
-    }
-  };
-
-  const loginHandler = async (e) => {
+  const loginSubmitHandler = async (e) => {
     e.preventDefault();
 
-    const errorMessage = validateForm();
-    if (errorMessage) {
-      alert(errorMessage);
-      return;
-    }
+    await login({
+      userName: userName.current.value,
+      password: password.current.value,
+    });
   };
 
   return (
@@ -41,7 +33,7 @@ export function Login() {
         }}
       >
         <div className="login-c">
-          <form onSubmit={loginHandler}>
+          <form onSubmit={(e) => loginSubmitHandler()}>
             <h3 className="text-center mb-4">
               {isAdmin ? "Welcome Admin" : "Sign In"}
             </h3>
@@ -63,6 +55,7 @@ export function Login() {
                 className="form-control"
                 placeholder="password"
                 ref={password}
+                required
               />
             </div>
             <div className="d-grid">
