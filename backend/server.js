@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+const allRoutes = require("./allRoutes")
+
 //Creating an express app
 const app = express();
 
@@ -25,3 +27,6 @@ mongoose
   .catch((err) => {
     console.log(err.message);
   });
+
+  // routes
+  app.use(allRoutes);
