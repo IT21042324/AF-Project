@@ -44,28 +44,26 @@ const createPlace = async (req, res) => {
 //Update a place by ID
 const updatePlaceByID = async (req, res) => {
     try {
-        const place = await Place.findByIdAndUpdate({
-            id: req.params._id,
-        },
+        const place = await Place.findByIdAndUpdate(req.params.id,
             req.body,
             { new: true }
         );
-        console.info("Place " + req.params._id + " update successful");
+        console.info("Place " + req.params.id + " update successful");
         if (!place) {
-            console.error("Place " + req.params._id + " not found");
+            console.error("Place " + req.params.id + " not found");
             return res.status(404).json({ message: 'Place not found' });
         }
         res.status(200).json(place);
     } catch (error) {
         res.status(400).json({ message: error.message });
-        console.error("Place " + req.params._id + " update unsuccessful");
+        console.error("Place " + req.params.id + " update unsuccessful");
     }
 }
 
 //Delete a place by ID
 const deletePlaceByID = async (req, res) => {
     try {
-        const place = await Place.findByIdAndDelete({ id: req.params.id });
+        const place = await Place.findByIdAndDelete(req.params.id);
         if (!place) {
             console.error("Place " + req.params._id + " not found");
             return res.status(404).json({ message: 'Place not found' });
