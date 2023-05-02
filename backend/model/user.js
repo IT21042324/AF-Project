@@ -24,10 +24,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  bio: {
-    type: String,
-    required: true,
-  },
+  bio: String,
   userIsApprovedByAdmin: {
     type: Boolean,
     required: true,
@@ -44,14 +41,13 @@ userSchema.statics.signup = async function (
   role,
   bio
 ) {
-  const exist = await this.find({ userName });
-
   if (!userName || !password || !contact) throw Error("Please fill all fields");
   if (!validator.isEmail(userName)) throw Error("Email is invalid");
-  if (exist.length === 1)
-    if (exist[0].role == role) throw Error("Email is already in use");
 
-  if (exist.length > 1) throw Error("Email is already in use");
+  //Check if the user exists and throw an error if he does.
+  const exist = await this.find({ userName });
+
+  if (exist.userName) throw Error("Email is already in use");
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
@@ -68,10 +64,10 @@ userSchema.statics.signup = async function (
   return singedUser; //To return a signedup new user object
 };
 
-userSchema.statics.login = async function (userName, password, role) {
+userSchema.statics.login = async function (userName, password) {
   if (!userName || !password) throw Error("Please fill all fields");
 
-  const user = await this.findOne({ userName, role });
+  const user = await this.findOne({ userName });
   if (!user) throw Error("User Name doesn't exist");
 
   const match = await bcrypt.compare(password, user.password); //returns true or false

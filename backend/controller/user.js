@@ -66,7 +66,7 @@ const getAllUsers = async function (req, res) {
   }
 };
 
-const updateUser = async function (req, res) {
+const updateUserProfile = async function (req, res) {
   // Get userId, userName, and image from request body
   const { userId, userName, image } = req.body;
 
@@ -100,16 +100,30 @@ const deleteUser = async (req, res) => {
 
 const getOneUser = async function (req, res) {
   // Get id and role from request params
-  const { id, role } = req.params;
+  const { id } = req.params;
 
   try {
     // Get user from MongoDB database using Mongoose
-    const user = await userModel.find({ _id: id, role });
+    const user = await userModel.find({ _id: id });
 
     // Send user data in response
     res.status(200).json(user);
   } catch (err) {
     console.log(err.message);
+  }
+};
+
+const approveUser = async (req, res) => {
+  try {
+    const data = await userModel.findByIdAndUpdate(
+      req.params.id,
+      { userIsApprovedByAdmin: true },
+      { new: true }
+    );
+
+    res.send(data);
+  } catch (err) {
+    res.send(err.message);
   }
 };
 
@@ -151,9 +165,10 @@ module.exports = {
   userSignUp,
   userLogin,
   getAllUsers,
-  updateUser,
+  updateUserProfile,
   deleteUser,
   getOneUser,
   updateUserStore,
   getUserCount,
+  approveUser,
 };

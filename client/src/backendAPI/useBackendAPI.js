@@ -44,12 +44,13 @@ export const UseBackendAPI = () => {
         dispatch({ type: "SetUser", payload: [data] });
 
         //Here we send an email once the user is registered
-        SendEmail({
-          user_name: userDetails.userName,
-          role: userDetails.role,
-        });
+        // SendEmail({
+        //   user_name: userDetails.userName,
+        //   role: userDetails.role,
+        // });
 
-        alert("Account Created Successfully");
+        if (!data.err) alert("Account Created Successfully");
+        else alert(data.err);
 
         if (data.role === "Entrepreneur") navigate("/entrepreneuship/product");
         else if (data.role === "User") navigate("/");
