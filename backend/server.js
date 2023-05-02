@@ -29,4 +29,5 @@ mongoose
   });
 
   // routes
+  app.use(express.json({ limit: "20mb" }));
   app.use(allRoutes);

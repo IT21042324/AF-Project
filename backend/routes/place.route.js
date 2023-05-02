@@ -1,3 +1,4 @@
+const express = require("express");
 const{ 
     getAllPlaces,
     getPlacesByID,
@@ -6,7 +7,7 @@ const{
     deletePlaceByID,
     searchPlace
  } = require("../controller/placeController");
- 
+
 const placeRouter = express.Router();
 
 placeRouter.get('/', getAllPlaces);

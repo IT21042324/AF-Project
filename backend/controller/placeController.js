@@ -7,7 +7,7 @@ const getAllPlaces = async (req, res) => {
         res.status(200).json(places);
     } catch (error) {
         res.status(500).json({ message: error.message });
-        logger.error("Error getting all places");
+        console.error("Error getting all places");
     }
 }
 
@@ -16,63 +16,65 @@ const getPlacesByID = async (req, res) => {
     try {
         const place = await Place.findById({ id: req.params.id });
         if (!place) {
-            logger.error("Place" + req.params.id + " not found");
+            console.error("Place" + req.params.id + " not found");
             return res.status(404).json({ message: 'Place not found' });
         }
         res.status(200).json(place);
     } catch (error) {
         res.status(500).json({ message: error.message });
-        logger.error("Error getting place " + req.params.id);
+        console.error("Error getting place " + req.params.id);
     }
 }
 
 //Create a new place
 const createPlace = async (req, res) => {
+    const newPlace = req.body;
+    console.log(newPlace)
     try {
-        const place = new Place(req.body);
+        const place = new Place(newPlace);
         await place.save();
         res.status(201).json(place);
-        logger.info("Place create successful");
+        console.info("Place create successful");
     } catch (error) {
         res.status(400).json({ message: error.message });
-        logger.error("Place create failed");
+        console.error("Place create failed");
     }
 }
 
-//Update a place by name
+//Update a place by ID
 const updatePlaceByID = async (req, res) => {
     try {
         const place = await Place.findByIdAndUpdate({
-            placeID: req.params.id,
+            id: req.params._id,
         },
             req.body,
             { new: true }
         );
-        logger.info("Place " + req.params.id + " update successful");
+        console.info("Place " + req.params._id + " update successful");
         if (!place) {
-            logger.error("Place " + req.params.id + " not found");
+            console.error("Place " + req.params._id + " not found");
             return res.status(404).json({ message: 'Place not found' });
         }
         res.status(200).json(place);
     } catch (error) {
         res.status(400).json({ message: error.message });
-        logger.error("Place " + req.params.id + " update unsuccessful");
+        console.error("Place " + req.params._id + " update unsuccessful");
     }
 }
 
 //Delete a place by ID
 const deletePlaceByID = async (req, res) => {
     try {
-        const place = await Place.findByIdAndDelete({ placeID: req.params.id });
+        const place = await Place.findByIdAndDelete({ id: req.params.id });
         if (!place) {
-            logger.error("Place " + req.params.id + " not found");
+            console.error("Place " + req.params._id + " not found");
             return res.status(404).json({ message: 'Place not found' });
         }
         res.status(200).json({ message: 'Place deleted' });
-        logger.info("Place " + req.params.id + " deleted successfully");
+        console.info("Place " + req.params.id + " deleted successfully");
     } catch (error) {
         res.status(400).json({ message: error.message });
-        logger.info("Place " + req.params.id + " deleted successfully");
+        console.info("Place " + req.params.id + " delete unsuccessfull");
     }
 }
 

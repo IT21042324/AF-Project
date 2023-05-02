@@ -16,6 +16,6 @@ const newPlace = new Schema({
     }
 })
 
-const place = mongoose.model("Place", newPlace);
+const Place = mongoose.model("Place", newPlace);
 
-module.exports = place;
+module.exports = Place;
