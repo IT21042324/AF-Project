@@ -1,5 +1,5 @@
-import Header from "../../components/Header";
+import { NavBar } from "../../components/NavBar";
 
 export function EntrepreneurPage() {
-  return <Header />;
+  return <NavBar />;
 }
