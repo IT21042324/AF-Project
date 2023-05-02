@@ -30,4 +30,5 @@ mongoose
   });
 
 //importing all routes from allRoutes.js
+app.use(express.json())
 app.use(allRoutes);
