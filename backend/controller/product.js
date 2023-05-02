@@ -179,6 +179,34 @@ const deleteAllUserProducts = async function (req, res) {
   }
 };
 
+const incrementLikeCounter = async (req, res) => {
+  try {
+    const data = await productModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $inc: { likes: 1 } },
+      { new: true }
+    );
+
+    res.send(data);
+  } catch (err) {
+    res.send(err.message);
+  }
+};
+
+const decrementLikeCounter = async (req, res) => {
+  try {
+    const data = await productModel.findOneAndUpdate(
+      { _id: req.params.id },
+      { $inc: { likes: -1 } },
+      { new: true }
+    );
+
+    res.send(data);
+  } catch (err) {
+    res.send(err.message);
+  }
+};
+
 module.exports = {
   postProduct,
   addReview,
@@ -191,4 +219,6 @@ module.exports = {
   addOrUpdateDiscussionThread,
   deleteDiscussionThread,
   deleteAllUserProducts,
+  incrementLikeCounter,
+  decrementLikeCounter,
 };
