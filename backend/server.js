@@ -10,6 +10,7 @@ const allRoutes = require("./allRoutes");
 const app = express();
 
 // Configure middleware function
+app.use(express.json());
 app.use(cors());
 
 // Get port number and database URI from environment variables
@@ -30,5 +31,5 @@ mongoose
   });
 
 //importing all routes from allRoutes.js
-app.use(express.json())
+app.use(express.json());
 app.use(allRoutes);

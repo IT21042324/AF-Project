@@ -28,6 +28,11 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  userIsApprovedByAdmin: {
+    type: Boolean,
+    required: true,
+    default: false,
+  },
 });
 
 //Creating User schema functions
@@ -35,15 +40,13 @@ userSchema.statics.signup = async function (
   userName,
   password,
   contact,
-  address,
   image,
   role,
   bio
 ) {
   const exist = await this.find({ userName });
 
-  if (!userName || !password || !contact || !address)
-    throw Error("Please fill all fields");
+  if (!userName || !password || !contact) throw Error("Please fill all fields");
   if (!validator.isEmail(userName)) throw Error("Email is invalid");
   if (exist.length === 1)
     if (exist[0].role == role) throw Error("Email is already in use");
@@ -57,7 +60,6 @@ userSchema.statics.signup = async function (
     userName,
     password: hash,
     contact,
-    address,
     image,
     role,
     bio,
