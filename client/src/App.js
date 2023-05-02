@@ -2,12 +2,12 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
-import { EntrepreneurPage } from "./pages/entrepreneur/Entrepreneur";
+import { NavBar } from "./components/NavBar";
 
 function App() {
   return (
     <div className="App">
-      <EntrepreneurPage />
+      <NavBar />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
