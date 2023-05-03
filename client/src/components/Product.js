@@ -85,7 +85,7 @@ export function Product(props) {
             />
           </div>
           <h5>{props.details.productName}</h5>
-          <span>{props.details.storeName}</span>
+          <span>{props.details.userName}</span>
           <h4>Rs. {props.details.price}</h4>
           {props.details.quantity ? (
             <span>{props.details.quantity} Available</span>
@@ -143,10 +143,14 @@ export function Product(props) {
                 <StarRating initialRating={rating} fixedRating={true} />
                 <h4 style={{ color: "black" }}>{props.details.productName}</h4>
                 <h2 style={{ color: "black" }}>{props.details.storename}</h2>
+                <p>
+                  <h5>Description</h5>
+                  {props.details.description}
+                </p>
                 <h3>Reviews</h3>
                 {props.details.reviews.map((rev) => {
                   return <ReviewContainer key={rev.userID} review={rev} />;
-                })}{" "}
+                })}
               </>
             ) : (
               <>
