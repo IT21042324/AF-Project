@@ -1,5 +1,5 @@
-import { NavBar } from "../../components/NavBar";
+import { ProductMapper } from "../../components/ProductMapper";
 
 export function EntrepreneurPage() {
-  return <NavBar />;
+  return <ProductMapper />;
 }

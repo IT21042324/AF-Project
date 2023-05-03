@@ -1,18 +1,23 @@
 import { Link } from "react-router-dom";
 import pic from "../assets/register.png";
 import { useState, useRef } from "react";
+import { UseBackendAPI } from "../backendAPI/useBackendAPI";
 import avatar from "../assets/addphoto.png";
 import { EncodedFile } from "../assets/encodedImage";
-import { NavBar } from "./NavBar";
+import { UseUserContext } from "../context/useUserContext";
 
 export function Register() {
+  const { registerUser } = UseBackendAPI();
   const [profilePic, setProfilePic] = useState(avatar);
+  const { selectedUserRole } = UseUserContext();
 
   //Naming our refs to submit and store form data
-  const userName = useRef();
-  const password = useRef();
-  const contact = useRef();
-  const address = useRef();
+  const userName = useRef(),
+    password = useRef(),
+    contact = useRef(),
+    bio = useRef();
+
+  //To set the user role
 
   //Function to convert image to base64 so that it can be stored in the database
   function convertToBase64(e) {
@@ -28,16 +33,16 @@ export function Register() {
     if (profilePic) image = profilePic;
     else image = EncodedFile().image;
 
-    const selectedUserRole = "";
-
-    const dataToSave = {
+    const signupData = {
       userName: userName.current.value,
       password: password.current.value,
       contact: contact.current.value,
-      address: address.current.value,
       image: profilePic,
       role: selectedUserRole,
+      bio: bio.current.value,
     };
+
+    await registerUser(signupData);
   }
 
   return (
@@ -131,16 +136,21 @@ export function Register() {
                 required
               />
             </div>
-            <div className="mb-3">
-              <label>Address</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="123 Main St"
-                ref={address}
-                required
-              />
-            </div>
+
+            {selectedUserRole === "Entrepreneur" && (
+              <div className="mb-3">
+                <label>Tell Us About Yourself</label>
+                <textarea
+                  rows={5}
+                  type="text"
+                  className="form-control"
+                  placeholder="I am a..."
+                  ref={bio}
+                  required
+                />
+              </div>
+            )}
+
             <div className="d-grid">
               <input
                 type="submit"

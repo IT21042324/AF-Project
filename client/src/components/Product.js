@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExpand, faRankingStar } from "@fortawesome/free-solid-svg-icons";
 import { StarRating } from "./StarRating";
 import { ReviewContainer } from "./ReviewContainer";
+import { UseProductContext } from "../context/useProductContext";
+import { UseUserContext } from "../context/useUserContext";
 
 export function Product(props) {
   //importing cartContext,dispath and info from the cartContext
@@ -34,45 +36,32 @@ export function Product(props) {
   const { getUser } = UseUserContext();
   const user = getUser();
   //To submit the user review
-  const submitProductReview = async (e) => {
-    e.preventDefault();
+  // const submitProductReview = async (e) => {
+  //   e.preventDefault();
 
-    const data = await addReviewProduct({
-      productID: selectedProductID,
-      rating: addedRating,
-      review: reviewDesc.current.value,
-    });
+  // const data = await addReviewProduct({
+  //   productID: selectedProductID,
+  //   rating: addedRating,
+  //   review: reviewDesc.current.value,
+  // });
 
-    if (data) {
-      handleClosePopup();
-      alert("Review added successfully!");
+  // if (data) {
+  //   handleClosePopup();
+  //   alert("Review added successfully!");
 
-      productDispatch({
-        type: "AddReview",
-        payload: {
-          _id: data._id,
-          rating: addedRating,
-          review: reviewDesc.current.value,
-          userID: user._id,
-          userName: user.userName,
-        },
-      });
-    }
-  };
+  //   productDispatch({
+  //     type: "AddReview",
+  //     payload: {
+  //       _id: data._id,
+  //       rating: addedRating,
+  //       review: reviewDesc.current.value,
+  //       userID: user._id,
+  //       userName: user.userName,
+  //     },
+  //   });
+  // }
 
   const [userCanReview, setUserCanReview] = useState(false);
-
-  //To check if the user hasnt already submitted a review
-  function canUserReview(product) {
-    if (props.status) {
-      for (const review of product.reviews) {
-        if (review.userID === user._id) {
-          return false;
-        }
-      }
-      return true;
-    } else return false;
-  }
 
   //To get the avg rating of each product based on all the customers rating
   useEffect(() => {
@@ -82,8 +71,6 @@ export function Product(props) {
         props.details.reviews.length;
       setRating(averageRating);
     }
-    const result = canUserReview(props.details);
-    setUserCanReview(result);
   }, [props.details.reviews]);
 
   return (
@@ -120,18 +107,16 @@ export function Product(props) {
                   <FontAwesomeIcon icon={faExpand} />
                 </button>
 
-                {userCanReview && (
-                  <button
-                    title="Review Product"
-                    onClick={(e) => {
-                      setHandleOpenFrom("Review");
-                      setSelectedProductID(props.details._id);
-                      handleViewProductClick();
-                    }}
-                  >
-                    <FontAwesomeIcon icon={faRankingStar} />
-                  </button>
-                )}
+                <button
+                  title="Review Product"
+                  onClick={(e) => {
+                    setHandleOpenFrom("Review");
+                    setSelectedProductID(props.details._id);
+                    handleViewProductClick();
+                  }}
+                >
+                  <FontAwesomeIcon icon={faRankingStar} />
+                </button>
               </>
             ) : null}
           </div>
@@ -189,7 +174,7 @@ export function Product(props) {
                     <button
                       className="btn btn-success"
                       onClick={(e) => {
-                        submitProductReview(e);
+                        // submitProductReview(e);
                       }}
                     >
                       Post
