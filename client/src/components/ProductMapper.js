@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { SearchBar } from "./SearchComponent";
 
 export const ProductMapper = () => {
-  const product = UseProductContext();
+  const product = UseProductContext().products;
   const [search, setSearch] = useState("");
 
   const [products, SetProducts] = useState([]);
 
   useEffect(() => {
-    SetProducts(product.products);
-  }, [products]);
+    SetProducts(product);
+  }, [product]);
 
   function getSearchValue(searchResult) {
     setSearch(searchResult);
@@ -28,12 +28,11 @@ export const ProductMapper = () => {
         }}
       >
         {products
-          .filter((dat) => {
-            return (
-              dat.itemName.toLowerCase().includes(search.toLowerCase()) ||
-              dat.storeName.toLowerCase().includes(search.toLowerCase())
-            );
-          })
+          .filter(
+            (dat) =>
+              dat.productName.toLowerCase().includes(search.toLowerCase()) ||
+              dat.userName.toLowerCase().includes(search.toLowerCase())
+          )
           .map((dat) => (
             <div
               style={{ flexBasis: `${100 / Math.min(products.length, 8)}%` }}

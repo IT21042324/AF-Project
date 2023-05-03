@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { UseUserContext } from "../context/useUserContext";
 import { UseBackendAPI } from "../backendAPI/useBackendAPI";
 
-export function Login() {
+export function Login(e) {
   const { login } = UseBackendAPI();
 
   //Creating refs to hold values of login form values
@@ -33,7 +33,7 @@ export function Login() {
         }}
       >
         <div className="login-c">
-          <form onSubmit={(e) => loginSubmitHandler()}>
+          <form onSubmit={(e) => loginSubmitHandler(e)}>
             <h3 className="text-center mb-4">
               {isAdmin ? "Welcome Admin" : "Sign In"}
             </h3>

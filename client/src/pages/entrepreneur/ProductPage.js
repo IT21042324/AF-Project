@@ -1,5 +1,5 @@
 import { ProductMapper } from "../../components/ProductMapper";
 
-export function EntrepreneurPage() {
+export function ProductPage() {
   return <ProductMapper />;
 }
