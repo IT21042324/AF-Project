@@ -41,16 +41,16 @@ function EditInfo() {
       .get("http://localhost:8070/api/events/get/" + did)
       .then((res) => {
         // console.log(res.data);
-        setid(res.data.evenid._id);
-        setname(res.data.evenid.name);
-        setdescription(res.data.evenid.description);
-        setlocation(res.data.evenid.location);
-        setPrice(res.data.evenid.price);
-        setTime(res.data.evenid.time);
-        setCategory(res.data.evenid.category);
-        setOrganizerName(res.data.evenid.organizerName);
-        setOrganizerContact(res.data.evenid.organizerContact);
-        setTicketAvailability(res.data.evenid.ticketAvailability);
+        setid(res.data._id);
+        setname(res.data.name);
+        setdescription(res.data.description);
+        setlocation(res.data.location);
+        setPrice(res.data.price);
+        setTime(res.data.time);
+        setCategory(res.data.category);
+        setOrganizerName(res.data.organizerName);
+        setOrganizerContact(res.data.organizerContact);
+        setTicketAvailability(res.data.ticketAvailability);
       })
       .catch((err) => {
         alert(err.message);
@@ -82,10 +82,8 @@ function EditInfo() {
       ticketAvailability,
     };
 
-    const ID = id;
-
     axios
-      .put("http://localhost:8070/api/events/update/" + ID, newEvent)
+      .put("http://localhost:8070/api/events/update/" + id, newEvent)
       .then(() => {
         alert("Event information Updated");
 

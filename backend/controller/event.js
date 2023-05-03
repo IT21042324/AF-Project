@@ -79,7 +79,7 @@ const updateEvent = async (req, res) => {
       res.status(200).send({ status: "Event information updated" });
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err.message);
       res
         .status(500)
         .send({ status: "Error with updating data", error: err.message });
@@ -106,8 +106,8 @@ const getOneEvent = async (req, res) => {
   let eventID = req.params.id;
   const event_s = await eventModel
     .findById(eventID)
-    .then((deli) => {
-      res.status(200).send({ status: "Event  selected", deli });
+    .then((data) => {
+      res.status(200).send(data);
     })
     .catch((err) => {
       console.log(err.messsage);
