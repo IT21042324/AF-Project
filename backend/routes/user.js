@@ -27,6 +27,9 @@ router.patch("/update", updateUserProfile);
 // Get one user by ID route
 router.get("/:id/", getOneUser);
 
+//Get one user without the image (For performace)
+router.get("/getUserWithoutImage/:id");
+
 //call this route when admin accept the entrepreneur
 router.patch("/approveUser/:id", approveUser);
 
