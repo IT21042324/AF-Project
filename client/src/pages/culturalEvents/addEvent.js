@@ -28,7 +28,7 @@ export function AddEvent() {
     };
 
     axios
-      .post("http://localhost:8070/events/add", newEvent)
+      .post("http://localhost:8070/api/events/add", newEvent)
       .then(() => {
         alert("event infromation added");
         setname("");
@@ -63,7 +63,7 @@ export function AddEvent() {
   return (
     <div className="container">
       <div class="form-style">
-        <h1>Add new Event Information</h1>
+        <h2>Add new Event Information</h2>
         <br></br>
         <form onSubmit={sendData}>
           <div class="form-group">
@@ -91,7 +91,7 @@ export function AddEvent() {
             />
           </div>
           <div class="form-group">
-            <label for="province">Province:</label>
+            <label for="province">Location:</label>
             <input
               type="text"
               class="form-control"

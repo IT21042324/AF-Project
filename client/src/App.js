@@ -1,19 +1,17 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import { Login } from "./components/Login";
-import { Register } from "./components/Register";
-import { EntrepreneurPage } from "./pages/entrepreneur/Entrepreneur";
-import { NavBar } from "./components/NavBar";
-import { AddEvent } from "./pages/culturalEvents/addEvent";
+import { BaseRoutes } from "./BaseRoutes";
+import { EntrepreneurshipRoutes } from "./EntrepreneurshipRoutes";
 
 function App() {
   return (
     <div className="App">
-      <NavBar />
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/addEvent" element={<AddEvent />} />
+        <Route path="/*" element={<BaseRoutes />} />
+        <Route
+          path="/entrepreneurship/*"
+          element={<EntrepreneurshipRoutes />}
+        />
       </Routes>
     </div>
   );
