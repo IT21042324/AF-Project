@@ -76,19 +76,19 @@ const deletePlaceByID = async (req, res) => {
     }
 }
 
-//search place
+//Search Place
 const searchPlace = async (req, res) => {
 
-    const { term } = req.query;
-    const regex = new RegExp(term, 'i');
-    const places = await Place.find({
-        $or: [
-            { placeName: regex },
-            { placeDescription: regex }
-        ]
-    })
-
-    res.json(places);
+    const { placeName } = req.params;
+    try {
+      const places = await Place.find({
+        placeName: { $regex: new RegExp(placeName, 'i') },
+      });
+      res.json(places);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server Error' });
+    }
 }
 
 module.exports = {

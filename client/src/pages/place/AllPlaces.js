@@ -8,7 +8,7 @@ export function AllPlaces() {
     const [placeID, setPlaceID] = useState('');
     const [placeName, setPlaceName] = useState('');
     const [placeDescription, setPlaceDescription] = useState('');
-    const [imageUrl, setUrl] = useState('')
+    // const [imageUrl, setUrl] = useState('')
 
     //function to display all the places
     useEffect(() => {
@@ -47,7 +47,8 @@ export function AllPlaces() {
 
         const newPlace = {
             placeName,
-            placeDescription
+            placeDescription,
+            imageUrl
         }
 
         const id = placeID;
@@ -71,6 +72,43 @@ export function AllPlaces() {
         })
     }
 
+    //image
+    const [loading, setLoading] = useState(false)
+    const [imageUrl, setImageUrl] = useState('')
+
+    const convertBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+    //uploading the image
+    const uploadImage = async (event) => {
+
+        event.preventDefault()
+
+        const file = event.target.files[0];
+        const base64 = await convertBase64(file)
+        setLoading(true);
+        console.log(base64)
+        axios.post("http://localhost:8070/uploadImage", { image: base64 }).then((res) => {
+            console.log(res.data)
+            setImageUrl(res.data);
+
+            //res.data
+            alert("Image uploaded Succesfully");
+        }).then(() => setLoading(false))
+            .catch(console.log);
+    }
+
     return (
         <>
             <br></br>
@@ -90,7 +128,7 @@ export function AllPlaces() {
                                 <h6 class="card-title">Place ID: {place._id}</h6>
                                 <h5 class="card-text">{place.placeName}</h5>
                                 <div className='scroll-description'>
-                                <p class="card-text">{place.placeDescription}</p>
+                                    <p class="card-text">{place.placeDescription}</p>
                                 </div>
                                 <br></br>
                                 <button type="button" class="btn btn-dark m-3 mt-0 mb-0" onClick={() => {
@@ -132,6 +170,11 @@ export function AllPlaces() {
                                 onChange={(e) => {
                                     setPlaceDescription(e.target.value);
                                 }} />
+                        </div>
+                        <div className="mb-3">
+                            <label for="placeImage">Place Image</label>
+                            <input type="file" class="form-control" id="placeImage" value={imageUrl}
+                                onChange={uploadImage} />
                         </div>
                         <button type="submit" class="btn btn-dark">Update Place</button>
                     </form>

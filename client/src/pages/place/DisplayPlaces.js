@@ -51,12 +51,14 @@ export function DisplayPlaces() {
                         <div class="card" style={{ width: "22rem", height: "38rem", marginBottom: "50px", marginLeft: "40px" }}>
                             <div class="card-image-area">
                                 <img src={place.imageUrl} style={{ width: "80%", height: "14rem", margin: '0px auto' }} class="card-img-top" alt="..."></img>
-                            </div>
-                            <div class="card-body">
-                                {/* <h5 class="card-title">Item ID: {item._id}</h5> */}
-                                <h5 class="card-text">{place.placeName}</h5>
-                                <p class="card-text">{place.placeDescription}</p>
-                                {/* <button type="button" class="btn btn-success">Button</button> */}
+                                <div class="card-body">
+                                    {/* <h5 class="card-title">Item ID: {item._id}</h5> */}
+                                    <h5 class="card-text">{place.placeName}</h5>
+                                    <div className='scroll-description'>
+                                        <p class="card-text">{place.placeDescription}</p>
+                                    </div>
+                                    {/* <button type="button" class="btn btn-success">Button</button> */}
+                                </div>
                             </div>
                         </div>
                     ))}
