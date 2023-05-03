@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
+const uploadImage = require("./uploadImage")
 
 //To import all routes from allRoutes.js
 const allRoutes = require("./allRoutes");
@@ -32,3 +33,12 @@ mongoose
 //importing all routes from allRoutes.js
 app.use(express.json())
 app.use(allRoutes);
+
+//image uploading for places
+app.post("/uploadImage", (req, res) => {
+  uploadImage(req.body.image).then((imageUrl) => {
+      res.send(imageUrl)
+  }).catch((err) => {
+      res.status(500).send(err)
+    })
+})

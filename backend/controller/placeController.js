@@ -14,7 +14,7 @@ const getAllPlaces = async (req, res) => {
 //Get places by name
 const getPlacesByID = async (req, res) => {
     try {
-        const place = await Place.findById({ id: req.params.id });
+        const place = await Place.findById(req.params.id);
         if (!place) {
             console.error("Place" + req.params.id + " not found");
             return res.status(404).json({ message: 'Place not found' });
