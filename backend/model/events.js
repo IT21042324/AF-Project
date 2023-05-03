@@ -37,8 +37,8 @@ const Eventschema = new Schema({
     required: true,
   },
   ticketAvailability: {
-    type: Boolean,
-    default: false,
+    type: String,
+    required: true,
   },
 });
 

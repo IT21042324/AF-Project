@@ -813,3 +813,56 @@ h3 {
   resize: none;
   border-radius: 5px;
 }
+
+
+#update-box {
+
+}
+
+
+.form-style {
+  width: 550px;
+  height: 930px;
+  padding: 40px 60px;
+  box-shadow:0px 0px 10px rgba(0, 80, 0, 0.8);
+  color: black;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 10000;
+}.form-container {
+  position: relative;
+  height: 100px;
+  padding: 20px;
+}
+
+.form-style2 {
+  position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 450px;
+    padding: 20px;
+    background-color: #5bad5b;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  
+  
+.form-style3 {
+  width: 550px;
+  height: 930px;
+  padding: 40px 60px;
+  box-shadow:0px 0px 10px rgba(0, 80, 0, 0.8);
+  color: black;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 10000;
+}

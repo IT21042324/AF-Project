@@ -46,6 +46,13 @@ export function NavBar() {
               <Nav.Link>Accomodations</Nav.Link>
             </LinkContainer>
 
+            <LinkContainer
+              to="/editEvent"
+              onClick={(e) => setIsSellerPage(false)}
+            >
+              <Nav.Link>Temporary admin events edit&delete</Nav.Link>
+            </LinkContainer>
+
             <NavDropdown title="Drop-Down" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
 

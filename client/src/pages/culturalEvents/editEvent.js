@@ -187,7 +187,7 @@ function EditInfo() {
       </div>
 
       <div id="backdrop" className="backdrop-black">
-        <div id="update-box" className="container form-style">
+        <div id="update-box" className="container form-style3 ">
           <button
             onClick={handleClose}
             className="btn btn-outline-danger"
