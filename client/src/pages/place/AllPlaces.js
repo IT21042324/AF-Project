@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import '../../styles/place.css'
+import picture from "../../assets/placeMain.png";
 
 export function AllPlaces() {
 
@@ -111,11 +112,9 @@ export function AllPlaces() {
 
     return (
         <>
-            <br></br>
             < div class="container text-center" >
                 <div class="row">
-                    <h3>Update / Delete Places</h3>
-                    <br></br>
+                    <h3>UPDATE / DELETE PLACES</h3>
                     <br></br>
                     <br></br>
                     {places.map(place => (
@@ -146,40 +145,60 @@ export function AllPlaces() {
                 </div>
             </div >
 
+
             <div id="backdrop" className='backdrop-black'>
+
                 <div id="update-box" className="container, form-style">
-                    <button onClick={handleClose} className='btn btn-outline-danger' style={{ width: '40px', height: '40px', float: 'right' }}>X</button>
-                    <h4>Update Place</h4>
                     <br></br>
-                    <form onSubmit={sendData}>
-                        <div className="mb-3">
-                            <label for="placeID">Place ID</label>
-                            <input type="text" class="form-control" id="placeID" value={placeID}
-                                disabled />
-                        </div>
-                        <div className="mb-3">
-                            <label for="placeName">Place Name</label>
-                            <input type="text" class="form-control" id="placeName" placeholder="Enter Place Name" value={placeName}
-                                onChange={(e) => {
-                                    setPlaceName(e.target.value);
-                                }} />
-                        </div>
-                        <div className="mb-3">
-                            <label for="placeDescription">Place Description</label>
-                            <input type="text" class="form-control" id="placeDescription" placeholder="Enter Place Description" value={placeDescription}
-                                onChange={(e) => {
-                                    setPlaceDescription(e.target.value);
-                                }} />
-                        </div>
-                        <div className="mb-3">
-                            <label for="placeImage">Place Image</label>
-                            <input type="file" class="form-control" id="placeImage" value={imageUrl}
-                                onChange={uploadImage} />
-                        </div>
-                        <button type="submit" class="btn btn-dark">Update Place</button>
+                    <form onSubmit={sendData} style={{ width: "60%", marginLeft: "auto", marginRight: "auto" }}>
+                        <button onClick={handleClose} className='btn btn-outline-danger' style={{ width: '40px', height: '40px', float: 'right' }}>X</button>
+                        <h4>Update Place</h4>
+                        <table>
+                            <tr>
+                                <td>
+                                    <div className="mb-3">
+                                        <label for="placeID">Place ID</label>
+                                        <input type="text" class="form-control" id="placeID" value={placeID}
+                                            disabled />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label for="placeName">Place Name</label>
+                                        <input type="text" class="form-control" id="placeName" placeholder="Enter Place Name" value={placeName}
+                                            onChange={(e) => {
+                                                setPlaceName(e.target.value);
+                                            }} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label for="placeDescription">Place Description</label>
+                                        {/* <input type="text" class="form-control" id="placeDescription" placeholder="Enter Place Description" value={placeDescription}
+                                            onChange={(e) => {
+                                                setPlaceDescription(e.target.value);
+                                            }} /> */}
+                                        <textarea style={{ height: 150 }} class="form-control" id="placeDescription" placeholder="Enter Place Description"
+                                            onChange={(e) => {
+                                                setPlaceDescription(e.target.value);
+                                            }} />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label for="placeImage">Place Image</label>
+                                        <input type="file" class="form-control" id="placeImage"
+                                            onChange={uploadImage} />
+                                    </div>
+                                    <button type="submit" class="btn btn-dark">Update Place</button>
+
+
+                                </td>
+                                <td>
+                                    <div>
+                                        <img src={picture} alt="" style={{ width: 400, height: 470 }} />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
                     </form>
                 </div>
             </div>
+
         </>
     )
 }

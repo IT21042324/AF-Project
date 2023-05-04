@@ -35,7 +35,7 @@ export function DisplayPlaces() {
 
     return (
         <>
-            <br></br>
+            <h2>TOURIST PLACES</h2>
             <form className="d-flex" role="search" onSubmit={searchPlaces}>
                 <input className="form-control me-2" type="search" placeholder="Search Places" aria-label="Search" style={{ width: "20%" }}
                     onChange={(e) => {
@@ -67,7 +67,6 @@ export function DisplayPlaces() {
 
             {/* Display all items */}
             < div class="container text-center" >
-                <h3>Tourist Places</h3>
                 <br></br>
                 <div class="row">
                     {places.map(place => (
