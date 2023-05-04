@@ -1,0 +1,22 @@
+.scroll-description{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.card-image-area {
+    height: 200px;
+    width: 100%;
+    position: absolute;
+}
+
+.backdrop-black{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}

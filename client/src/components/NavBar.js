@@ -32,7 +32,7 @@ export function NavBar(props) {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <LinkContainer
-              to="/culturalEvents"
+              to="/addEvent"
               onClick={(e) => setIsSellerPage(false)}
             >
               <Nav.Link>Cultural Events</Nav.Link>

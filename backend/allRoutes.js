@@ -7,6 +7,7 @@ const eventRouter = require("./routes/events");
 const hotelsRouter = require("./routes/hotels");
 const roomsRouter = require("./routes/rooms");
 const placeRouter = require("./routes/place.route");
+const protectedPlaceRouter = require("./routes/protectedPlace")
 
 // Set up route for handling requests to /api/user endpoint
 router.use("/api/users", userRouter);
@@ -16,5 +17,6 @@ router.use("/api/events", eventRouter);
 router.use("/api/hotels", hotelsRouter);
 router.use("/api/rooms", roomsRouter);
 router.use("/api/place", placeRouter);
+router.use("/api/Protectedplace", protectedPlaceRouter);
 
 module.exports = router;
