@@ -4,9 +4,9 @@ import { SendEmail } from "../components/SendEmail";
 import { useNavigate } from "react-router-dom";
 
 export const UseBackendAPI = () => {
-  const { getUser, dispatch, setUser } = UseUserContext();
-  const user = getUser();
+  const { dispatch, setUser, getUser, user1 } = UseUserContext();
 
+  const user = getUser();
   const navigate = useNavigate();
 
   return {
@@ -17,15 +17,18 @@ export const UseBackendAPI = () => {
           userDetails
         );
 
-        setUser(data);
-        dispatch({ type: "SetUser", payload: [data] });
+        if (data.role) {
+          async function configureUser() {
+            localStorage.setItem("user", JSON.stringify(data));
+            dispatch({ type: "SetUser", payload: [data] });
+          }
+          await configureUser();
 
-        //now once the merchant or user is successfully registered,we try to redirect him to his store page once he is registered
-        if (user.role === "User") navigate("/");
-        else if (user.role === "Entrepreneur")
-          navigate("/entrepreneurship/seller");
-        else if (user.role === "Admin") navigate("/admin");
-        else alert(data.err);
+          if (user?.role === "User") navigate("/");
+          else if (user.role === "Entrepreneur") navigate("/entrepreneurship");
+          else if (user?.role === "Admin") navigate("/admin");
+          else alert(data.err);
+        }
       } catch (err) {
         console.log(err);
         alert(err.response.data.err);
