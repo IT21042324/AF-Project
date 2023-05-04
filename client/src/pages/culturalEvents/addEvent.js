@@ -11,6 +11,29 @@ export function AddEvent() {
   const [organizerName, setOrganizerName] = useState("");
   const [organizerContact, setOrganizerContact] = useState("");
   const [ticketAvailability, setTicketAvailability] = useState("");
+  //image
+  const [itemImage, setImage] = useState("");
+
+  //image
+  const [loading, setLoading] = useState(false);
+  const [url, setUrl] = useState("");
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  //function for sending data
 
   function sendData(e) {
     e.preventDefault();
@@ -25,6 +48,7 @@ export function AddEvent() {
       organizerName,
       organizerContact,
       ticketAvailability,
+      url,
     };
 
     axios
@@ -40,11 +64,32 @@ export function AddEvent() {
         setOrganizerName("");
         setOrganizerContact("");
         setTicketAvailability("");
+        setUrl("");
       })
       .catch((err) => {
         alert(err);
       });
   }
+
+  //uploading the image
+  const uploadImage = async (event) => {
+    event.preventDefault();
+
+    const file = event.target.files[0];
+    const base64 = await convertBase64(file);
+    setLoading(true);
+    console.log(base64);
+    axios
+      .post("http://localhost:8070/uploadEventimage", { image: base64 })
+      .then((res) => {
+        setUrl(res.data);
+        //res.data
+        alert("Image uploaded Succesfully");
+      })
+      .then(() => setLoading(false))
+      .catch(console.log);
+  };
+
   // const sendEmail=async (e) =>  {
   //   e.preventDefault();
 
@@ -172,6 +217,15 @@ export function AddEvent() {
               onChange={(e) => {
                 setTicketAvailability(e.target.value);
               }}
+            />
+          </div>
+          <div className="mb-3">
+            <label for="itemImage"> Image</label>
+            <input
+              type="file"
+              class="form-control"
+              id="itemImage"
+              onChange={uploadImage}
             />
           </div>
           <br></br>

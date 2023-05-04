@@ -40,6 +40,10 @@ const Eventschema = new Schema({
     type: String,
     required: true,
   },
+
+  url: {
+    type: String,
+  },
 });
 
 const events = mongoose.model("EventsInfo", Eventschema);

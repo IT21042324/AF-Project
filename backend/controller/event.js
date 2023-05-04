@@ -11,6 +11,7 @@ const addEvent = async (req, res) => {
     organizerName,
     organizerContact,
     ticketAvailability,
+    url,
   } = req.body;
 
   const newEvent = new eventModel({
@@ -23,6 +24,7 @@ const addEvent = async (req, res) => {
     organizerName,
     organizerContact,
     ticketAvailability,
+    url,
   });
 
   await newEvent
