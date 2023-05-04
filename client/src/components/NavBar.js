@@ -40,7 +40,7 @@ export function NavBar() {
             </LinkContainer>
 
             <LinkContainer
-              to="/accomodation"
+              to="/Accommodations"
               onClick={(e) => setIsSellerPage(false)}
             >
               <Nav.Link>Accomodations</Nav.Link>
