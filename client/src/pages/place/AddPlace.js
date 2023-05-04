@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import picture from "../../assets/placeMain.png";
 
 export function AddPlace() {  //ImageUpload
 
@@ -65,33 +66,50 @@ export function AddPlace() {  //ImageUpload
 
   return (
     <div className="container">
-      <div>
-        <h4>Add New Place</h4>
-        <br></br>
-        <form onSubmit={sendData}>
-          <div className="mb-3">
-            <label for="placeName">Place Name</label>
-            <input type="text" class="form-control" id="placeName" placeholder="Enter Place Name"
-              onChange={(e) => {
-                setName(e.target.value);
-              }} />
-          </div>
-          <div className="mb-3">
-            <label for="placeDescription">Place Description</label>
-            <input type="text" class="form-control" id="placeDescription" placeholder="Enter Place Description"
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }} />
-          </div>
+      <table style={{marginLeft:"auto", marginRight:"auto", marginTop:"10%"}}>
+        <tr>
+          <td>
+            <div>
+              <br></br>
+              <form onSubmit={sendData}>
+              <h3>Add New Place</h3>
+              <br></br>
+                <div className="mb-3">
+                  <label for="placeName">Place Name</label>
+                  <input type="text" class="form-control" id="placeName" placeholder="Enter Place Name"
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }} />
+                </div>
+                <div className="mb-3">
+                  <label for="placeDescription">Place Description</label>
+                  {/* <input type="text" class="form-control" id="placeDescription" placeholder="Enter Place Description"
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }} /> */}
+                    <textarea style={{height: 150 }} class="form-control" id="placeDescription" placeholder="Enter Place Description"
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }} />
+                </div>
 
-          <div className="mb-3">
-            <label for="placeImage">Place Image</label>
-            <input type="file" class="form-control" id="placeImage"
-              onChange={uploadImage} />
-          </div>
-          <button type="submit" class="btn btn-primary">Add Place</button>
-        </form>
-      </div>
+                <div className="mb-3">
+                  <label for="placeImage">Place Image</label>
+                  <input type="file" class="form-control" id="placeImage"
+                    onChange={uploadImage} />
+                </div>
+                <button type="submit" class="btn btn-primary">Add Place</button>
+              </form>
+            </div>
+
+          </td>
+          <td>
+            <div>
+              <img src={picture} alt="" style={{ width: 400, height: 470 }} />
+            </div>
+          </td>
+        </tr>
+      </table>
     </div>
   )
 }
