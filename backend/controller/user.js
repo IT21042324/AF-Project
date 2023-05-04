@@ -113,6 +113,21 @@ const getOneUser = async function (req, res) {
   }
 };
 
+const getOneUserWithoutDP = async function (req, res) {
+  // Get id and role from request params
+  const { id } = req.params;
+
+  try {
+    // Get user from MongoDB database using Mongoose
+    const user = await userModel.find({ _id: id }, "-image");
+
+    // Send user data in response
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
 const approveUser = async (req, res) => {
   try {
     const data = await userModel.findByIdAndUpdate(
@@ -168,6 +183,7 @@ module.exports = {
   updateUserProfile,
   deleteUser,
   getOneUser,
+  getOneUserWithoutDP,
   updateUserStore,
   getUserCount,
   approveUser,
