@@ -6,6 +6,7 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  userName: { type: String, required: true },
   productName: {
     type: String,
     required: true,
@@ -45,6 +46,10 @@ const productSchema = new Schema({
   likes: {
     type: Number,
     default: 0,
+  },
+  isApprovedByAdmin: {
+    type: Boolean,
+    default: false,
   },
 });
 

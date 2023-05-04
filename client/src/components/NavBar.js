@@ -4,12 +4,21 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { LinkContainer } from "react-router-bootstrap";
+import { UseUserContext } from "../context/useUserContext";
 
 export function NavBar() {
+  const { setSelectedUserRole } = UseUserContext();
+
   const [isSellerPage, setIsSellerPage] = useState(false);
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="dark"
+      variant="dark"
+      style={{ marginBottom: "10vh" }}
+    >
       <Container>
         <LinkContainer to="/" onClick={(e) => setIsSellerPage(false)}>
           <Navbar.Brand>Heavenly</Navbar.Brand>
@@ -18,7 +27,7 @@ export function NavBar() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <LinkContainer
-              to="/culturalEvents"
+              to="/addEvent"
               onClick={(e) => setIsSellerPage(false)}
             >
               <Nav.Link>Cultural Events</Nav.Link>
@@ -47,13 +56,17 @@ export function NavBar() {
             </NavDropdown>
           </Nav>
           <Nav>
-            {isSellerPage && (
-              <LinkContainer to="/login">
-                <Nav.Link eventKey={2} onClick={(e) => setIsSellerPage(false)}>
-                  Login
-                </Nav.Link>
-              </LinkContainer>
-            )}
+            <LinkContainer to="/login">
+              <Nav.Link
+                eventKey={2}
+                onClick={(e) => {
+                  if (isSellerPage) setSelectedUserRole("Entrepreneur");
+                  else if (!isSellerPage) setSelectedUserRole("User");
+                }}
+              >
+                {isSellerPage ? "Become an Entrepreneur" : "Login"}
+              </Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
       </Container>
