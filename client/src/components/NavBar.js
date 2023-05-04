@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -6,10 +6,15 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { LinkContainer } from "react-router-bootstrap";
 import { UseUserContext } from "../context/useUserContext";
 
-export function NavBar() {
-  const { setSelectedUserRole } = UseUserContext();
+export function NavBar(props) {
+  const { setSelectedUserRole, selectedUserRole } = UseUserContext();
 
   const [isSellerPage, setIsSellerPage] = useState(false);
+
+  useEffect(() => {
+    if (props.entrepreneurPageIsClicked) setIsSellerPage(true);
+    else setIsSellerPage(false);
+  }, [props.entrepreneurPageIsClicked]);
 
   return (
     <Navbar
@@ -60,8 +65,9 @@ export function NavBar() {
               <Nav.Link
                 eventKey={2}
                 onClick={(e) => {
-                  if (isSellerPage) setSelectedUserRole("Entrepreneur");
-                  else if (!isSellerPage) setSelectedUserRole("User");
+                  isSellerPage
+                    ? setSelectedUserRole("Entrepreneur")
+                    : setSelectedUserRole("User");
                 }}
               >
                 {isSellerPage ? "Become an Entrepreneur" : "Login"}
