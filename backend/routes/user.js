@@ -4,12 +4,12 @@ const router = require("express").Router();
 const {
   userLogin,
   userSignUp,
-  updateUser,
   getOneUser,
-  updateUserStore,
+  updateUserProfile,
   getUserCount,
   getAllUsers,
   deleteUser,
+  approveUser,
 } = require("../controller/user");
 
 // User login route
@@ -22,13 +22,16 @@ router.post("/signup", userSignUp);
 router.get("/", getAllUsers);
 
 // Update user route
-router.patch("/update", updateUser);
+router.patch("/update", updateUserProfile);
 
 // Get one user by ID route
-router.get("/:id/:role", getOneUser);
+router.get("/:id/", getOneUser);
 
-// Update user store route
-router.patch("/updateUserStore", updateUserStore);
+//Get one user without the image (For performace)
+router.get("/getUserWithoutImage/:id");
+
+//call this route when admin accept the entrepreneur
+router.patch("/approveUser/:id", approveUser);
 
 // Get user count for admin route
 router.get("/getUserCountForAdmin", getUserCount);
