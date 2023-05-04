@@ -20,11 +20,11 @@ function App() {
         <Route
           path="/Accommodations/*"
           element={<AccommodationRoutes />}
-          
+        />  
+
         <Route
           path="/placeRoutes/*"
           element={<PlaceRoutes />}
-          
         />
       </Routes>
       
