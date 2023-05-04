@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import axios from "axios";
 
@@ -16,6 +16,21 @@ function EditInfo() {
   const [organizerName, setOrganizerName] = useState("");
   const [organizerContact, setOrganizerContact] = useState("");
   const [ticketAvailability, setTicketAvailability] = useState("");
+  const imageInputRef = useRef(null);
+
+  //image
+
+  const [image, setProductPicture] = useState("");
+
+  function convertToBase64(e) {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(e.target.files[0]);
+
+    reader.onload = () => setProductPicture(reader.result);
+
+    reader.onerror = (error) => console.log("error: ", error);
+  }
 
   useEffect(() => {
     function getEventinfo() {
@@ -134,6 +149,8 @@ function EditInfo() {
               <th scope="col">Organizer Contact</th>
 
               <th scope="col">ticketAvailability</th>
+
+              <th scope="col">image</th>
             </tr>
           </thead>
 
@@ -159,6 +176,14 @@ function EditInfo() {
                 <td>{event.organizerContact}</td>
 
                 <td>{event.ticketAvailability}</td>
+
+                <td>
+                  <img
+                    src={event.url}
+                    alt="event image"
+                    style={{ width: "100px", height: "100px" }}
+                  />
+                </td>
 
                 <td>
                   <button
@@ -320,19 +345,26 @@ function EditInfo() {
                 required
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="ticketAvailability" className="form-label">
-                ticket Availability:
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
+            <div class="form-group">
+              <label for="ticketAvailability">Ticket Availability:</label>
+              <select
+                class="form-control"
                 id="ticketAvailability"
-                placeholder="Availlable/Not availlable"
-                value={ticketAvailability}
-                onChange={(e) => setOrganizerContact(e.target.value)}
-                required
+                onChange={(e) => setTicketAvailability(e.target.value)}
+              >
+                <option value="">-- Select --</option>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+              </select>
+            </div>
+            <div className="mb-3">
+              <label for="itemImage"> Image</label>
+              <input
+                type="file"
+                class="form-control"
+                id="itemImage"
+                onChange={(e) => convertToBase64(e)}
+                ref={imageInputRef}
               />
             </div>
             <div className="mb-3">

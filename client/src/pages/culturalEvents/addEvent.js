@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 
 export function AddEvent() {
@@ -11,28 +11,19 @@ export function AddEvent() {
   const [organizerName, setOrganizerName] = useState("");
   const [organizerContact, setOrganizerContact] = useState("");
   const [ticketAvailability, setTicketAvailability] = useState("");
-  //image
-  const [itemImage, setImage] = useState("");
+  const imageInputRef = useRef(null);
 
-  //image
-  const [loading, setLoading] = useState(false);
-  const [url, setUrl] = useState("");
+  const [image, setProductPicture] = useState("");
 
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
+  function convertToBase64(e) {
+    const reader = new FileReader();
 
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
+    reader.readAsDataURL(e.target.files[0]);
 
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
+    reader.onload = () => setProductPicture(reader.result);
 
+    reader.onerror = (error) => console.log("error: ", error);
+  }
   //function for sending data
 
   function sendData(e) {
@@ -48,7 +39,7 @@ export function AddEvent() {
       organizerName,
       organizerContact,
       ticketAvailability,
-      url,
+      url: image,
     };
 
     axios
@@ -64,31 +55,12 @@ export function AddEvent() {
         setOrganizerName("");
         setOrganizerContact("");
         setTicketAvailability("");
-        setUrl("");
+        imageInputRef.current.value = "";
       })
       .catch((err) => {
         alert(err);
       });
   }
-
-  //uploading the image
-  const uploadImage = async (event) => {
-    event.preventDefault();
-
-    const file = event.target.files[0];
-    const base64 = await convertBase64(file);
-    setLoading(true);
-    console.log(base64);
-    axios
-      .post("http://localhost:8070/uploadEventimage", { image: base64 })
-      .then((res) => {
-        setUrl(res.data);
-        //res.data
-        alert("Image uploaded Succesfully");
-      })
-      .then(() => setLoading(false))
-      .catch(console.log);
-  };
 
   // const sendEmail=async (e) =>  {
   //   e.preventDefault();
@@ -208,16 +180,16 @@ export function AddEvent() {
             />
           </div>
           <div class="form-group">
-            <label for="ticketAvailability">ticket tAvailability:</label>
-            <input
-              type="text"
+            <label for="ticketAvailability">Ticket Availability:</label>
+            <select
               class="form-control"
               id="ticketAvailability"
-              placeholder="Ex:20000"
-              onChange={(e) => {
-                setTicketAvailability(e.target.value);
-              }}
-            />
+              onChange={(e) => setTicketAvailability(e.target.value)}
+            >
+              <option value="">-- Select --</option>
+              <option value="available">Available</option>
+              <option value="unavailable">Unavailable</option>
+            </select>
           </div>
           <div className="mb-3">
             <label for="itemImage"> Image</label>
@@ -225,7 +197,8 @@ export function AddEvent() {
               type="file"
               class="form-control"
               id="itemImage"
-              onChange={uploadImage}
+              onChange={(e) => convertToBase64(e)}
+              ref={imageInputRef}
             />
           </div>
           <br></br>

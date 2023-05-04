@@ -53,6 +53,13 @@ export function NavBar() {
               <Nav.Link>Temporary admin events edit&delete</Nav.Link>
             </LinkContainer>
 
+            <LinkContainer
+              to="/displayEvents"
+              onClick={(e) => setIsSellerPage(false)}
+            >
+              <Nav.Link>Temporary user view events page</Nav.Link>
+            </LinkContainer>
+
             <NavDropdown title="Drop-Down" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
 
