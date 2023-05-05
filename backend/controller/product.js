@@ -3,7 +3,7 @@ const productModel = require("../model/product");
 // Get all products
 const getAllProducts = async (req, res) => {
   try {
-    const data = await productModel.find();
+    const data = await productModel.find().sort({ createdAt: -1 });
     res.json(data);
   } catch (err) {
     res.send(err.message);
@@ -15,9 +15,10 @@ const postProduct = async (req, res) => {
   const productData = req.body;
   try {
     const data = await new productModel(productData).save();
-    res.json(data);
+    res.status(200).json(data);
   } catch (err) {
-    res.json(err.message);
+    console.log(err.message);
+    res.status(400).json(err.message);
   }
 };
 

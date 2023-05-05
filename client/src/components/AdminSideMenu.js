@@ -36,21 +36,11 @@ export function AdminSideMenu(props) {
 
         <div className="li">
           <Link
-            to={"/admin/profile"}
+            to={"/admin/productRequest"}
             style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
           >
             <FontAwesomeIcon icon={faUser} />
-            &nbsp;&nbsp; Profile
-          </Link>
-        </div>
-
-        <div className="li">
-          <Link
-            to={"/admin/notifications"}
-            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
-          >
-            <FontAwesomeIcon icon={faBell} />
-            &nbsp;&nbsp; Notifications
+            &nbsp;&nbsp; Product Requests
           </Link>
         </div>
       </div>

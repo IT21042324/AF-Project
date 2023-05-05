@@ -64,5 +64,54 @@ export const UseBackendAPI = () => {
       console.log(data);
       return data;
     },
+
+    makeProductRequest: async function (product) {
+      product.userName = user.userName;
+      product.userID = user._id;
+
+      try {
+        const info = await axios.post(
+          "http://localhost:8070/api/protected/products/addProduct/",
+          product,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+
+        if (info.status == 200) alert("Product Request Success!");
+        else alert(info.data);
+        return info;
+      } catch (err) {
+        alert(
+          "There seems to be an error. Your Request cannot be fulfilled at the moment"
+        );
+      }
+    },
+    updateUserProfileDetails: async function (userDetailsToUpdate) {
+      userDetailsToUpdate.userId = user._id;
+      try {
+        const info = await axios.patch(
+          "http://localhost:8070/api/users/update/",
+          userDetailsToUpdate
+        );
+
+        console.log(info);
+
+        if (info.status == 200) {
+          localStorage.setItem("user", JSON.stringify(info.data));
+
+          dispatch({
+            type: "SetUser",
+            payload: info.data,
+          });
+
+          alert("Profile Updated Successfully!");
+        } else alert("Oops! Something went wrong");
+      } catch (err) {
+        alert("Oops! Something went wrong");
+      }
+    },
   };
 };
