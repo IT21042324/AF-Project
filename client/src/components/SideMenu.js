@@ -1,4 +1,4 @@
-import { faDashboard, faListSquares } from "@fortawesome/free-solid-svg-icons";
+import { faDashboard, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
@@ -36,10 +36,20 @@ export function SideMenu(props) {
 
         <div className="li">
           <Link
+            to={"/entrepreneurship/profile"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            <FontAwesomeIcon icon={faUser} />
+            &nbsp;&nbsp; Profile
+          </Link>
+        </div>
+
+        <div className="li">
+          <Link
             to={"/entrepreneurship/notifications"}
             style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
           >
-            <FontAwesomeIcon icon={faListSquares} />
+            <FontAwesomeIcon icon={faBell} />
             &nbsp;&nbsp; Notifications
           </Link>
         </div>

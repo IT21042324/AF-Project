@@ -5,18 +5,14 @@ export const UseUserContext = () => {
   const { dispatch, user1, selectedUserRole } = useContext(UserContext);
 
   useEffect(() => {
-    async function getDataForUserContext() {
-      if (localStorage.getItem("user")) {
-        const user = JSON.parse(localStorage.getItem("user"));
+    if (localStorage.getItem("user")) {
+      const user = JSON.parse(localStorage.getItem("user"));
 
-        dispatch({
-          type: "SetUser",
-          payload: [user],
-        });
-      }
+      dispatch({
+        type: "SetUser",
+        payload: [user],
+      });
     }
-
-    getDataForUserContext();
   }, [dispatch]);
 
   function getUser() {
