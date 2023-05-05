@@ -7,6 +7,7 @@ import { DisplayPlaces } from "./pages/place/DisplayPlaces"
 export function PlaceRoutes() {
     return (
         <div className="App">
+            <NavBar/>
             <Routes>
                 <Route path="/addPlace" element={<AddPlace />} />
                 <Route path="/allPlaces" element={<AllPlaces />} />

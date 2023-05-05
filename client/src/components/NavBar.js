@@ -20,7 +20,7 @@ export function NavBar() {
       style={{ marginBottom: "10vh" }}
     >
       <Container>
-        <LinkContainer to="/" onClick={(e) => setIsSellerPage(false)}>
+        <LinkContainer to="/placeRoutes/displayPlaces" onClick={(e) => setIsSellerPage(false)}>
           <Navbar.Brand>Heavenly</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
