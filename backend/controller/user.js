@@ -70,20 +70,23 @@ const getAllUsers = async function (req, res) {
 
 const updateUserProfile = async function (req, res) {
   // Get userId, userName, and image from request body
-  const { userId, userName, image } = req.body;
+  const { userId, contact, image, bio } = req.body;
 
   try {
     // Update user in MongoDB database using Mongoose
     const user = await userModel.findOneAndUpdate(
       { _id: userId },
-      { userName, image },
+      { contact, image, bio },
       { new: true }
     );
 
+    console.log(user);
+
     // Send updated user data in response
-    return res.json(user);
+    return res.status(200).json(user);
   } catch (err) {
     console.log(err.message);
+    res.status(500).json(err.message);
   }
 };
 
@@ -123,7 +126,6 @@ const getOneUserWithoutDP = async function (req, res) {
     // Get user from MongoDB database using Mongoose
     const user = await userModel.find({ _id: id }, "-image");
 
-    // Send user data in response
     res.status(200).json(user);
   } catch (err) {
     console.log(err.message);

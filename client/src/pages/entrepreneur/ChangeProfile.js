@@ -7,6 +7,8 @@ export function ChangeProfile() {
   const { getUser } = UseUserContext();
   const user = getUser();
 
+  const { updateUserProfileDetails } = UseBackendAPI();
+
   // Setting initial state for the product picture as an empty string
   const [image, setProductPicture] = useState("");
 
@@ -18,21 +20,22 @@ export function ChangeProfile() {
     reader.onerror = (error) => console.log("error: ", error);
   }
 
-  const productName = useRef(),
-    bio = useRef(),
-    price = useRef(),
-    contact = useRef(),
-    imageInputRef = useRef(null);
+  const bio = useRef(),
+    contact = useRef();
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
+    await updateUserProfileDetails({
+      bio: bio.current.value,
+      contact: contact.current.value,
+      image,
+    });
+
     //To clear the form after submission
-    productName.current.value = "";
-    bio.current.value = "";
-    price.current.value = "";
-    contact.current.value = "";
-    imageInputRef.current.value = "";
+    // bio.current.value = "";
+    // contact.current.value = "";
+    // imageInputRef.current.value = "";
   };
 
   return (
@@ -97,18 +100,21 @@ export function ChangeProfile() {
                   />
                 </div>
               </div>
+
               <div className="row">
-                <div className="col">
+                <div className="col-md-4 mb-3">
                   <label for="validationCustom01" style={{ float: "left" }}>
                     Contact
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
                     id="validationCustom01"
                     defaultValue={user.contact}
                     ref={contact}
                     pattern="[0-9]{10}"
+                    minLength="10"
+                    maxLength="10"
                     title="Please enter a 10-digit phone number"
                     required
                   />
@@ -123,7 +129,6 @@ export function ChangeProfile() {
                     id="validationCustom01"
                     placeholder="0.00"
                     onChange={(e) => convertToBase64(e)}
-                    ref={imageInputRef}
                     required
                   />
                 </div>
