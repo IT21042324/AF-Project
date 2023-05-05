@@ -19,13 +19,17 @@ export function NavBar(props) {
       expand="lg"
       bg="dark"
       variant="dark"
-      style={{ marginBottom: "10vh" }}
+      style={{ marginBottom: "4vh" }}
     >
       <Container>
+
         <LinkContainer
           to="/"
           onClick={(e) => setSelectedUserRole("Entrepreneur")}
         >
+
+        <LinkContainer to="/placeRoutes/displayPlaces" onClick={(e) => setIsSellerPage(false)}>
+
           <Navbar.Brand>Heavenly</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -49,10 +53,15 @@ export function NavBar(props) {
             </LinkContainer>
 
             <LinkContainer
+
               to="/accomodation"
               onClick={(e) => {
                 setSelectedUserRole("User");
               }}
+
+              to="/Accommodations"
+              onClick={(e) => setIsSellerPage(false)}
+
             >
               <Nav.Link>Accomodations</Nav.Link>
             </LinkContainer>
