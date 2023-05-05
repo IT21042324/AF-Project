@@ -295,7 +295,7 @@ function EditInfo() {
                 }}
               />
             </div>
-            a
+
             <div className="mb-3">
               <label htmlFor="category" className="form-label">
                 Category:

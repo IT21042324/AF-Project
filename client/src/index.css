@@ -888,21 +888,3 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #303f9f;
 }
-
-.image-input {
-  display: none;
-}
-
-.image-label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.image-preview {
-  max-width: 100%;
-  max-height: 200px;
-  margin-bottom: 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-}

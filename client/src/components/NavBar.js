@@ -59,6 +59,12 @@ export function NavBar() {
             >
               <Nav.Link>Temporary user view events page</Nav.Link>
             </LinkContainer>
+            <LinkContainer
+              to="/BookEvent"
+              onClick={(e) => setIsSellerPage(false)}
+            >
+              <Nav.Link>Temporary Book event</Nav.Link>
+            </LinkContainer>
 
             <NavDropdown title="Drop-Down" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
