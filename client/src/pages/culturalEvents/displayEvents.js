@@ -49,8 +49,11 @@ function EditInfo() {
                 <p className="card-text">
                   <strong>Price:</strong> {event.price}
                 </p>
-                <p className="card-text">
-                  <strong>Time:</strong> {event.time}
+                <p
+                  className="card
+                -text"
+                >
+                  <strong>Date:</strong> {event.Date}
                 </p>
                 <p className="card-text">
                   <strong>Category:</strong> {event.category}
