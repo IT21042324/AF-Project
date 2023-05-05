@@ -23,6 +23,11 @@ function EditInfo() {
   const [image, setProductPicture] = useState("");
 
   function convertToBase64(e) {
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload only image files.");
+      return;
+    }
     const reader = new FileReader();
 
     reader.readAsDataURL(e.target.files[0]);
@@ -127,7 +132,14 @@ function EditInfo() {
   return (
     <>
       <div className="container shadow rounded">
-        <table className="table">
+        <table
+          className="table"
+          style={{
+            width: "100%",
+            border: "1px solid black",
+            backgroundColor: "white",
+          }}
+        >
           <thead>
             <tr>
               <th scope="col">ID</th>

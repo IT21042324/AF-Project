@@ -13,9 +13,20 @@ export function AddEvent() {
   const [ticketAvailability, setTicketAvailability] = useState("");
   const imageInputRef = useRef(null);
 
+  //to validate the price
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [image, setProductPicture] = useState("");
 
+  //image
+
   function convertToBase64(e) {
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload only image files.");
+      return;
+    }
+
     const reader = new FileReader();
 
     reader.readAsDataURL(e.target.files[0]);
@@ -24,10 +35,27 @@ export function AddEvent() {
 
     reader.onerror = (error) => console.log("error: ", error);
   }
+
+  //function to validate the price
+
+  function validatePrice(price) {
+    // Regex pattern for validating the price (2 decimal places only)
+    const pattern = /^[0-9]+(\.[0-9]{1,2})?$/;
+    if (!pattern.test(price)) {
+      setErrorMessage("Please enter a valid price (e.g. 123.45)");
+      return false;
+    }
+    setErrorMessage("");
+    return true;
+  }
   //function for sending data
 
   function sendData(e) {
     e.preventDefault();
+
+    if (!validatePrice(price)) {
+      return;
+    }
 
     const newEvent = {
       name,
@@ -78,10 +106,11 @@ export function AddEvent() {
               onChange={(e) => {
                 setname(e.target.value);
               }}
+              required
             />
           </div>
           <div class="form-group">
-            <label for="description">description:</label>
+            <label for="description">Description:</label>
             <input
               type="text"
               class="form-control"
@@ -90,6 +119,7 @@ export function AddEvent() {
               onChange={(e) => {
                 setdescription(e.target.value);
               }}
+              required
             />
           </div>
           <div class="form-group">
@@ -102,6 +132,7 @@ export function AddEvent() {
               onChange={(e) => {
                 setlocation(e.target.value);
               }}
+              required
             />
           </div>
           <div class="form-group">
@@ -110,11 +141,16 @@ export function AddEvent() {
               type="text"
               class="form-control"
               id="price"
-              placeholder="Rs:2000 /-"
+              placeholder="Rs."
               onChange={(e) => {
                 setPrice(e.target.value);
               }}
+              onBlur={(e) => {
+                validatePrice(e.target.value);
+              }}
+              required
             />
+            {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
           </div>
           <div class="form-group">
             <label for="date">Date:</label>
@@ -125,6 +161,7 @@ export function AddEvent() {
               onChange={(e) => {
                 setDate(e.target.value);
               }}
+              required
             />
           </div>
           <div class="form-group">
@@ -135,6 +172,7 @@ export function AddEvent() {
               onChange={(e) => {
                 setCategory(e.target.value);
               }}
+              required
             >
               <option value="">-- Select --</option>
               <option value="music">Music</option>
@@ -154,6 +192,7 @@ export function AddEvent() {
               onChange={(e) => {
                 setOrganizerName(e.target.value);
               }}
+              required
             />
           </div>
           <div class="form-group">
@@ -166,6 +205,7 @@ export function AddEvent() {
               onChange={(e) => {
                 setOrganizerContact(e.target.value);
               }}
+              required
             />
           </div>
           <div class="form-group">
@@ -174,6 +214,7 @@ export function AddEvent() {
               class="form-control"
               id="ticketAvailability"
               onChange={(e) => setTicketAvailability(e.target.value)}
+              required
             >
               <option value="">-- Select --</option>
               <option value="available">Available</option>
@@ -188,6 +229,7 @@ export function AddEvent() {
               id="itemImage"
               onChange={(e) => convertToBase64(e)}
               ref={imageInputRef}
+              required
             />
           </div>
           <br></br>

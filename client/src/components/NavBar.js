@@ -32,7 +32,7 @@ export function NavBar(props) {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <LinkContainer
-              to="/addEvent"
+              to="/cultural/displayEvents"
               onClick={(e) => {
                 setSelectedUserRole("User");
               }}
@@ -57,23 +57,7 @@ export function NavBar(props) {
               <Nav.Link>Accomodations</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer
-              to="/editEvent"
-              onClick={(e) => setIsSellerPage(false)}
-            >
-              <Nav.Link>Temporary admin events edit&delete</Nav.Link>
-            </LinkContainer>
-
-            <LinkContainer
-              to="/displayEvents"
-              onClick={(e) => setIsSellerPage(false)}
-            >
-              <Nav.Link>Temporary user view events page</Nav.Link>
-            </LinkContainer>
-            <LinkContainer
-              to="/BookEvent"
-              onClick={(e) => setIsSellerPage(false)}
-            >
+            <LinkContainer to="/cultural/BookEvent">
               <Nav.Link>Temporary Book event</Nav.Link>
             </LinkContainer>
 
