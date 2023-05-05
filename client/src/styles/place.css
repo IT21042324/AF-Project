@@ -1,11 +1,19 @@
 .scroll-description{
+    height: 210px;
+    overflow-y: scroll;
+}
+
+.scroll-description-user{
     height: 300px;
     overflow-y: scroll;
 }
 
 .card-image-area {
-    height: 200px;
-    width: 100%;
+    /* height: 200px;
+    width: 100%; */
+    top: 20px;
+    left: 0;
+    right: 0;
     position: absolute;
 }
 
@@ -20,3 +28,17 @@
     transform: translate(-50%, -50%);
     display: none;
 }
+
+.card {
+    position: relative;
+    /* other styles */
+  }
+  
+  .watermark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('../assets/watermark.jpeg');
+    opacity: 0.5;
+    /* other styles */
+  }

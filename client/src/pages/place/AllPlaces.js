@@ -114,15 +114,16 @@ export function AllPlaces() {
         <>
             < div class="container text-center" >
                 <div class="row">
-                    <h3>UPDATE / DELETE PLACES</h3>
+                    <h3 style={{fontFamily: "cursive"}}>UPDATE / DELETE PLACES</h3>
                     <br></br>
                     <br></br>
                     {places.map(place => (
 
-                        // <div class="col-12 col-md-6 col-lg-4" >
+                        <div class="col-12 col-md-6 col-lg-3" >
 
-                        <div class="card" style={{ width: "22rem", height: "40rem", marginBottom: "40px", marginLeft: "40px" }}>
-                            <img src={place.imageUrl} style={{ width: "80%", height: "14rem", margin: '0px auto' }} class="card-img-top" alt="..."></img>
+                        <div class="card" style={{ width: "17rem", height: "35rem", marginBottom: "40px"}}>
+                           <div class="card-image-area">
+                            <img src={place.imageUrl} style={{ width: "80%", height: "10rem", margin: '0px auto' }} class="card-img-top" alt="..."></img>
                             <div class="card-body">
                                 <h6 class="card-title">Place ID: {place._id}</h6>
                                 <h5 class="card-text">{place.placeName}</h5>
@@ -138,8 +139,9 @@ export function AllPlaces() {
                                     deletePlace(place._id);
                                 }}>Delete</button>
                             </div>
+                            </div>
                         </div>
-                        // </div>
+                        </div>
 
                     ))}
                 </div>
@@ -152,10 +154,12 @@ export function AllPlaces() {
                     <br></br>
                     <form onSubmit={sendData} style={{ width: "60%", marginLeft: "auto", marginRight: "auto" }}>
                         <button onClick={handleClose} className='btn btn-outline-danger' style={{ width: '40px', height: '40px', float: 'right' }}>X</button>
-                        <h4>Update Place</h4>
+                        {/* <h3 style={{fontFamily: "cursive"}}>Update Place</h3> */}
                         <table>
                             <tr>
                                 <td>
+                                <h3 style={{fontFamily: "cursive"}}>Update Place</h3>
+                                <br></br>
                                     <div className="mb-3">
                                         <label for="placeID">Place ID</label>
                                         <input type="text" class="form-control" id="placeID" value={placeID}
@@ -174,7 +178,7 @@ export function AllPlaces() {
                                             onChange={(e) => {
                                                 setPlaceDescription(e.target.value);
                                             }} /> */}
-                                        <textarea style={{ height: 150 }} class="form-control" id="placeDescription" placeholder="Enter Place Description"
+                                        <textarea style={{ height: 150 }} class="form-control" id="placeDescription" placeholder="Enter Place Description" value={placeDescription}
                                             onChange={(e) => {
                                                 setPlaceDescription(e.target.value);
                                             }} />

@@ -65,14 +65,14 @@ export function AddPlace() {  //ImageUpload
   }
 
   return (
-    <div className="container">
-      <table style={{marginLeft:"auto", marginRight:"auto", marginTop:"10%"}}>
+    <>
+      <table style={{marginLeft:"auto", marginRight:"auto", marginTop:"5%"}}>
         <tr>
           <td>
             <div>
               <br></br>
               <form onSubmit={sendData}>
-              <h3>Add New Place</h3>
+              <h3 style={{fontFamily: "cursive"}}>Add New Place</h3>
               <br></br>
                 <div className="mb-3">
                   <label for="placeName">Place Name</label>
@@ -98,7 +98,7 @@ export function AddPlace() {  //ImageUpload
                   <input type="file" class="form-control" id="placeImage"
                     onChange={uploadImage} />
                 </div>
-                <button type="submit" class="btn btn-primary">Add Place</button>
+                <button type="submit" class="btn btn-dark">Add Place</button>
               </form>
             </div>
 
@@ -110,6 +110,6 @@ export function AddPlace() {  //ImageUpload
           </td>
         </tr>
       </table>
-    </div>
+    </>
   )
 }
