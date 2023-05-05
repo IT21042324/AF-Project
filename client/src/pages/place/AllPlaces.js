@@ -283,7 +283,7 @@ export function AllPlaces() {
         <>
             < div class="container text-center" >
                 <div class="row">
-                    <h3 style={{fontFamily: "cursive"}}>UPDATE / DELETE PLACES</h3>
+                    <h3 style={{fontFamily: "cursive", color:"green", backgroundColor:"#C1E1C1", padding:"20px"}}>UPDATE / DELETE PLACES</h3>
                     <br></br>
                     <br></br>
                     {places.map(place => (

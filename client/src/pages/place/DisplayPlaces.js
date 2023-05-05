@@ -69,7 +69,7 @@ export function DisplayPlaces() {
 
             {/* Display all items */}
             < div class="container text-center" >
-                <h3 style={{fontFamily: "cursive"}}>TOURIST PLACES</h3>
+                <h3 style={{fontFamily: "cursive", color:"green", backgroundColor:"#C1E1C1", padding:"20px"}}>TOURIST PLACES</h3>
                 <br></br>
                 <div class="row">
                     {places.map(place => (
