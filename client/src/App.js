@@ -2,6 +2,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { BaseRoutes } from "./BaseRoutes";
 import { EntrepreneurshipRoutes } from "./EntrepreneurshipRoutes";
+import { AdminRoutes } from "./AdminRoutes";
 import { AccommodationRoutes } from "./AccommodationRoutes";
 import { PlaceRoutes } from "./PlaceRoutes";
 
@@ -15,6 +16,7 @@ function App() {
           path="/entrepreneurship/*"
           element={<EntrepreneurshipRoutes />}
         />
+        <Route path="/admin/*" element={<AdminRoutes />} />
         
         {/* Accommodation Routes */}
         <Route

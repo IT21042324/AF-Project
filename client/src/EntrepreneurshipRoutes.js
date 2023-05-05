@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { ProductPage } from "./pages/entrepreneur/ProductPage";
-import { UseUserContext } from "./context/useUserContext";
+import { UseUserContext } from "./hooks/useUserContext";
 import { EntrepreneurLandingPage } from "./pages/entrepreneur/EntrepreneurLandingPage";
 import { NavBar } from "./components/NavBar";
-import { SideMenu } from "./components/SideMenu";
+import { SideMenu } from "./pages/entrepreneur/SideMenu";
 import { AddProductRequest } from "./pages/entrepreneur/AddProductRequest";
 import { Profile } from "./pages/entrepreneur/Profile";
 import { ChangeProfile } from "./pages/entrepreneur/ChangeProfile";
@@ -28,7 +28,7 @@ export function EntrepreneurshipRoutes() {
         </>
       ) : (
         <>
-          <NavBar entrepreneurPageIsClicked={true} />
+          <NavBar />
           <Routes>
             <Route path="/" element={<ProductPage />} />
           </Routes>

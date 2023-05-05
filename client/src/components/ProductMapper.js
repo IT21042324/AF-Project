@@ -1,5 +1,5 @@
 import { Product } from "./Product";
-import { UseProductContext } from "../context/useProductContext";
+import { UseProductContext } from "../hooks/useProductContext";
 import { useState, useEffect } from "react";
 import { SearchBar } from "./SearchComponent";
 

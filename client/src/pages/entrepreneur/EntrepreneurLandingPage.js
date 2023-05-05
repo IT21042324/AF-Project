@@ -11,8 +11,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 
 import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
-import { UseUserContext } from "../../context/useUserContext";
-import { UseProductContext } from "../../context/useProductContext";
+import { UseUserContext } from "../../hooks/useUserContext";
+import { UseProductContext } from "../../hooks/useProductContext";
 
 export function EntrepreneurLandingPage() {
   //Accessing necessary variables from the hooks
