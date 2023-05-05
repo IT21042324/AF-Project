@@ -1,18 +1,25 @@
 const router = require("express").Router();
 const {
-  addEvent,
-  getAllEvents,
-  updateEvent,
-  deleteEvent,
-  getOneEvent,
-} = require("../controller/event");
+  addRoom,
+  getAllRooms,
+  updateRoom,
+  deleteRoom,
+  getOneRoom,
+} = require("../controller/room");
 
-router.post("/add", addEvent);
-router.get("/", getAllEvents);
-router.put("/update:id", updateEvent);
-router.delete("/delete/:id", deleteEvent);
+//create new room
+router.post("/add/:hotelID", addRoom);
+
+//display all rooms
+router.get("/", getAllRooms);
+
+//update room details
+router.put("/update/:id", updateRoom);
+
+//delete room from the system
+router.delete("/delete/:id/:hotelID", deleteRoom);
 
 //get only one event
-router.get("/get/:id", getOneEvent);
+router.get("/get/:id", getOneRoom);
 
 module.exports = router;
