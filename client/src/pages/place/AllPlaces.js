@@ -29,6 +29,7 @@ export function AllPlaces() {
             setPlaceID(res.data._id);
             setPlaceName(res.data.placeName);
             setPlaceDescription(res.data.placeDescription);
+            setImageUrl(res.data.imageUrl)
         }).catch((err) => {
             alert(err.message);
         })
@@ -40,19 +41,30 @@ export function AllPlaces() {
 
     const handleClose = () => {
         document.getElementById('backdrop').style.display = "none"
+        setNewImageUrl('');
     }
 
     //Update place function
     function sendData(e) {
         e.preventDefault();
 
+        let updateUrl
+
+        if(newImageUrl === '') {
+            updateUrl = imageUrl
+        } else {
+            updateUrl = newImageUrl
+        }
+
         const newPlace = {
             placeName,
             placeDescription,
-            imageUrl
+            imageUrl : updateUrl
         }
 
         const id = placeID;
+
+        setNewImageUrl('');
 
         axios.patch("http://localhost:8070/api/protectedPlace/update/" + id, newPlace).then(() => {
             alert("Place Details Updated");
@@ -76,6 +88,7 @@ export function AllPlaces() {
     //image
     const [loading, setLoading] = useState(false)
     const [imageUrl, setImageUrl] = useState('')
+    const [newImageUrl, setNewImageUrl] = useState('')
 
     const convertBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -102,7 +115,7 @@ export function AllPlaces() {
         console.log(base64)
         axios.post("http://localhost:8070/uploadImage", { image: base64 }).then((res) => {
             console.log(res.data)
-            setImageUrl(res.data);
+            setNewImageUrl(res.data);
 
             //res.data
             alert("Image uploaded Succesfully");
@@ -128,7 +141,7 @@ export function AllPlaces() {
                                 <h6 class="card-title">Place ID: {place._id}</h6>
                                 <h5 class="card-text">{place.placeName}</h5>
                                 <div className='scroll-description'>
-                                    <p class="card-text">{place.placeDescription}</p>
+                                    <p style={{textAlign:"left"}} class="card-text">{place.placeDescription}</p>
                                 </div>
                                 <br></br>
                                 <button type="button" class="btn btn-dark m-3 mt-0 mb-0" onClick={() => {
@@ -150,10 +163,10 @@ export function AllPlaces() {
 
             <div id="backdrop" className='backdrop-black'>
 
-                <div id="update-box" className="container, form-style">
+                <div id="update-box" className="container, form-style" style={{position: 'relative'}}>
                     <br></br>
+                    <button onClick={handleClose} className='btn btn-outline-danger' style={{ width: '40px', height: '40px', position: 'absolute', right: '320px', top: '40px'}}>X</button>
                     <form onSubmit={sendData} style={{ width: "60%", marginLeft: "auto", marginRight: "auto" }}>
-                        <button onClick={handleClose} className='btn btn-outline-danger' style={{ width: '40px', height: '40px', float: 'right' }}>X</button>
                         {/* <h3 style={{fontFamily: "cursive"}}>Update Place</h3> */}
                         <table>
                             <tr>
@@ -194,7 +207,7 @@ export function AllPlaces() {
                                 </td>
                                 <td>
                                     <div>
-                                        <img src={picture} alt="" style={{ width: 400, height: 470 }} />
+                                        <img src={newImageUrl || imageUrl} alt="" style={{ width: 400, height: 470 }} />
                                     </div>
                                 </td>
                             </tr>

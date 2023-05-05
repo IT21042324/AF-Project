@@ -29,16 +29,9 @@
     display: none;
 }
 
-.card {
-    position: relative;
-    /* other styles */
-  }
-  
-  .watermark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url('../assets/watermark.jpeg');
-    opacity: 0.5;
-    /* other styles */
-  }
+/* .search-form{
+    background-Color:"transparent";
+    border:"0";
+    margin:"0";
+    padding:"0";
+} */

@@ -35,7 +35,7 @@ export function DisplayPlaces() {
 
     return (
         <>
-            <form style={{backgroundColor:"transparent", border:"0"}}role="search" onSubmit={searchPlaces}>
+            <form style={{backgroundColor:"transparent", border:"0", marginLeft:"20px", margintop:"0", padding:"0"}}role="search" onSubmit={searchPlaces}>
                 <input className="form-control me-2" type="search" placeholder="Search Places" aria-label="Search" style={{ width: "20%" }}
                     onChange={(e) => {
                         setSearchTerm(e.target.value)
@@ -57,7 +57,7 @@ export function DisplayPlaces() {
                                     {/* <h5 class="card-title">Item ID: {item._id}</h5> */}
                                     <h5 class="card-text">{place.placeName}</h5>
                                     <div className='scroll-description-user'>
-                                        <p class="card-text">{place.placeDescription}</p>
+                                        <p style={{textAlign:"left"}}class="card-text">{place.placeDescription}</p>
                                     </div>
                                     {/* <button type="button" class="btn btn-success">Button</button> */}
                                 </div>
@@ -81,7 +81,7 @@ export function DisplayPlaces() {
                                         {/* <h5 class="card-title">Item ID: {item._id}</h5> */}
                                         <h5 class="card-text"> {place.placeName}</h5>
                                         <div className='scroll-description-user'>
-                                            <p class="card-text">{place.placeDescription}</p>
+                                            <p style={{textAlign:"left"}} class="card-text">{place.placeDescription}</p>
                                         </div>
                                         {/* <button type="button" class="btn btn-success">View Description</button> */}
                                     </div>
