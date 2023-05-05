@@ -6,7 +6,7 @@ export function AddEvent() {
   const [description, setdescription] = useState("");
   const [location, setlocation] = useState("");
   const [price, setPrice] = useState("");
-  const [time, setTime] = useState("");
+  const [Date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const [organizerName, setOrganizerName] = useState("");
   const [organizerContact, setOrganizerContact] = useState("");
@@ -34,7 +34,7 @@ export function AddEvent() {
       description,
       location,
       price,
-      time,
+      Date,
       category,
       organizerName,
       organizerContact,
@@ -50,7 +50,7 @@ export function AddEvent() {
         setdescription("");
         setlocation("");
         setPrice("");
-        setTime("");
+        setDate("");
         setCategory("");
         setOrganizerName("");
         setOrganizerContact("");
@@ -62,21 +62,6 @@ export function AddEvent() {
       });
   }
 
-  // const sendEmail=async (e) =>  {
-  //   e.preventDefault();
-
-  //   const data={
-  //     email
-  //   }
-  //   try {
-  //   const response = await axios.post("http://localhost:4002/api/sendEmail",data)
-  //   console.log(response.data)
-  //   alert("Confirmation email sent successfully!!!.Please check your email");
-  // } catch (error) {
-  //   alert("Error occurred while sending confirmation email.");
-  //   console.error(error);
-  // }
-  // };
   return (
     <div className="container">
       <div class="form-style">
@@ -132,28 +117,32 @@ export function AddEvent() {
             />
           </div>
           <div class="form-group">
-            <label for="time">Start time:</label>
+            <label for="date">Date:</label>
             <input
-              type="text"
+              type="date"
               class="form-control"
-              id="time"
-              placeholder="Ex:20000"
+              id="date"
               onChange={(e) => {
-                setTime(e.target.value);
+                setDate(e.target.value);
               }}
             />
           </div>
           <div class="form-group">
             <label for="category">category:</label>
-            <input
-              type="text"
+            <select
               class="form-control"
               id="category"
-              placeholder="Ex:20000"
               onChange={(e) => {
                 setCategory(e.target.value);
               }}
-            />
+            >
+              <option value="">-- Select --</option>
+              <option value="music">Music</option>
+              <option value="dance">Dance</option>
+              <option value="theater">Theater</option>
+              <option value="art">Art</option>
+              <option value="festival">Festival</option>
+            </select>
           </div>
           <div class="form-group">
             <label for="organizerName">organizer Name:</label>

@@ -11,7 +11,7 @@ function EditInfo() {
   const [description, setdescription] = useState("");
   const [location, setlocation] = useState("");
   const [price, setPrice] = useState("");
-  const [time, setTime] = useState("");
+  const [Date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const [organizerName, setOrganizerName] = useState("");
   const [organizerContact, setOrganizerContact] = useState("");
@@ -61,7 +61,7 @@ function EditInfo() {
         setdescription(res.data.description);
         setlocation(res.data.location);
         setPrice(res.data.price);
-        setTime(res.data.time);
+        setDate(res.data.Date);
         setCategory(res.data.category);
         setOrganizerName(res.data.organizerName);
         setOrganizerContact(res.data.organizerContact);
@@ -90,7 +90,7 @@ function EditInfo() {
       description,
       location,
       price,
-      time,
+      Date,
       category,
       organizerName,
       organizerContact,
@@ -140,7 +140,7 @@ function EditInfo() {
 
               <th scope="col">Price</th>
 
-              <th scope="col">Time</th>
+              <th scope="col">Date</th>
 
               <th scope="col">Category</th>
 
@@ -167,7 +167,7 @@ function EditInfo() {
 
                 <td>{event.price}</td>
 
-                <td>{event.time}</td>
+                <td>{event.Date}</td>
 
                 <td>{event.category}</td>
 
@@ -284,19 +284,15 @@ function EditInfo() {
                 required
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="time" className="form-label">
-                Time
-              </label>
-
+            <div class="form-group">
+              <label for="date">Date:</label>
               <input
-                type="number"
-                className="form-control"
-                id="time"
-                placeholder="Enter time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                required
+                type="date"
+                class="form-control"
+                id="date"
+                onChange={(e) => {
+                  setDate(e.target.value);
+                }}
               />
             </div>
             a
@@ -305,15 +301,20 @@ function EditInfo() {
                 Category:
               </label>
 
-              <input
-                type="text"
-                className="form-control"
+              <select
+                class="form-control"
                 id="category"
-                placeholder="Enter category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                required
-              />
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+              >
+                <option value="">-- Select --</option>
+                <option value="music">Music</option>
+                <option value="dance">Dance</option>
+                <option value="theater">Theater</option>
+                <option value="art">Art</option>
+                <option value="festival">Festival</option>
+              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="organizerName" className="form-label">
@@ -371,7 +372,7 @@ function EditInfo() {
               <input type="checkbox" name="terms" required /> <br></br>
               <br></br>
               <button type="submit" className="btn btn-primary">
-                Update Delivery Details
+                Update Details
               </button>
             </div>
           </form>

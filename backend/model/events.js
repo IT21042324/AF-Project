@@ -19,13 +19,12 @@ const Eventschema = new Schema({
     type: Number,
     required: true,
   },
-  time: {
-    type: Number,
+  Date: {
+    type: Date,
     required: true,
   },
   category: {
     type: String,
-    enum: ["music", "dance", "theater", "art"],
     required: true,
   },
   organizerName: {
