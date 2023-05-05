@@ -17,7 +17,7 @@ export function NavBar() {
       expand="lg"
       bg="dark"
       variant="dark"
-      style={{ marginBottom: "10vh" }}
+      style={{ marginBottom: "4vh" }}
     >
       <Container>
         <LinkContainer to="/placeRoutes/displayPlaces" onClick={(e) => setIsSellerPage(false)}>
