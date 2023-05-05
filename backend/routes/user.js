@@ -10,6 +10,7 @@ const {
   getAllUsers,
   deleteUser,
   approveUser,
+  getOneUserWithoutDP,
 } = require("../controller/user");
 
 // User login route
@@ -28,7 +29,7 @@ router.patch("/update", updateUserProfile);
 router.get("/:id/", getOneUser);
 
 //Get one user without the image (For performace)
-router.get("/getUserWithoutImage/:id");
+router.get("/getUserWithoutImage/:id", getOneUserWithoutDP);
 
 //call this route when admin accept the entrepreneur
 router.patch("/approveUser/:id", approveUser);

@@ -14,7 +14,7 @@ import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
 import { UseUserContext } from "../../hooks/useUserContext";
 import { UseProductContext } from "../../hooks/useProductContext";
 
-export function EntrepreneurLandingPage() {
+export function ProductRequestPage() {
   //Accessing necessary variables from the hooks
   const { products, dispatch } = UseProductContext();
   const { getUser, logoutUser } = UseUserContext();

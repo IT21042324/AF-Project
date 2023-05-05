@@ -14,7 +14,7 @@ import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
 import { UseUserContext } from "../../hooks/useUserContext";
 import { UseProductContext } from "../../hooks/useProductContext";
 
-export function EntrepreneurLandingPage() {
+export const Notification = () => {
   //Accessing necessary variables from the hooks
   const { products, dispatch } = UseProductContext();
   const { getUser, logoutUser } = UseUserContext();
@@ -27,14 +27,16 @@ export function EntrepreneurLandingPage() {
   const [product, setProduct] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
 
+  useEffect(() => {
+    setProduct(products);
+  }, [products]);
+
+  const [notificationData, setNotificationData] = useState([]);
+
   const productName = useRef(),
     description = useRef(),
     quantity = useRef(),
     price = useRef();
-
-  useEffect(() => {
-    setProduct(products);
-  }, [products]);
 
   // Use useEffect to logout user if merchantIsLoggedIn state changes
   useEffect(() => {
@@ -81,8 +83,7 @@ export function EntrepreneurLandingPage() {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <div>
-              <h2>Entrepreneur Corner</h2>
-              <p>All you show cased products can be managed from here</p>
+              <h2>Notifications</h2>
             </div>
             <div>
               <input
@@ -138,25 +139,15 @@ export function EntrepreneurLandingPage() {
 
           <div className="card mb-4">
             <header className="card-header">
-              <h4>Approved Products</h4>
-
-              <Link
-                className="btn btn-success"
-                to={"/entrepreneurship/add-product"}
-              >
-                <FontAwesomeIcon icon={faPlus} /> Add Product
-              </Link>
+              <h4>All Notifications</h4>
             </header>
+
             <div className="card-body">
               <div className="table-responsive">
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th scope="col">Product ID</th>
-                      <th scope="col">Image</th>
-                      <th scope="col">Product Name</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Discussions</th>
+                      <th scope="col">Message</th>
                       <th scope="col" className="text-center">
                         Action
                       </th>
@@ -164,62 +155,50 @@ export function EntrepreneurLandingPage() {
                   </thead>
                   <tbody>
                     {product
-                      .filter(
-                        (itm) =>
-                          itm.userID === user._id && itm.isApprovedByAdmin
-                      )
+                      .filter((itm) => itm.userID === user._id)
                       .map((data) => {
                         return (
-                          <tr key={data._id}>
-                            <td scope="col">{data._id.slice(-4)}</td>
-                            <td>
-                              <img
-                                src={data.image}
-                                style={{ height: "50px", width: "50px" }}
-                              />
-                            </td>
-                            <td>{data.productName}</td>
-                            <td>Rs. {data.price.toFixed(2)}</td>
-                            <td>
-                              <Link>View Discussions</Link>
-                            </td>
-                            <td>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  justifyContent: "space-around",
-                                }}
-                              >
-                                <button
-                                  style={{
-                                    border: "none",
-                                    background: "none",
-                                  }}
-                                  onClick={(e) => {
-                                    passDataToEditForm({
-                                      productID: data._id,
-                                      productName: data.productName,
-                                      quantity: data.quantity,
-                                      description: data.description,
-                                      price: data.price,
-                                    });
-                                    setShowPopup(true);
-                                  }}
-                                >
-                                  <FontAwesomeIcon icon={faEdit} />
-                                </button>
+                          <>
+                            {data.discussion.map((discussion) => {
+                              return (
+                                <>
+                                  {discussion.sender === "User" && (
+                                    <tr key={discussion.time}>
+                                      <td>You have a new notification from</td>
+                                    </tr>
+                                  )}
+                                </>
+                              );
+                            })}
 
-                                <button
+                            <tr key={data._id}>
+                              <td>
+                                Your Product, <b>{data.productName}</b>
+                                {data.isApprovedByAdmin === "Approved"
+                                  ? ` has been approved by admin`
+                                  : data.isApprovedByAdmin === "Rejected"
+                                  ? ` has been rejected`
+                                  : ` is awaiting admin approval`}
+                              </td>
+                              <td>
+                                <div
                                   style={{
-                                    border: "none",
-                                    background: "none",
+                                    display: "flex",
+                                    justifyContent: "space-around",
                                   }}
                                 >
-                                  <FontAwesomeIcon icon={faTrash} />
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
+                                  {!data.markAsRead && (
+                                    <button
+                                      type="button"
+                                      class="btn btn-success btn-sm"
+                                    >
+                                      Mark As Read
+                                    </button>
+                                  )}
+                                </div>
+                              </td>
+                            </tr>
+                          </>
                         );
                       })}
                   </tbody>
@@ -337,4 +316,4 @@ export function EntrepreneurLandingPage() {
       )}
     </section>
   );
-}
+};

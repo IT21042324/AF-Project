@@ -1,12 +1,12 @@
 import axios from "axios";
-import { UseUserContext } from "../context/useUserContext";
+import { UseUserContext } from "../hooks/useUserContext";
 import { SendEmail } from "../components/SendEmail";
 import { useNavigate } from "react-router-dom";
 
 export const UseBackendAPI = () => {
-  const { getUser, dispatch, setUser } = UseUserContext();
-  const user = getUser();
+  const { dispatch, setUser, getUser, user1 } = UseUserContext();
 
+  const user = getUser();
   const navigate = useNavigate();
 
   return {
@@ -17,15 +17,18 @@ export const UseBackendAPI = () => {
           userDetails
         );
 
-        setUser(data);
-        dispatch({ type: "SetUser", payload: [data] });
+        if (data.role) {
+          async function configureUser() {
+            localStorage.setItem("user", JSON.stringify(data));
+            dispatch({ type: "SetUser", payload: [data] });
+          }
+          await configureUser();
 
-        //now once the merchant or user is successfully registered,we try to redirect him to his store page once he is registered
-        if (user.role === "User") navigate("/");
-        else if (user.role === "Entrepreneur")
-          navigate("/entrepreneurship/seller");
-        else if (user.role === "Admin") navigate("/admin");
-        else alert(data.err);
+          if (user?.role === "User") navigate("/");
+          else if (user.role === "Entrepreneur") navigate("/entrepreneurship");
+          else if (user?.role === "Admin") navigate("/admin");
+          else alert(data.err);
+        }
       } catch (err) {
         console.log(err);
         alert(err.response.data.err);
@@ -43,20 +46,71 @@ export const UseBackendAPI = () => {
         setUser(data);
         dispatch({ type: "SetUser", payload: [data] });
 
-        //Here we send an email once the user is registered
-        // SendEmail({
-        //   user_name: userDetails.userName,
-        //   role: userDetails.role,
-        // });
-
         if (!data.err) alert("Account Created Successfully");
         else alert(data.err);
 
         if (data.role === "Entrepreneur") navigate("/entrepreneuship/product");
         else if (data.role === "User") navigate("/");
+        else if (data.role === "Admin") navigate("/admin");
       } catch (err) {
         alert("Ooops.. There seems to be an error. Try again later");
         console.log(err);
+      }
+    },
+
+    getUsersForAdminPage: async function () {
+      const { data } = await axios.get("http://localhost:8070/api/users/");
+
+      console.log(data);
+      return data;
+    },
+
+    makeProductRequest: async function (product) {
+      product.userName = user.userName;
+      product.userID = user._id;
+
+      try {
+        const info = await axios.post(
+          "http://localhost:8070/api/protected/products/addProduct/",
+          product,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+
+        if (info.status == 200) alert("Product Request Success!");
+        else alert(info.data);
+        return info;
+      } catch (err) {
+        alert(
+          "There seems to be an error. Your Request cannot be fulfilled at the moment"
+        );
+      }
+    },
+    updateUserProfileDetails: async function (userDetailsToUpdate) {
+      userDetailsToUpdate.userId = user._id;
+      try {
+        const info = await axios.patch(
+          "http://localhost:8070/api/users/update/",
+          userDetailsToUpdate
+        );
+
+        console.log(info);
+
+        if (info.status == 200) {
+          localStorage.setItem("user", JSON.stringify(info.data));
+
+          dispatch({
+            type: "SetUser",
+            payload: info.data,
+          });
+
+          alert("Profile Updated Successfully!");
+        } else alert("Oops! Something went wrong");
+      } catch (err) {
+        alert("Oops! Something went wrong");
       }
     },
   };

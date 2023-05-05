@@ -4,12 +4,14 @@ import { useState, useRef } from "react";
 import { UseBackendAPI } from "../backendAPI/useBackendAPI";
 import avatar from "../assets/addphoto.png";
 import { EncodedFile } from "../assets/encodedImage";
-import { UseUserContext } from "../context/useUserContext";
+import { UseUserContext } from "../hooks/useUserContext";
 
 export function Register() {
   const { registerUser } = UseBackendAPI();
   const [profilePic, setProfilePic] = useState(avatar);
   const { selectedUserRole } = UseUserContext();
+
+  console.log(selectedUserRole);
 
   //Naming our refs to submit and store form data
   const userName = useRef(),
@@ -28,7 +30,9 @@ export function Register() {
   }
 
   //To register Merchant
-  async function registerMerchant() {
+  async function signUpHandler(e) {
+    e.preventDefault();
+
     var image;
     if (profilePic) image = profilePic;
     else image = EncodedFile().image;
@@ -39,7 +43,6 @@ export function Register() {
       contact: contact.current.value,
       image: profilePic,
       role: selectedUserRole,
-      bio: bio.current.value,
     };
 
     await registerUser(signupData);
@@ -59,13 +62,7 @@ export function Register() {
           <img src={pic} alt="" style={{ width: 300, height: 300 }} />
         </div>
         <div className="login-c">
-          <form
-            style={{ minWidth: 400 }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              registerMerchant();
-            }}
-          >
+          <form style={{ minWidth: 400 }} onSubmit={(e) => signUpHandler(e)}>
             <h3 className="text-center mb-4">Sign Up</h3>
 
             <div
