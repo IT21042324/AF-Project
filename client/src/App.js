@@ -2,6 +2,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { BaseRoutes } from "./BaseRoutes";
 import { EntrepreneurshipRoutes } from "./EntrepreneurshipRoutes";
+import { AdminRoutes } from "./AdminRoutes";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           path="/entrepreneurship/*"
           element={<EntrepreneurshipRoutes />}
         />
+        <Route path="/admin/*" element={<AdminRoutes />} />
       </Routes>
     </div>
   );

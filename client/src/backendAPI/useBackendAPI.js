@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UseUserContext } from "../context/useUserContext";
+import { UseUserContext } from "../hooks/useUserContext";
 import { SendEmail } from "../components/SendEmail";
 import { useNavigate } from "react-router-dom";
 
@@ -46,21 +46,23 @@ export const UseBackendAPI = () => {
         setUser(data);
         dispatch({ type: "SetUser", payload: [data] });
 
-        //Here we send an email once the user is registered
-        // SendEmail({
-        //   user_name: userDetails.userName,
-        //   role: userDetails.role,
-        // });
-
         if (!data.err) alert("Account Created Successfully");
         else alert(data.err);
 
         if (data.role === "Entrepreneur") navigate("/entrepreneuship/product");
         else if (data.role === "User") navigate("/");
+        else if (data.role === "Admin") navigate("/admin");
       } catch (err) {
         alert("Ooops.. There seems to be an error. Try again later");
         console.log(err);
       }
+    },
+
+    getUsersForAdminPage: async function () {
+      const { data } = await axios.get("http://localhost:8070/api/users/");
+
+      console.log(data);
+      return data;
     },
   };
 };

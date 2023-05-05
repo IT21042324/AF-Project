@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import pic from "../../assets/f1.png";
-import { UseUserContext } from "../../context/useUserContext";
+import { UseUserContext } from "../../hooks/useUserContext";
 import { useEffect, useState } from "react";
 
 export function Profile() {

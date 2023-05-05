@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExpand, faRankingStar } from "@fortawesome/free-solid-svg-icons";
 import { StarRating } from "./StarRating";
 import { ReviewContainer } from "./ReviewContainer";
-import { UseProductContext } from "../context/useProductContext";
-import { UseUserContext } from "../context/useUserContext";
+import { UseProductContext } from "../hooks/useProductContext";
+import { UseUserContext } from "../hooks/useUserContext";
 
 export function Product(props) {
   //importing cartContext,dispath and info from the cartContext

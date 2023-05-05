@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { ProductContext } from "./productContext";
+import { ProductContext } from "../context/productContext";
 import axios from "axios";
 
 export const UseProductContext = () => {
