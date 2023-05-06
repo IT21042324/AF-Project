@@ -1,14 +1,13 @@
-import "./list.css";
-import Navbar from "../../components/navbar/Navbar";
-import Header from "../../components/header/Header";
+import "../../styles/list.css";
+import Header from "../../components/Accommodations/AccHeader";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
-import SearchItem from "../../components/searchItem/SearchItem";
+import SearchItem from "../../components/Accommodations/SearchItem";
 import useFetch from "../../hooks/useFetch";
 
-const List = () => {
+export const HotelList = () => {
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
   const [dates, setDates] = useState(location.state.dates);
@@ -18,7 +17,7 @@ const List = () => {
   const [max, setMax] = useState(undefined);
 
   const { data, loading, error, reFetch } = useFetch(
-    `/hotels?city=${destination}&min=${min || 0 }&max=${max || 999}`
+    `http://localhost:8070/api/hotels?city=${destination}&min=${min || 0 }&max=${max || 100000}`
   );
 
   const handleClick = () => {
@@ -27,7 +26,6 @@ const List = () => {
 
   return (
     <div>
-      <Navbar />
       <Header type="list" />
       <div className="listContainer">
         <div className="listWrapper">
@@ -35,7 +33,12 @@ const List = () => {
             <h1 className="lsTitle">Search</h1>
             <div className="lsItem">
               <label>Destination</label>
-              <input placeholder={destination} type="text" />
+              <input
+                    placeholder={destination}
+                    type="text"
+                    onChange={(e) => setDestination(e.target.value)}
+                    
+                  />
             </div>
             <div className="lsItem">
               <label>Check-in Date</label>
@@ -122,4 +125,4 @@ const List = () => {
   );
 };
 
-export default List;
+export default HotelList;

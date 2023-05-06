@@ -70,20 +70,23 @@ const getAllUsers = async function (req, res) {
 
 const updateUserProfile = async function (req, res) {
   // Get userId, userName, and image from request body
-  const { userId, userName, image } = req.body;
+  const { userId, contact, image, bio } = req.body;
 
   try {
     // Update user in MongoDB database using Mongoose
     const user = await userModel.findOneAndUpdate(
       { _id: userId },
-      { userName, image },
+      { contact, image, bio },
       { new: true }
     );
 
+    console.log(user);
+
     // Send updated user data in response
-    return res.json(user);
+    return res.status(200).json(user);
   } catch (err) {
     console.log(err.message);
+    res.status(500).json(err.message);
   }
 };
 
@@ -92,7 +95,6 @@ const deleteUser = async (req, res) => {
     // Delete user from MongoDB database using Mongoose
     const data = await userModel.findByIdAndDelete(req.params.id);
 
-    console.log(data);
     res.json(data);
   } catch (err) {
     console.log(err.message);
@@ -123,7 +125,6 @@ const getOneUserWithoutDP = async function (req, res) {
     // Get user from MongoDB database using Mongoose
     const user = await userModel.find({ _id: id }, "-image");
 
-    // Send user data in response
     res.status(200).json(user);
   } catch (err) {
     console.log(err.message);
@@ -134,7 +135,7 @@ const approveUser = async (req, res) => {
   try {
     const data = await userModel.findByIdAndUpdate(
       req.params.id,
-      { userIsApprovedByAdmin: true },
+      { userIsApprovedByAdmin: true, userIsRejectedByAdmin: false },
       { new: true }
     );
 
@@ -144,24 +145,23 @@ const approveUser = async (req, res) => {
   }
 };
 
-const updateUserStore = async (req, res) => {
-  // Get userID and storeID from request body
-  const { userID, storeID } = req.body;
-
+const rejectUser = async (req, res) => {
   try {
-    // Update user's store in MongoDB database using Mongoose
-    const updatedUser = await userModel.findOneAndUpdate(
-      { _id: userID },
-      { storeID }
+    const { userID, rejectionReason } = req.body;
+
+    const data = await userModel.findByIdAndUpdate(
+      userID,
+      {
+        userIsRejectedByAdmin: true,
+        rejectionReason,
+        userIsApprovedByAdmin: false,
+      },
+      { new: true }
     );
 
-    console.log(updateUser);
-
-    // Send updated user data in response
-    res.json(updatedUser);
+    res.send(data);
   } catch (err) {
-    console.log(err);
-    res.json(err);
+    res.send(err.message);
   }
 };
 
@@ -186,7 +186,7 @@ module.exports = {
   deleteUser,
   getOneUser,
   getOneUserWithoutDP,
-  updateUserStore,
   getUserCount,
   approveUser,
+  rejectUser,
 };

@@ -32,6 +32,16 @@ mongoose
     console.log(err.message);
   });
 
+app.post("/uploadEventimage", (req, res) => {
+  uploadImage(req.body.image)
+    .then((url) => {
+      res.send(url);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
 //importing all routes from allRoutes.js
 app.use(express.json());
 app.use(allRoutes);

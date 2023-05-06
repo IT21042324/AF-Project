@@ -9,7 +9,7 @@ const {
 
 router.post("/add", addEvent);
 router.get("/", getAllEvents);
-router.put("/update:id", updateEvent);
+router.put("/update/:id", updateEvent);
 router.delete("/delete/:id", deleteEvent);
 
 //get only one event

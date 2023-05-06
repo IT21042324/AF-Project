@@ -57,14 +57,14 @@ export function AdminLandingPage() {
     }
   }, [adminIsLoggedIn]);
 
-  const removeUser = async (e, userID, userName) => {
+  const removeUser = async (e, userID) => {
     e.preventDefault();
 
     const data = await deleteUser(userID);
 
     if (data) {
       userListDispatch({ type: "DeleteUser", payload: { _id: data._id } });
-    } else alert("Ooops.. There seems to be an error deleting the user");
+    }
   };
 
   return (
@@ -159,8 +159,8 @@ export function AdminLandingPage() {
               >
                 <option value="">--Please select a user role--</option>
                 <option value="">All</option>
-                <option value="Merchant">Merchant</option>
-                <option value="Buyer">Consumer</option>
+                <option value="Entrepreneur">Entrepreneur</option>
+                <option value="User">Other</option>
               </select>
             </header>
             <div className="card-body">
@@ -178,9 +178,6 @@ export function AdminLandingPage() {
                       <th scope="col" style={{ textAlign: "center" }}>
                         Contact No
                       </th>
-                      <th scope="col" style={{ textAlign: "center" }}>
-                        Address
-                      </th>
                       <th
                         scope="col"
                         className="text-end"
@@ -194,7 +191,8 @@ export function AdminLandingPage() {
                     .filter(
                       (usr) =>
                         (userRole === "" || usr.role === userRole) &&
-                        usr.role !== "Admin"
+                        usr.role !== "Admin" &&
+                        usr.userIsApprovedByAdmin
                     )
                     .map((usr) => {
                       return (
@@ -210,12 +208,10 @@ export function AdminLandingPage() {
                           </td>
                           <td style={{ textAlign: "center" }}>{usr.role}</td>
                           <td style={{ textAlign: "center" }}>{usr.contact}</td>
-                          <td style={{ textAlign: "center" }}>{usr.address}</td>
                           <td style={{ textAlign: "center" }}>
                             <button
-                              onClick={(e) =>
-                                removeUser(e, usr._id, usr.userName)
-                              }
+                              onClick={(e) => removeUser(e, usr._id)}
+                              title="Permanently Remove User"
                               style={{
                                 padding: "8px 12px",
                                 borderRadius: "4px",
