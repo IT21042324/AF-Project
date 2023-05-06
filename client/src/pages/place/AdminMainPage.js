@@ -15,10 +15,10 @@ export function AdminMainPage() {
             <div style={{ position: 'relative' }}>
                 <div style={{ position: 'absolute', right: '20px', top: '30px' }}>
                     <button class="btn" style={{ marginRight: "5px" }} type="submit" onClick={() => {
-                        navigate('/PlaceRoutesAdmin/addPlace')
+                        navigate('/admin/addPlace')
                     }}>Add New Places</button>
                     <button class="btn"type="submit" onClick={() => {
-                        navigate('/PlaceRoutesAdmin/allPlaces')
+                        navigate('/admin/allPlaces')
                     }}>View Places</button>
                 </div>
                 <div class="container text-center">
