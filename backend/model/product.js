@@ -53,7 +53,11 @@ const productSchema = new Schema(
       type: String,
       default: "Pending",
     },
-    markAsRead: {
+    markAsReadUser: {
+      type: Boolean,
+      default: false,
+    },
+    markAsReadAdmin: {
       type: Boolean,
       default: false,
     },

@@ -170,12 +170,13 @@ const deleteDiscussionThread = async (req, res) => {
   }
 };
 
-//delete all store products
+//delete all products of the user
 const deleteAllUserProducts = async function (req, res) {
   try {
     const data = await productModel.deleteMany({ userID: req.params.id });
     res.json(data);
   } catch (err) {
+    console.log(err.message);
     res.send(err.message);
   }
 };
@@ -208,6 +209,24 @@ const decrementLikeCounter = async (req, res) => {
   }
 };
 
+const markAsRead = async (req, res) => {
+  const { productID, role } = req.body;
+  const updateField =
+    role === "Entrepreneur" ? "markAsReadUser" : "markAsReadAdmin";
+
+  try {
+    const data = await productModel.findByIdAndUpdate(
+      productID,
+      { [updateField]: true },
+      { new: true }
+    );
+    res.send(data);
+  } catch (err) {
+    console.log(err.message);
+    res.send(err.message);
+  }
+};
+
 module.exports = {
   postProduct,
   addReview,
@@ -222,4 +241,5 @@ module.exports = {
   deleteAllUserProducts,
   incrementLikeCounter,
   decrementLikeCounter,
+  markAsRead,
 };

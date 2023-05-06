@@ -5,14 +5,13 @@ import {
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { UseUserContext } from "../../hooks/useUserContext";
 import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
 import { UseUserListContext } from "../../hooks/useUserListContext";
-
-export function AdminLandingPage() {
+import { PopoverButton } from "../../components/PopoverButton";
+export function UserRequestNotification() {
   const { logoutUser } = UseUserContext();
-  const { deleteUser } = UseBackendAPI();
   // const { content } = useAdminContext();
   const content = { som: [] };
   const userList = UseUserListContext().content;
@@ -57,14 +56,41 @@ export function AdminLandingPage() {
     }
   }, [adminIsLoggedIn]);
 
-  const removeUser = async (e, userID) => {
+  const { acceptUserRequest, rejectUserRequest } = UseBackendAPI();
+
+  const acceptRequest = async (e, userID) => {
     e.preventDefault();
 
-    const data = await deleteUser(userID);
+    const data = await acceptUserRequest(userID);
 
     if (data) {
-      userListDispatch({ type: "DeleteUser", payload: { _id: data._id } });
+      userListDispatch({ type: "ApproveUser", payload: { _id: data._id } });
     }
+  };
+
+  const [showPopup, setShowPopup] = useState(false);
+  const [rejectionUserName, setRejectionFormUserName] = useState("");
+  const [rejectionUserID, setRejectionFormUserID] = useState("");
+
+  const handleClosePopup = (id) => {
+    setShowPopup(false);
+  };
+
+  const rejectionReason = useRef();
+
+  const rejectRequest = async (event) => {
+    event.preventDefault();
+
+    const data = await rejectUserRequest({
+      userID: rejectionUserID,
+      rejectionReason: rejectionReason.current.value,
+    });
+
+    if (data) {
+      userListDispatch({ type: "RejectUser", payload: { _id: data._id } });
+    }
+
+    setShowPopup(false);
   };
 
   return (
@@ -80,16 +106,19 @@ export function AdminLandingPage() {
                 style={{
                   color: "Black",
                   fontWeight: "bold",
+                  float: "left",
                 }}
               >
-                ADMIN DASHBOARD
+                User Notifications
               </h2>
+              <br />
               <p
                 style={{
                   color: "black",
+                  float: "left",
                 }}
               >
-                Manage Heavenly From Here
+                Add/Reject Users from here
               </p>
             </div>
             <div>
@@ -147,28 +176,13 @@ export function AdminLandingPage() {
           <div className="card mb-4">
             <header className="card-header">
               <h4>Users</h4>
-              <select
-                onChange={(e) => setUserRole(e.target.value)}
-                style={{
-                  padding: "8px 12px",
-                  borderRadius: "4px",
-                  border: "1px solid #ccc",
-                  fontSize: "16px",
-                  fontFamily: "sans-serif",
-                }}
-              >
-                <option value="">--Please select a user role--</option>
-                <option value="">All</option>
-                <option value="Entrepreneur">Entrepreneur</option>
-                <option value="User">Other</option>
-              </select>
             </header>
             <div className="card-body">
               <div className="table-responsive">
                 <table className="table table-hover">
                   <thead>
                     <tr style={{ textAlign: "center", height: "50px" }}>
-                      <th>#User ID</th>
+                      <th>#Request ID</th>
                       <th scope="col" style={{ textAlign: "center" }}>
                         User Name
                       </th>
@@ -178,11 +192,10 @@ export function AdminLandingPage() {
                       <th scope="col" style={{ textAlign: "center" }}>
                         Contact No
                       </th>
-                      <th
-                        scope="col"
-                        className="text-end"
-                        style={{ textAlign: "center" }}
-                      >
+                      <th scope="col" style={{ textAlign: "center" }}>
+                        Bio
+                      </th>
+                      <th scope="col" style={{ textAlign: "center" }}>
                         Action
                       </th>
                     </tr>
@@ -191,8 +204,7 @@ export function AdminLandingPage() {
                     .filter(
                       (usr) =>
                         (userRole === "" || usr.role === userRole) &&
-                        usr.role !== "Admin" &&
-                        usr.userIsApprovedByAdmin
+                        usr.role !== "Admin"
                     )
                     .map((usr) => {
                       return (
@@ -208,31 +220,57 @@ export function AdminLandingPage() {
                           </td>
                           <td style={{ textAlign: "center" }}>{usr.role}</td>
                           <td style={{ textAlign: "center" }}>{usr.contact}</td>
+
                           <td style={{ textAlign: "center" }}>
-                            <button
-                              onClick={(e) => removeUser(e, usr._id)}
-                              title="Permanently Remove User"
-                              style={{
-                                padding: "8px 12px",
-                                borderRadius: "4px",
-                                border: "none",
-                                fontSize: "16px",
-                                fontFamily: "sans-serif",
-                                cursor: "pointer",
-                                backgroundColor: "#fff",
-                                color: "#ff4d4f",
-                                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                                float: "right",
-                              }}
-                              onMouseEnter={(e) =>
-                                (e.target.style.backgroundColor = "#f1f1f1")
-                              }
-                              onMouseLeave={(e) =>
-                                (e.target.style.backgroundColor = "#fff")
-                              }
-                            >
-                              Remove User
-                            </button>
+                            <PopoverButton
+                              buttonName={"Read Bio"}
+                              heading={"User Bio"}
+                              displayText={usr.bio}
+                            />
+                          </td>
+
+                          <td
+                            style={{
+                              textAlign: "center",
+                            }}
+                          >
+                            {!usr.userIsRejectedByAdmin &&
+                            !usr.userIsApprovedByAdmin ? (
+                              <>
+                                <button
+                                  type="button"
+                                  class="btn btn-outline-success btn-sm"
+                                  title="Accept User Request"
+                                  onClick={(e) => acceptRequest(e, usr._id)}
+                                >
+                                  Accept User
+                                </button>
+                                &nbsp;&nbsp;&nbsp;
+                                <button
+                                  type="button"
+                                  class="btn btn-outline-danger btn-sm"
+                                  title="Reject User Request"
+                                  onClick={(e) => {
+                                    setRejectionFormUserName(usr.userName);
+                                    setRejectionFormUserID(usr._id);
+                                    setShowPopup(true);
+                                  }}
+                                >
+                                  Reject User
+                                </button>
+                              </>
+                            ) : usr.userIsRejectedByAdmin &&
+                              !usr.userIsApprovedByAdmin ? (
+                              <h5 style={{ color: "#dc3545" }}>
+                                User Rejected
+                              </h5>
+                            ) : !usr.userIsRejectedByAdmin &&
+                              usr.userIsApprovedByAdmin ? (
+                              <h5 style={{ color: "#198754" }}>
+                                {" "}
+                                User Approved
+                              </h5>
+                            ) : null}
                           </td>
                         </tr>
                       );
@@ -240,6 +278,69 @@ export function AdminLandingPage() {
                 </table>
               </div>
             </div>
+            {showPopup && (
+              <div
+                className="popup"
+                style={{ display: showPopup ? "flex" : "none" }}
+                onClick={(e) => {
+                  if (e.target === e.currentTarget) {
+                    handleClosePopup();
+                  }
+                }}
+              >
+                <div className="popup-content">
+                  <div className="card mb-4">
+                    <form onSubmit={(e) => rejectRequest(e)}>
+                      <header className="card-header">
+                        <h4>User Rejection Form</h4>
+                        <div>
+                          <input
+                            className="btn btn-success"
+                            type="submit"
+                            value="Submit"
+                          />
+                        </div>
+                      </header>
+                      <div className="card-body">
+                        <div className="row">
+                          <label
+                            for="validationCustom01"
+                            style={{ float: "left" }}
+                          >
+                            User Name
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="validationCustom01"
+                            style={{ textAlign: "center" }}
+                            value={rejectionUserName}
+                            ref={rejectionReason}
+                            disabled={true}
+                          />
+                        </div>
+                        <br />
+                        <div className="row">
+                          <label
+                            for="validationCustom01"
+                            style={{ float: "left" }}
+                          >
+                            Reason For Rejection
+                          </label>
+                          <textarea
+                            type="text"
+                            className="form-control"
+                            id="validationCustom01"
+                            rows={5}
+                            required
+                          />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </>
       ) : (

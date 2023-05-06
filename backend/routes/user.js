@@ -11,6 +11,7 @@ const {
   deleteUser,
   approveUser,
   getOneUserWithoutDP,
+  rejectUser,
 } = require("../controller/user");
 
 // User login route
@@ -33,6 +34,8 @@ router.get("/getUserWithoutImage/:id", getOneUserWithoutDP);
 
 //call this route when admin accept the entrepreneur
 router.patch("/approveUser/:id", approveUser);
+
+router.patch("/rejectUser", rejectUser);
 
 // Get user count for admin route
 router.get("/getUserCountForAdmin", getUserCount);
