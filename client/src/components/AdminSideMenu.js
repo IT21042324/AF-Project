@@ -52,26 +52,6 @@ export function AdminSideMenu(props) {
             &nbsp;&nbsp; Products
           </Link>
         </div>
-        <div className="li">
-          <Link
-            to={"/admin/addEvent"}
-            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            &nbsp;&nbsp; Add an event
-          </Link>
-        </div>
-        <div className="li">
-          <Link
-            to={"/admin/editEvent"}
-            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
-          >
-            {" "}
-            <FontAwesomeIcon icon={faEdit} /> &nbsp;&nbsp;
-            <FontAwesomeIcon icon={faTrash} />
-            &nbsp;&nbsp; Edit/Delete event
-          </Link>
-        </div>
 
         <div className="li">
           <details>
@@ -122,6 +102,28 @@ export function AdminSideMenu(props) {
               </li>
             </ul>
           </details>
+        </div>
+
+        <div className="li">
+          <Link
+            to={"/admin/addEvent"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            &nbsp;&nbsp; Add an event
+          </Link>
+        </div>
+
+        <div className="li">
+          <Link
+            to={"/admin/editEvent"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            {" "}
+            <FontAwesomeIcon icon={faEdit} /> &nbsp;&nbsp;
+            <FontAwesomeIcon icon={faTrash} />
+            &nbsp;&nbsp; Edit/Delete event
+          </Link>
         </div>
       </div>
     </section>
