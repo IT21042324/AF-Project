@@ -7,6 +7,7 @@ import { AdminSideMenu } from "./components/AdminSideMenu";
 import { UserRequestNotification } from "./pages/admin/UserRequestNotification";
 import { AddEvent } from "./pages/admin/addEvent";
 import EditInfo from "./pages/admin/editEvent";
+import { ProductRequestNotification } from "./pages/admin/ProductRequestNotification";
 
 export function AdminRoutes() {
   const { getUser } = UseUserContext();
@@ -23,6 +24,10 @@ export function AdminRoutes() {
             <Route path="/addEvent" element={<AddEvent />} />
             <Route path="/editEvent" element={<EditInfo />} />
             <Route path="/userRequest" element={<UserRequestNotification />} />
+            <Route
+              path="/productRequest"
+              element={<ProductRequestNotification />}
+            />
           </Routes>
         </>
       ) : (

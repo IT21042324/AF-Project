@@ -3,6 +3,7 @@ import {
   faDollarSign,
   faTruck,
   faUserGroup,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
@@ -10,9 +11,11 @@ import { UseUserContext } from "../../hooks/useUserContext";
 import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
 import { UseUserListContext } from "../../hooks/useUserListContext";
 import { PopoverButton } from "../../components/PopoverButton";
-export function UserRequestNotification() {
+import { UseProductContext } from "../../hooks/useProductContext";
+import moment from "moment";
+
+export function ProductRequestNotification() {
   const { logoutUser } = UseUserContext();
-  // const { content } = useAdminContext();
   const content = { som: [] };
   const userList = UseUserListContext().content;
   const userListDispatch = UseUserListContext().dispatch;
@@ -56,6 +59,13 @@ export function UserRequestNotification() {
     }
   }, [adminIsLoggedIn]);
 
+  const [product, setProduct] = useState([]);
+
+  const { products } = UseProductContext();
+
+  useEffect(() => {
+    setProduct(products);
+  }, [products]);
   const { acceptUserRequest, rejectUserRequest } = UseBackendAPI();
 
   const acceptRequest = async (e, userID) => {
@@ -109,7 +119,7 @@ export function UserRequestNotification() {
                   float: "left",
                 }}
               >
-                User Notifications
+                Product Notifications
               </h2>
               <br />
               <p
@@ -118,7 +128,7 @@ export function UserRequestNotification() {
                   float: "left",
                 }}
               >
-                Add/Reject Users from here
+                Add/Reject Product Requests From Here..
               </p>
             </div>
             <div>
@@ -175,106 +185,63 @@ export function UserRequestNotification() {
 
           <div className="card mb-4">
             <header className="card-header">
-              <h4>Users Requests</h4>
+              <h4>Product Requests</h4>
             </header>
             <div className="card-body">
               <div className="table-responsive">
                 <table className="table table-hover">
                   <thead>
-                    <tr style={{ textAlign: "center", height: "50px" }}>
-                      <th>#Request ID</th>
-                      <th scope="col" style={{ textAlign: "center" }}>
-                        User Name
-                      </th>
-                      <th scope="col" style={{ textAlign: "center" }}>
-                        Role
-                      </th>
-                      <th scope="col" style={{ textAlign: "center" }}>
-                        Contact No
-                      </th>
-                      <th scope="col" style={{ textAlign: "center" }}>
-                        Bio
-                      </th>
-                      <th scope="col" style={{ textAlign: "center" }}>
+                    <tr>
+                      <th scope="col">Product ID</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Posted By</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Item Posted</th>
+                      <th scope="col">Last Modified</th>
+                      <th scope="col" className="text-center">
                         Action
                       </th>
                     </tr>
                   </thead>
-                  {users
-                    .filter(
-                      (usr) =>
-                        (userRole === "" || usr.role === userRole) &&
-                        usr.role !== "Admin"
-                    )
-                    .map((usr) => {
-                      return (
-                        <tr
-                          key={usr._id}
-                          style={{ textAlign: "center", height: "50px" }}
-                        >
-                          <td style={{ textAlign: "center" }}>
-                            {usr._id.slice(-4)}
-                          </td>
-                          <td style={{ textAlign: "center" }}>
-                            {usr.userName}
-                          </td>
-                          <td style={{ textAlign: "center" }}>{usr.role}</td>
-                          <td style={{ textAlign: "center" }}>{usr.contact}</td>
-
-                          <td style={{ textAlign: "center" }}>
-                            <PopoverButton
-                              buttonName={"Read Bio"}
-                              heading={"User Bio"}
-                              displayText={usr.bio}
-                            />
-                          </td>
-
-                          <td
-                            style={{
-                              textAlign: "center",
-                            }}
-                          >
-                            {!usr.userIsRejectedByAdmin &&
-                            !usr.userIsApprovedByAdmin ? (
-                              <>
+                  <tbody>
+                    {product
+                      .filter((itm) => itm.isApprovedByAdmin)
+                      .map((data) => {
+                        return (
+                          <tr key={data._id}>
+                            <td scope="col">{data._id.slice(-4)}</td>
+                            <td>
+                              <img
+                                src={data.image}
+                                style={{ height: "50px", width: "50px" }}
+                              />
+                            </td>
+                            <td>{data.userName}</td>
+                            <td>Rs. {data.price.toFixed(2)}</td>
+                            <td>{moment(data.createdAt).fromNow()}</td>
+                            <td>{moment(data.updatedAt).fromNow()}</td>
+                            <td>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-around",
+                                }}
+                              >
                                 <button
-                                  type="button"
-                                  class="btn btn-outline-success btn-sm"
-                                  title="Accept User Request"
-                                  onClick={(e) => acceptRequest(e, usr._id)}
-                                >
-                                  Accept User
-                                </button>
-                                &nbsp;&nbsp;&nbsp;
-                                <button
-                                  type="button"
-                                  class="btn btn-outline-danger btn-sm"
-                                  title="Reject User Request"
-                                  onClick={(e) => {
-                                    setRejectionFormUserName(usr.userName);
-                                    setRejectionFormUserID(usr._id);
-                                    setShowPopup(true);
+                                  title="Delete Item"
+                                  style={{
+                                    border: "none",
+                                    background: "none",
                                   }}
                                 >
-                                  Reject User
+                                  <FontAwesomeIcon icon={faTrash} />
                                 </button>
-                              </>
-                            ) : usr.userIsRejectedByAdmin &&
-                              !usr.userIsApprovedByAdmin ? (
-                              <h6 style={{ color: "#dc3545" }}>
-                                User Rejected
-                              </h6>
-                            ) : !usr.userIsRejectedByAdmin &&
-                              usr.userIsApprovedByAdmin ? (
-                              <h6 style={{ color: "#198754" }}>
-                                {" "}
-                                User Approved
-                              </h6>
-                            ) : null}
-                          </td>
-                        </tr>
-                      );
-                    })}
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
                 </table>
               </div>
             </div>
