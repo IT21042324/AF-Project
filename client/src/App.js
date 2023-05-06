@@ -6,6 +6,8 @@ import { AccommodationRoutes } from "./AccommodationRoutes";
 import { PlaceRoutes } from "./PlaceRoutes";
 import { CulturalEventsRoutes } from "./CulturalEventRoutes";
 import { AdminRoutes } from "./AdminRoutes";
+import { PlaceRoutesAdmin } from "./PlaceRoutesAdmin";
+
 
 function App() {
   return (
@@ -25,6 +27,15 @@ function App() {
         <Route path="/placeRoutes/*" element={<PlaceRoutes />} />
 
         <Route path="/cultural/*" element={<CulturalEventsRoutes />} />
+        <Route
+          path="/placeRoutes/*"
+          element={<PlaceRoutes />}
+        />
+
+        <Route
+          path="/placeRoutesAdmin/*"
+          element={<PlaceRoutesAdmin />}
+        />
       </Routes>
     </div>
   );

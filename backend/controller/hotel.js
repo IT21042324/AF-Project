@@ -113,17 +113,26 @@ const deleteHotel = async (req, res) => {
 
 //view details of one hotel
 
-const getOneHotel = async (req, res) => {
-  let hotelID = req.params.id;
-  const hotel_s = await hotelModel
-    .findById(hotelID)
-    .then((deli) => {
-      res.status(200).send({ status: "Hotel  selected", deli });
-    })
-    .catch((err) => {
-      console.log(err.messsage);
-      res.status(500).send({ status: "Error", error: err.message });
-    });
+// const getOneHotel = async (req, res) => {
+//   let hotelID = req.params.id;
+//   const hotel_s = await hotelModel
+//     .findById(hotelID)
+//     .then((deli) => {
+//       res.status(200).send({ status: "Hotel  selected", deli });
+//     })
+//     .catch((err) => {
+//       console.log(err.messsage);
+//       res.status(500).send({ status: "Error", error: err.message });
+//     });
+// };
+
+const getOneHotel = async (req, res, next) => {
+  try {
+    const hotel = await hotelModel.findById(req.params.id);
+    res.status(200).json(hotel);
+  } catch (err) {
+    next(err);
+  }
 };
 
 //view hotels filtered by city

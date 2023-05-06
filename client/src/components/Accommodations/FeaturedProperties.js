@@ -19,7 +19,7 @@ export const FeaturedProperties = () => {
               />
               <span className="fpName">{item.name}</span><br></br>
               <span className="fpCity">{item.city}</span><br></br>
-              <span className="fpPrice">Starting from <br></br>Rs. {item.cheapestPrice} <br></br>per night</span><br></br>
+              <span className="fpPrice">Starting from <br></br> ${item.cheapestPrice} <br></br>per night</span><br></br>
               {item.rating && <div className="fpRating">
                 <button>{item.rating}</button>
                 <span>Excellent</span>

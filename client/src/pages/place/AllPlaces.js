@@ -143,8 +143,8 @@ export function AllPlaces() {
             style={{
               fontFamily: "cursive",
               color: "green",
-              backgroundColor: "#C1E1C1",
-              padding: "20px",
+              marginTop:"20px",
+              marginLeft: "10%"
             }}
           >
             UPDATE / DELETE PLACES
@@ -152,13 +152,14 @@ export function AllPlaces() {
           <br></br>
           <br></br>
           {places.map((place) => (
-            <div class="col-12 col-md-6 col-lg-3">
+            <div class="col-12 col-md-6 col-lg-4">
               <div
                 class="card"
                 style={{
-                  width: "17rem",
+                  width: "20rem",
                   height: "35rem",
                   marginBottom: "40px",
+                  marginLeft:"60%"
                 }}
               >
                 <div class="card-image-area">
@@ -183,7 +184,8 @@ export function AllPlaces() {
                     <br></br>
                     <button
                       type="button"
-                      class="btn btn-dark m-3 mt-0 mb-0"
+                      class="btn btn-dark"
+                      style={{marginRight:"10px", padding: "10px 24px"}}
                       onClick={() => {
                         getOnePlace(place._id);
                         showUpdateBox();
@@ -194,6 +196,7 @@ export function AllPlaces() {
                     <button
                       type="button"
                       class="btn btn-outline-dark"
+                      style={{padding: "10px 24px"}}
                       onClick={() => {
                         deletePlace(place._id);
                       }}
@@ -212,7 +215,7 @@ export function AllPlaces() {
         <div
           id="update-box"
           className="container, form-style"
-          style={{ position: "relative" }}
+          style={{ position: "relative", marginLeft:"10%"}}
         >
           <br></br>
           <button
@@ -296,7 +299,7 @@ export function AllPlaces() {
                     <img
                       src={newImageUrl || imageUrl}
                       alt=""
-                      style={{ width: 400, height: 470 }}
+                      style={{ width: 320, height: 400 }}
                     />
                   </div>
                 </td>

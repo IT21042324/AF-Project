@@ -125,6 +125,16 @@ export function AdminSideMenu(props) {
             &nbsp;&nbsp; Edit/Delete event
           </Link>
         </div>
+
+        <div className="li">
+          <Link
+            to={"/PlaceRoutesAdmin/adminPlace"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            <FontAwesomeIcon icon={faUser} />
+            &nbsp;&nbsp; Tourist Places
+          </Link>
+        </div>
       </div>
     </section>
   );

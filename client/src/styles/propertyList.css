@@ -4,6 +4,7 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
+  margin-bottom: 50px;
 }
 
 .pListItem{
@@ -12,7 +13,7 @@
   overflow: hidden;
   cursor: pointer;
   border: 1px solid rgb(13, 166, 13);
-  background-color: #172430;
+  background-color: #ffffff;
 }
 
 .pListImg{
@@ -23,12 +24,12 @@
 
 .pListTitles>h1{
   font-size: 20px;
-  color: #f2ecec;
+  color: #642e2e;
   text-transform: capitalize;
 }
 
 .pListTitles>h2{
   font-size: 16px;
   font-weight: 300;
-  color: #eccece;
+  color: #c05353;
 }

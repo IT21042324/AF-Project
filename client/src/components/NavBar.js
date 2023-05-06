@@ -20,6 +20,7 @@ export function NavBar(props) {
       bg="dark"
       variant="dark"
       style={{ marginBottom: "4vh" }}
+
     >
       <Container>
         <LinkContainer
