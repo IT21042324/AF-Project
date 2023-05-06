@@ -20,7 +20,7 @@ root.render(
           </ProductContextProvider>
         </UserListContextProvider>
       </UserContextProvider>
-  <SearchContextProvider>
+  </SearchContextProvider>
 
     </BrowserRouter>
   </React.StrictMode>
