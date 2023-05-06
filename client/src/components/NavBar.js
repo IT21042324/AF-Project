@@ -14,7 +14,7 @@ export function NavBar(props) {
       style={{ marginBottom: "4vh" }}
     >
       <Container>
-        <LinkContainer to="/placeRoutes/displayPlaces">
+        <LinkContainer to="/">
           <Navbar.Brand>Heavenly</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
