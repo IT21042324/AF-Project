@@ -2,8 +2,9 @@ import {
   faDashboard,
   faBell,
   faUser,
-  faGift,
-  faBox,
+  faPlus,
+  faEdit,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -47,6 +48,26 @@ export function AdminSideMenu(props) {
           >
             <FontAwesomeIcon icon={faBox} />
             &nbsp;&nbsp; Products
+          </Link>
+        </div>
+        <div className="li">
+          <Link
+            to={"/admin/addEvent"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            &nbsp;&nbsp; Add an event
+          </Link>
+        </div>
+        <div className="li">
+          <Link
+            to={"/admin/editEvent"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            {" "}
+            <FontAwesomeIcon icon={faEdit} /> &nbsp;&nbsp;
+            <FontAwesomeIcon icon={faTrash} />
+            &nbsp;&nbsp; Edit/Delete event
           </Link>
         </div>
 
