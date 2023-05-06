@@ -7,6 +7,7 @@ import {
   faTrash,
   faGift,
   faBox,
+  faGlobe
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -106,6 +107,16 @@ export function AdminSideMenu(props) {
 
         <div className="li">
           <Link
+            to={"/admin/adminPlace"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            <FontAwesomeIcon icon={faGlobe} />
+            &nbsp;&nbsp; Tourist Places
+          </Link>
+        </div>
+         
+        <div className="li">
+          <Link
             to={"/admin/addEvent"}
             style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
           >
@@ -123,16 +134,6 @@ export function AdminSideMenu(props) {
             <FontAwesomeIcon icon={faEdit} /> &nbsp;&nbsp;
             <FontAwesomeIcon icon={faTrash} />
             &nbsp;&nbsp; Edit/Delete event
-          </Link>
-        </div>
-
-        <div className="li">
-          <Link
-            to={"/PlaceRoutesAdmin/adminPlace"}
-            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
-          >
-            <FontAwesomeIcon icon={faUser} />
-            &nbsp;&nbsp; Tourist Places
           </Link>
         </div>
       </div>

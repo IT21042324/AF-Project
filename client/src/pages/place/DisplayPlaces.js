@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import '../../styles/place.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 export function DisplayPlaces() {
 
@@ -134,7 +136,7 @@ export function DisplayPlaces() {
 
             {/* Display all items */}
             < div class="container text-center" >
-                <h3 style={{ fontFamily: "cursive", color: "green", backgroundColor: "#C1E1C1", padding: "20px" }}>TOURIST PLACES</h3>
+                <h3 style={{ fontFamily: "cursive", color: "green"}}>TOURIST PLACES</h3>
                 <br></br>
                 <div class="row">
                     {places.map(place => (
@@ -148,8 +150,8 @@ export function DisplayPlaces() {
                                         <div className='scroll-description-user'>
                                             <p style={{ textAlign: "left" }} class="card-text">{place.placeDescription}</p>
                                         </div>
-                                        <br/>
-                                        <button type="button" class="btn btn-outline-dark" style={{padding: "10px 24px"}} onClick={() => {
+                                        <br />
+                                        <button type="button" class="btn btn-outline-dark" style={{ padding: "10px 24px" }} onClick={() => {
                                             getOnePlace(place._id);
                                             showUpdateBox();
                                         }}>View</button>
@@ -171,16 +173,20 @@ export function DisplayPlaces() {
                     <br></br>
                     <button
                         onClick={handleClose}
-                        className="btn btn-outline-danger"
+
                         style={{
-                            width: "40px",
-                            height: "40px",
                             position: "absolute",
-                            right: "320px",
-                            top: "40px",
+                            right: "280px",
+                            top: "30px",
+                            border: "none",
+                            backgroundColor: "transparent",
+                            color: "red"
                         }}
                     >
-                        X
+                        <FontAwesomeIcon style={{
+                            width: "30px",
+                            height: "30px",
+                        }} icon={faXmark} />
                     </button>
                     <form
                         onSubmit={sendData}
@@ -192,7 +198,7 @@ export function DisplayPlaces() {
                                 <td>
                                     <div className="mb-3">
                                         <h3>{placeName}</h3>
-                                        <p style={{textAlign:"left"}}>{placeDescription}</p>
+                                        <p style={{ textAlign: "left" }}>{placeDescription}</p>
                                     </div>
                                 </td>
                                 <td>
