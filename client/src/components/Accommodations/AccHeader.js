@@ -14,7 +14,7 @@ import {
   import "react-date-range/dist/theme/default.css"; // theme css file
   import { format } from "date-fns";
   import { useNavigate } from "react-router-dom";
-//   import { SearchContext } from "../../context/SearchContext";
+  import { SearchContext } from "../../context/SearchContext";
 //   import { AuthContext } from "../../context/AuthContext";
   
  export const Header = ({ type }) => {
@@ -47,12 +47,12 @@ import {
       });
     };
   
-    // const { dispatch } = useContext(SearchContext);
+     const { dispatch } = useContext(SearchContext);
   
-    // const handleSearch = () => {
-    //   dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
-    //   navigate("/hotels", { state: { destination, dates, options } });
-    // };
+     const handleSearch = () => {
+       dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
+       navigate("/Accommodations/hotels", { state: { destination, dates, options } });
+     };
   
     return (
       <div className="header">
@@ -190,8 +190,7 @@ import {
                   )}
                 </div>
                 <div className="headerSearchItem">
-                  <button className="headerBtn">
-                  {/* onClick={handleSearch} */}
+                  <button className="headerBtn" onClick={handleSearch}>
                     Search
                   </button>
                 </div>
