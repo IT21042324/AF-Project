@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import axios from "axios";
 
@@ -11,11 +11,31 @@ function EditInfo() {
   const [description, setdescription] = useState("");
   const [location, setlocation] = useState("");
   const [price, setPrice] = useState("");
-  const [time, setTime] = useState("");
+  const [Date, setDate] = useState("");
   const [category, setCategory] = useState("");
   const [organizerName, setOrganizerName] = useState("");
   const [organizerContact, setOrganizerContact] = useState("");
   const [ticketAvailability, setTicketAvailability] = useState("");
+  const imageInputRef = useRef(null);
+
+  //image
+
+  const [image, setProductPicture] = useState("");
+
+  function convertToBase64(e) {
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload only image files.");
+      return;
+    }
+    const reader = new FileReader();
+
+    reader.readAsDataURL(e.target.files[0]);
+
+    reader.onload = () => setProductPicture(reader.result);
+
+    reader.onerror = (error) => console.log("error: ", error);
+  }
 
   useEffect(() => {
     function getEventinfo() {
@@ -41,16 +61,16 @@ function EditInfo() {
       .get("http://localhost:8070/api/events/get/" + did)
       .then((res) => {
         // console.log(res.data);
-        setid(res.data.evenid._id);
-        setname(res.data.evenid.name);
-        setdescription(res.data.evenid.description);
-        setlocation(res.data.evenid.location);
-        setPrice(res.data.evenid.price);
-        setTime(res.data.evenid.time);
-        setCategory(res.data.evenid.category);
-        setOrganizerName(res.data.evenid.organizerName);
-        setOrganizerContact(res.data.evenid.organizerContact);
-        setTicketAvailability(res.data.evenid.ticketAvailability);
+        setid(res.data._id);
+        setname(res.data.name);
+        setdescription(res.data.description);
+        setlocation(res.data.location);
+        setPrice(res.data.price);
+        setDate(res.data.Date);
+        setCategory(res.data.category);
+        setOrganizerName(res.data.organizerName);
+        setOrganizerContact(res.data.organizerContact);
+        setTicketAvailability(res.data.ticketAvailability);
       })
       .catch((err) => {
         alert(err.message);
@@ -75,17 +95,15 @@ function EditInfo() {
       description,
       location,
       price,
-      time,
+      Date,
       category,
       organizerName,
       organizerContact,
       ticketAvailability,
     };
 
-    const ID = id;
-
     axios
-      .put("http://localhost:8070/api/events/update/" + ID, newEvent)
+      .put("http://localhost:8070/api/events/update/" + id, newEvent)
       .then(() => {
         alert("Event information Updated");
 
@@ -114,7 +132,14 @@ function EditInfo() {
   return (
     <>
       <div className="container shadow rounded">
-        <table className="table">
+        <table
+          className="table"
+          style={{
+            width: "100%",
+            border: "1px solid black",
+            backgroundColor: "white",
+          }}
+        >
           <thead>
             <tr>
               <th scope="col">ID</th>
@@ -127,7 +152,7 @@ function EditInfo() {
 
               <th scope="col">Price</th>
 
-              <th scope="col">Time</th>
+              <th scope="col">Date</th>
 
               <th scope="col">Category</th>
 
@@ -136,6 +161,8 @@ function EditInfo() {
               <th scope="col">Organizer Contact</th>
 
               <th scope="col">ticketAvailability</th>
+
+              <th scope="col">image</th>
             </tr>
           </thead>
 
@@ -152,7 +179,7 @@ function EditInfo() {
 
                 <td>{event.price}</td>
 
-                <td>{event.time}</td>
+                <td>{event.Date}</td>
 
                 <td>{event.category}</td>
 
@@ -161,6 +188,14 @@ function EditInfo() {
                 <td>{event.organizerContact}</td>
 
                 <td>{event.ticketAvailability}</td>
+
+                <td>
+                  <img
+                    src={event.url}
+                    alt="event image"
+                    style={{ width: "100px", height: "100px" }}
+                  />
+                </td>
 
                 <td>
                   <button
@@ -187,7 +222,7 @@ function EditInfo() {
       </div>
 
       <div id="backdrop" className="backdrop-black">
-        <div id="update-box" className="container form-style">
+        <div id="update-box" className="container form-style3 ">
           <button
             onClick={handleClose}
             className="btn btn-outline-danger"
@@ -261,36 +296,37 @@ function EditInfo() {
                 required
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="time" className="form-label">
-                Time
-              </label>
-
+            <div class="form-group">
+              <label for="date">Date:</label>
               <input
-                type="number"
-                className="form-control"
-                id="time"
-                placeholder="Enter time"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                required
+                type="date"
+                class="form-control"
+                id="date"
+                onChange={(e) => {
+                  setDate(e.target.value);
+                }}
               />
             </div>
-            a
+
             <div className="mb-3">
               <label htmlFor="category" className="form-label">
                 Category:
               </label>
 
-              <input
-                type="text"
-                className="form-control"
+              <select
+                class="form-control"
                 id="category"
-                placeholder="Enter category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                required
-              />
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+              >
+                <option value="">-- Select --</option>
+                <option value="music">Music</option>
+                <option value="dance">Dance</option>
+                <option value="theater">Theater</option>
+                <option value="art">Art</option>
+                <option value="festival">Festival</option>
+              </select>
             </div>
             <div className="mb-3">
               <label htmlFor="organizerName" className="form-label">
@@ -322,26 +358,33 @@ function EditInfo() {
                 required
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="ticketAvailability" className="form-label">
-                ticket Availability:
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
+            <div class="form-group">
+              <label for="ticketAvailability">Ticket Availability:</label>
+              <select
+                class="form-control"
                 id="ticketAvailability"
-                placeholder="Availlable/Not availlable"
-                value={ticketAvailability}
-                onChange={(e) => setOrganizerContact(e.target.value)}
-                required
+                onChange={(e) => setTicketAvailability(e.target.value)}
+              >
+                <option value="">-- Select --</option>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+              </select>
+            </div>
+            <div className="mb-3">
+              <label for="itemImage"> Image</label>
+              <input
+                type="file"
+                class="form-control"
+                id="itemImage"
+                onChange={(e) => convertToBase64(e)}
+                ref={imageInputRef}
               />
             </div>
             <div className="mb-3">
               <input type="checkbox" name="terms" required /> <br></br>
               <br></br>
               <button type="submit" className="btn btn-primary">
-                Update Delivery Details
+                Update Details
               </button>
             </div>
           </form>
