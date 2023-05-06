@@ -66,7 +66,8 @@ export function AddPlace() {  //ImageUpload
 
   return (
     <>
-      <table style={{marginLeft:"35%", marginRight:"auto", marginTop:"5%"}}>
+    <section className="main-dashboard">
+      <table style={{marginLeft:"auto", marginRight:"auto", marginTop:"5%"}}>
         <tr>
           <td>
             <div>
@@ -110,6 +111,7 @@ export function AddPlace() {  //ImageUpload
           </td>
         </tr>
       </table>
+      </section>
     </>
   )
 }

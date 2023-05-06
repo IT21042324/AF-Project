@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/place.css";
-import picture from "../../assets/placeMain.png";
 
 export function AllPlaces() {
   const [places, setPlaces] = useState([]);
@@ -137,14 +136,14 @@ export function AllPlaces() {
 
   return (
     <>
+    <section className="main-dashboard">
       <div class="container text-center">
         <div class="row">
           <h3
             style={{
               fontFamily: "cursive",
               color: "green",
-              marginTop:"20px",
-              marginLeft: "10%"
+              marginTop:"20px"
             }}
           >
             UPDATE / DELETE PLACES
@@ -158,8 +157,7 @@ export function AllPlaces() {
                 style={{
                   width: "20rem",
                   height: "35rem",
-                  marginBottom: "40px",
-                  marginLeft:"60%"
+                  marginBottom: "40px"
                 }}
               >
                 <div class="card-image-area">
@@ -308,6 +306,7 @@ export function AllPlaces() {
           </form>
         </div>
       </div>
+      </section>
     </>
   );
 }
