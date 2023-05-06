@@ -1,4 +1,11 @@
-import { faDashboard, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDashboard,
+  faBell,
+  faUser,
+  faPlus,
+  faEdit,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
@@ -41,6 +48,26 @@ export function AdminSideMenu(props) {
           >
             <FontAwesomeIcon icon={faUser} />
             &nbsp;&nbsp; Product Requests
+          </Link>
+        </div>
+        <div className="li">
+          <Link
+            to={"/admin/addEvent"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            <FontAwesomeIcon icon={faPlus} />
+            &nbsp;&nbsp; Add an event
+          </Link>
+        </div>
+        <div className="li">
+          <Link
+            to={"/admin/editEvent"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            {" "}
+            <FontAwesomeIcon icon={faEdit} /> &nbsp;&nbsp;
+            <FontAwesomeIcon icon={faTrash} />
+            &nbsp;&nbsp; Edit/Delete event
           </Link>
         </div>
       </div>

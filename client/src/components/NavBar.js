@@ -32,7 +32,7 @@ export function NavBar(props) {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <LinkContainer
-              to="/addEvent"
+              to="/cultural/displayEvents"
               onClick={(e) => {
                 setSelectedUserRole("User");
               }}
@@ -55,6 +55,10 @@ export function NavBar(props) {
               to="/Accommodations"
             >
               <Nav.Link>Accomodations</Nav.Link>
+            </LinkContainer>
+
+            <LinkContainer to="/cultural/BookEvent">
+              <Nav.Link>Temporary Book event</Nav.Link>
             </LinkContainer>
 
             <NavDropdown title="Drop-Down" id="collasible-nav-dropdown">
