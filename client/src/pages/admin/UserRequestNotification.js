@@ -318,7 +318,6 @@ export function UserRequestNotification() {
                             id="validationCustom01"
                             style={{ textAlign: "center" }}
                             value={rejectionUserName}
-                            ref={rejectionReason}
                             disabled={true}
                           />
                         </div>
@@ -335,6 +334,7 @@ export function UserRequestNotification() {
                             className="form-control"
                             id="validationCustom01"
                             rows={5}
+                            ref={rejectionReason}
                             required
                           />
                         </div>

@@ -231,7 +231,11 @@ const approveProduct = async (req, res) => {
   try {
     const data = await productModel.findByIdAndUpdate(
       req.params.id,
-      { productIsApprovedByAdmin: true, productIsRejectedByAdmin: false },
+      {
+        productIsApprovedByAdmin: true,
+        productIsRejectedByAdmin: false,
+        isApprovedByAdmin: "Approved",
+      },
       { new: true }
     );
 

@@ -12,6 +12,7 @@ export function ProductRequestNotification() {
   useEffect(() => {
     setProduct(products);
   }, [products]);
+
   const { acceptProductRequest, rejectProductRequest } = UseBackendAPI();
 
   const acceptRequest = async (e, productID) => {
@@ -25,6 +26,7 @@ export function ProductRequestNotification() {
   const [showPopup, setShowPopup] = useState(false);
   const [rejectionUserName, setRejectionFormUserName] = useState("");
   const [rejectionProductID, setRejectionFormProductID] = useState("");
+  const [rejectionProductName, setRejectionFormProductName] = useState("");
 
   const handleClosePopup = (id) => {
     setShowPopup(false);
@@ -95,8 +97,8 @@ export function ProductRequestNotification() {
                               textAlign: "center",
                             }}
                           >
-                            {!data.userIsRejectedByAdmin &&
-                            !data.userIsApprovedByAdmin ? (
+                            {!data.productIsRejectedByAdmin &&
+                            !data.productIsApprovedByAdmin ? (
                               <div>
                                 <button
                                   type="button"
@@ -114,22 +116,25 @@ export function ProductRequestNotification() {
                                   onClick={(e) => {
                                     setRejectionFormUserName(data.userName);
                                     setRejectionFormProductID(data._id);
+                                    setRejectionFormProductName(
+                                      data.productName
+                                    );
                                     setShowPopup(true);
                                   }}
                                 >
                                   Reject
                                 </button>
                               </div>
-                            ) : data.userIsRejectedByAdmin &&
-                              !data.userIsApprovedByAdmin ? (
+                            ) : data.productIsRejectedByAdmin &&
+                              !data.productIsApprovedByAdmin ? (
                               <h6 style={{ color: "#dc3545" }}>
-                                User Rejected
+                                Product Rejected
                               </h6>
-                            ) : !data.userIsRejectedByAdmin &&
-                              data.userIsApprovedByAdmin ? (
+                            ) : !data.productIsRejectedByAdmin &&
+                              data.productIsApprovedByAdmin ? (
                               <h6 style={{ color: "#198754" }}>
                                 {" "}
-                                User Approved
+                                Product Approved
                               </h6>
                             ) : null}
                           </td>
@@ -169,7 +174,25 @@ export function ProductRequestNotification() {
                           for="validationCustom01"
                           style={{ float: "left" }}
                         >
-                          User Name
+                          Product
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="validationCustom01"
+                          style={{ textAlign: "center" }}
+                          value={rejectionProductName}
+                          disabled={true}
+                        />
+                      </div>
+                      <br />
+
+                      <div className="row">
+                        <label
+                          for="validationCustom01"
+                          style={{ float: "left" }}
+                        >
+                          Posted By
                         </label>
                         <input
                           type="text"
@@ -177,11 +200,11 @@ export function ProductRequestNotification() {
                           id="validationCustom01"
                           style={{ textAlign: "center" }}
                           value={rejectionUserName}
-                          ref={rejectionReason}
                           disabled={true}
                         />
                       </div>
                       <br />
+
                       <div className="row">
                         <label
                           for="validationCustom01"
@@ -194,6 +217,7 @@ export function ProductRequestNotification() {
                           className="form-control"
                           id="validationCustom01"
                           rows={5}
+                          ref={rejectionReason}
                           required
                         />
                       </div>

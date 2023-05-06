@@ -22,7 +22,6 @@ const userLogin = async (req, res) => {
 
     // Send JWT and user data in response
 
-    console.log({ ...user.toObject(), token });
     res.status(200).json({ ...user.toObject(), token });
   } catch (err) {
     console.log(err.message);
@@ -79,8 +78,6 @@ const updateUserProfile = async function (req, res) {
       { contact, image, bio },
       { new: true }
     );
-
-    console.log(user);
 
     // Send updated user data in response
     return res.status(200).json(user);

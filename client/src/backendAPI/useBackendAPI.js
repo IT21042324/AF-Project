@@ -3,13 +3,15 @@ import { UseUserContext } from "../hooks/useUserContext";
 import { SendEmail } from "../components/SendEmail";
 import { useNavigate } from "react-router-dom";
 import { UseProductContext } from "../hooks/useProductContext";
+import { useEffect, useState } from "react";
 
 export const UseBackendAPI = () => {
-  const { dispatch, setUser, getUser, user1 } = UseUserContext();
+  const { dispatch, setUser, getUser } = UseUserContext();
 
   const productDispatch = UseProductContext().dispatch;
 
   const user = getUser();
+
   const navigate = useNavigate();
 
   return {
@@ -20,8 +22,10 @@ export const UseBackendAPI = () => {
           userDetails
         );
 
+        console.log(info);
+
         if (info.status == 200) {
-          if (info.data.role) {
+          if (info.data.userIsApprovedByAdmin) {
             async function configureUser() {
               localStorage.setItem("user", JSON.stringify(info.data));
               dispatch({ type: "SetUser", payload: [info.data] });
@@ -32,13 +36,14 @@ export const UseBackendAPI = () => {
             else if (user.role === "Entrepreneur")
               navigate("/entrepreneurship");
             else if (user?.role === "Admin") navigate("/admin");
-          }
+          } else
+            alert("Your Account is under review. Check your email for updates");
         } else {
           alert(info.data.err);
         }
       } catch (err) {
-        console.log(err);
-        alert("Oops! Something went wrong. Try again later.");
+        const errMsg = err.response.data.err;
+        alert(errMsg);
       }
     },
     registerUser: async function (userDetails) {
@@ -57,15 +62,15 @@ export const UseBackendAPI = () => {
           if (!info.data.err) alert("Account Created Successfully");
           else alert(info.data.err);
 
-          if (info.data.role === "Entrepreneur") navigate("/entrepreneuship");
+          if (info.data.role === "Entrepreneur") navigate("/entrepreneurship");
           else if (info.data.role === "User") navigate("/");
           else if (info.data.role === "Admin") navigate("/admin");
         } else {
           alert(info.data.err);
         }
       } catch (err) {
-        console.log(err);
-        alert("Oops! Something went wrong. Try again later.");
+        const errMsg = err.response.data.err;
+        alert(errMsg);
       }
     },
 
@@ -231,10 +236,10 @@ export const UseBackendAPI = () => {
         const info = await axios.delete(
           "http://localhost:8070/api/protected/products/deleteProduct/" +
             itemID,
+          {},
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
-              role: user.role,
             },
           }
         );
@@ -261,7 +266,6 @@ export const UseBackendAPI = () => {
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
-              role: user.role,
             },
           }
         );
@@ -281,13 +285,15 @@ export const UseBackendAPI = () => {
 
     acceptProductRequest: async function (productID) {
       try {
+        console.log(user);
+
         const info = await axios.patch(
           "http://localhost:8070/api/protected/products/approveProduct/" +
             productID,
+          {},
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
-              role: user.role,
             },
           }
         );
@@ -312,7 +318,6 @@ export const UseBackendAPI = () => {
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
-              role: user.role,
             },
           }
         );

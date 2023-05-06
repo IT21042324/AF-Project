@@ -4,14 +4,10 @@ import { useState, useRef } from "react";
 import { UseBackendAPI } from "../backendAPI/useBackendAPI";
 import avatar from "../assets/addphoto.png";
 import { EncodedFile } from "../assets/encodedImage";
-import { UseUserContext } from "../hooks/useUserContext";
 
 export function Register() {
   const { registerUser } = UseBackendAPI();
   const [profilePic, setProfilePic] = useState(avatar);
-  const { selectedUserRole } = UseUserContext();
-
-  console.log(selectedUserRole);
 
   //Naming our refs to submit and store form data
   const userName = useRef(),
@@ -29,6 +25,8 @@ export function Register() {
     reader.onerror = (error) => console.log("error: ", error);
   }
 
+  const [accountType, setAccountType] = useState("");
+
   //To register Merchant
   async function signUpHandler(e) {
     e.preventDefault();
@@ -37,13 +35,19 @@ export function Register() {
     if (profilePic) image = profilePic;
     else image = EncodedFile().image;
 
+    let bioValue;
+
+    accountType === "Entrepreneur"
+      ? (bioValue = bio.current.value)
+      : (bioValue = " ");
+
     const signupData = {
       userName: userName.current.value,
       password: password.current.value,
       contact: contact.current.value,
-      bio: bio.current.value,
       image: profilePic,
-      role: selectedUserRole,
+      role: accountType,
+      bio: bioValue,
     };
 
     await registerUser(signupData);
@@ -135,7 +139,21 @@ export function Register() {
               />
             </div>
 
-            {selectedUserRole === "Entrepreneur" && (
+            <div className="mb-3">
+              <label>Account Type</label>
+              <select
+                className="form-control"
+                onChange={(e) => setAccountType(e.target.value)}
+              >
+                <option value="">Choose Account Type..</option>
+                <option value="User (For Event Booking & Accomodations">
+                  User
+                </option>
+                <option value="Entrepreneur">Entrepreneur</option>
+              </select>
+            </div>
+
+            {accountType === "Entrepreneur" && (
               <div className="mb-3">
                 <label>Tell Us About Yourself</label>
                 <textarea
