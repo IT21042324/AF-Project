@@ -10,6 +10,8 @@ import { UseUserContext } from "../../hooks/useUserContext";
 import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
 import { UseUserListContext } from "../../hooks/useUserListContext";
 import { PopoverButton } from "../../components/PopoverButton";
+import Button from "react-bootstrap/Button";
+
 export function UserRequestNotification() {
   const { logoutUser } = UseUserContext();
   // const { content } = useAdminContext();
@@ -226,6 +228,7 @@ export function UserRequestNotification() {
                               buttonName={"Read Bio"}
                               heading={"User Bio"}
                               displayText={usr.bio}
+                              className="btn btn-primary"
                             />
                           </td>
 
@@ -236,7 +239,7 @@ export function UserRequestNotification() {
                           >
                             {!usr.userIsRejectedByAdmin &&
                             !usr.userIsApprovedByAdmin ? (
-                              <>
+                              <div>
                                 <button
                                   type="button"
                                   class="btn btn-outline-success btn-sm"
@@ -258,7 +261,7 @@ export function UserRequestNotification() {
                                 >
                                   Reject User
                                 </button>
-                              </>
+                              </div>
                             ) : usr.userIsRejectedByAdmin &&
                               !usr.userIsApprovedByAdmin ? (
                               <h6 style={{ color: "#dc3545" }}>

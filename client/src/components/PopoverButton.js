@@ -20,7 +20,7 @@ export function PopoverButton(props) {
       <Overlay
         show={show}
         target={target}
-        placement="bottom"
+        placement="top"
         container={ref}
         containerPadding={20}
       >

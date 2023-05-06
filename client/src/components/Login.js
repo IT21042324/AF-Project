@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
 import pic from "../assets/login.png";
-import { useEffect, useRef, useState } from "react";
-import { UseUserContext } from "../hooks/useUserContext";
+import { useRef, useState } from "react";
 import { UseBackendAPI } from "../backendAPI/useBackendAPI";
+import { UseUserContext } from "../hooks/useUserContext";
 
 export function Login(e) {
   const { login } = UseBackendAPI();
+
+  const { dispatch } = UseUserContext();
 
   //Creating refs to hold values of login form values
   const userName = useRef(),
     password = useRef();
 
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
 
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
@@ -35,7 +37,7 @@ export function Login(e) {
         <div className="login-c">
           <form onSubmit={(e) => loginSubmitHandler(e)}>
             <h3 className="text-center mb-4">
-              {isAdmin ? "Welcome Admin" : "Sign In"}
+              {isSeller ? "Entrepreneur Login" : "User Login"}
             </h3>
             <div className="mb-3">
               <label>Username</label>
@@ -65,21 +67,54 @@ export function Login(e) {
                 value="Sign In"
               />
             </div>
-            {!isAdmin ? (
-              <>
-                <p className="forgot-password text-center">
-                  Don't have an account yet?
-                  <Link to={"/register"} onClick={(e) => {}}>
-                    Register Now
-                  </Link>
-                </p>
 
-                <p className="forgot-password text-center">
-                  <Link onClick={(e) => setIsAdmin(true)}>admin?</Link>
-                </p>
-              </>
+            <p className="forgot-password text-center">
+              Don't have an account yet?
+              <Link
+                to={"/register"}
+                onClick={(e) => {
+                  {
+                    isSeller
+                      ? dispatch({
+                          type: "SetSelectedUserRole",
+                          payload: "Entrepreneur",
+                        })
+                      : dispatch({
+                          type: "SetSelectedUserRole",
+                          payload: "User",
+                        });
+                  }
+                }}
+              >
+                Register As {isSeller ? "Entrepreneur" : "User"}
+              </Link>
+            </p>
+            {!isSeller ? (
+              <p className="forgot-password text-center">
+                <Link
+                  onClick={(e) => {
+                    setIsSeller(true);
+
+                    dispatch({
+                      type: "SetSelectedUserRole",
+                      payload: "Entrepreneur",
+                    });
+                  }}
+                >
+                  entrepreneur?
+                </Link>
+              </p>
             ) : (
-              <Link onClick={(e) => setIsAdmin(false)}>user?</Link>
+              <p className="forgot-password text-center">
+                <Link
+                  onClick={(e) => {
+                    setIsSeller(false);
+                    dispatch({ type: "SetSelectedUserRole", payload: "User" });
+                  }}
+                >
+                  user?
+                </Link>
+              </p>
             )}
           </form>
         </div>

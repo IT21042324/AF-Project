@@ -22,10 +22,9 @@ const requireAuth = async (req, res, next) => {
       `http://localhost:8070/api/users/getUserWithoutImage/${id}`
     );
 
-    console.log(data);
-
     // Attach user data to the request object
     req.user = data;
+    console.log(req);
 
     // Call next middleware function
     next();
