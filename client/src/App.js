@@ -20,9 +20,9 @@ function App() {
         <Route path="/admin/*" element={<AdminRoutes />} />
         <Route path="/Accommodations/*" element={<AccommodationRoutes />} />
 
-        {/* Place Route */}
-        <Route path="/placeRoutes/*" element={<PlaceRoutes />} />
         <Route path="/cultural/*" element={<CulturalEventsRoutes />} />
+
+        {/* Place Route */}
         <Route path="/placeRoutes/*" element={<PlaceRoutes />} />
         <Route path="/placeRoutesAdmin/*" element={<PlaceRoutesAdmin />} />
       </Routes>
