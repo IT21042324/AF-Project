@@ -3,7 +3,7 @@ const axios = require("axios");
 require("dotenv").config({ path: "../.env" });
 
 const requireAuth = async (req, res, next) => {
-  const { authorization, role } = req.headers;
+  const { authorization } = req.headers;
 
   // Check if authorization token is provided in the request header
   if (!authorization) {
@@ -22,13 +22,15 @@ const requireAuth = async (req, res, next) => {
       `http://localhost:8070/api/users/getUserWithoutImage/${id}`
     );
 
+    console.log(data);
+
     // Attach user data to the request object
     req.user = data;
 
     // Call next middleware function
     next();
   } catch (error) {
-    console.log(error);
+    console.log(error.mesage);
     res.status(401).json({ error: "Unauthorized Request" });
   }
 };

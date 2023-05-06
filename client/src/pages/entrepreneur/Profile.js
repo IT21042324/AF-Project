@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import pic from "../../assets/f1.png";
-import { UseUserContext } from "../../context/useUserContext";
+import { UseUserContext } from "../../hooks/useUserContext";
 import { useEffect, useState } from "react";
 
 export function Profile() {
-  const { logoutUser } = UseUserContext();
+  const { logoutUser, getUser } = UseUserContext();
+
+  const user = getUser();
 
   const [mechantIsLoggedIn, setMerchantIsLoggedIn] = useState(true);
 
@@ -62,12 +64,16 @@ export function Profile() {
                   className="img-thumbnail shadow w-100 bg-white position-relative text-center"
                   style={{ height: 190, width: 200, marginTop: -120 }}
                 >
-                  <img src={pic} className="center-xy img-fluid" alt="" />
+                  <img
+                    src={user.image}
+                    className="img-thumbnail shadow w-100 bg-white position-relative text-center center-xy img-fluid"
+                    alt=""
+                  />
                 </div>
               </div>
               <div className="col-xl col-lg">
-                <h3>User Name</h3>
-                <p>email@email.com</p>
+                <h3 style={{ color: "black" }}>About</h3>
+                <p>{user.bio}</p>
               </div>
               <div className="col-xl-4 text-md-end">
                 <Link
@@ -79,10 +85,17 @@ export function Profile() {
               </div>
             </div>
             <hr className="my-4" />
-            <div className="row g-4">
+            <div
+              className="row g-4"
+              style={{ display: "flex", justifyContent: "space-evenly" }}
+            >
               <div className="col-sm-6 col-lg-4 col-xl-3">
-                <h4>Contacts</h4>
-                <p>Contact</p>
+                <h4>User Name</h4>
+                <p>Email: {user.userName}</p>
+              </div>
+              <div className="col-sm-6 col-lg-4 col-xl-3">
+                <h4>Contact</h4>
+                <p>Phone: {user.contact}</p>
               </div>
               <div className="col-sm-6 col-lg-4 col-xl-3">
                 <h4>Address</h4>

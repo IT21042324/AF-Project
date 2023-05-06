@@ -1,20 +1,17 @@
-import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { LinkContainer } from "react-router-bootstrap";
-import { UseUserContext } from "../context/useUserContext";
+import { UseUserContext } from "../hooks/useUserContext";
+import { useEffect } from "react";
 
 export function NavBar(props) {
   const { setSelectedUserRole, selectedUserRole } = UseUserContext();
 
-  const [isSellerPage, setIsSellerPage] = useState(false);
-
   useEffect(() => {
-    if (props.entrepreneurPageIsClicked) setIsSellerPage(true);
-    else setIsSellerPage(false);
-  }, [props.entrepreneurPageIsClicked]);
+    setSelectedUserRole("Entrepreneur");
+  }, []);
 
   return (
     <Navbar
@@ -22,33 +19,47 @@ export function NavBar(props) {
       expand="lg"
       bg="dark"
       variant="dark"
-      style={{ marginBottom: "5vh" }}
+      style={{ marginBottom: "4vh" }}
+
     >
       <Container>
-        <LinkContainer to="/" onClick={(e) => setIsSellerPage(false)}>
+        <LinkContainer
+          to="/placeRoutes/displayPlaces"
+          onClick={(e) => setSelectedUserRole("Entrepreneur")}
+        >
           <Navbar.Brand>Heavenly</Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <LinkContainer
-              to="/addEvent"
-              onClick={(e) => setIsSellerPage(false)}
+              to="/cultural/displayEvents"
+              onClick={(e) => {
+                setSelectedUserRole("User");
+              }}
             >
               <Nav.Link>Cultural Events</Nav.Link>
             </LinkContainer>
             <LinkContainer
               to="/entrepreneurship"
-              onClick={(e) => setIsSellerPage(true)}
+              onClick={(e) => {
+                setSelectedUserRole("Entrepreneur");
+              }}
             >
               <Nav.Link>Entrepreneurship</Nav.Link>
             </LinkContainer>
 
             <LinkContainer
+              onClick={(e) => {
+                setSelectedUserRole("User");
+              }}
               to="/Accommodations"
-              onClick={(e) => setIsSellerPage(false)}
             >
               <Nav.Link>Accomodations</Nav.Link>
+            </LinkContainer>
+
+            <LinkContainer to="/cultural/BookEvent">
+              <Nav.Link>Temporary Book event</Nav.Link>
             </LinkContainer>
 
             <NavDropdown title="Drop-Down" id="collasible-nav-dropdown">
@@ -61,16 +72,20 @@ export function NavBar(props) {
             </NavDropdown>
           </Nav>
           <Nav>
-            <LinkContainer to="/login">
-              <Nav.Link
-                eventKey={2}
-                onClick={(e) => {
-                  isSellerPage
-                    ? setSelectedUserRole("Entrepreneur")
-                    : setSelectedUserRole("User");
-                }}
-              >
-                {isSellerPage ? "Become an Entrepreneur" : "Login"}
+            <LinkContainer
+              to="/login"
+              onClick={(e) => {
+                {
+                  selectedUserRole === "User"
+                    ? setSelectedUserRole("User")
+                    : setSelectedUserRole("Entrepreneur");
+                }
+              }}
+            >
+              <Nav.Link eventKey={2}>
+                {selectedUserRole === "User"
+                  ? "Login"
+                  : "Become an Entrepreneur"}
               </Nav.Link>
             </LinkContainer>
           </Nav>

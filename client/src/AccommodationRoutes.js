@@ -6,7 +6,6 @@ import {HotelList} from "./pages/accommodations/HotelList"
 import { Hotel } from "./pages/accommodations/Hotel"
 
 export function AccommodationRoutes() {
-
   return (
     <div className="App">
         <>

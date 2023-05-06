@@ -4,7 +4,8 @@ import { BaseRoutes } from "./BaseRoutes";
 import { EntrepreneurshipRoutes } from "./EntrepreneurshipRoutes";
 import { AccommodationRoutes } from "./AccommodationRoutes";
 import { PlaceRoutes } from "./PlaceRoutes";
-
+import { CulturalEventsRoutes } from "./CulturalEventRoutes";
+import { AdminRoutes } from "./AdminRoutes";
 
 function App() {
   return (
@@ -15,19 +16,16 @@ function App() {
           path="/entrepreneurship/*"
           element={<EntrepreneurshipRoutes />}
         />
-        
-        {/* Accommodation Routes */}
-        <Route
-          path="/Accommodations/*"
-          element={<AccommodationRoutes />}
-        />  
 
-        <Route
-          path="/placeRoutes/*"
-          element={<PlaceRoutes />}
-        />
+        <Route path="/admin/*" element={<AdminRoutes />} />
+
+        {/* Accommodation Routes */}
+        <Route path="/Accommodations/*" element={<AccommodationRoutes />} />
+
+        <Route path="/placeRoutes/*" element={<PlaceRoutes />} />
+
+        <Route path="/cultural/*" element={<CulturalEventsRoutes />} />
       </Routes>
-      
     </div>
   );
 }

@@ -6,20 +6,22 @@ import App from "./App";
 import { UserContextProvider } from "./context/userContext";
 import { ProductContextProvider } from "./context/productContext";
 import { SearchContextProvider } from "./context/SearchContext";
+import { UserListContextProvider } from "./context/userListContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <SearchContextProvider>
-        <UserContextProvider>
+  <SearchContextProvider>
+      <UserContextProvider>
+        <UserListContextProvider>
           <ProductContextProvider>
-          
-              <App />
-          
+            <App />
           </ProductContextProvider>
-        </UserContextProvider>
-      </SearchContextProvider>
+        </UserListContextProvider>
+      </UserContextProvider>
+  <SearchContextProvider>
+
     </BrowserRouter>
   </React.StrictMode>
 );

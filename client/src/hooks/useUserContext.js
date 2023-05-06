@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { UserContext } from "./userContext";
+import { UserContext } from "../context/userContext";
 
 export const UseUserContext = () => {
   const { dispatch, user1, selectedUserRole } = useContext(UserContext);
@@ -12,6 +12,8 @@ export const UseUserContext = () => {
         type: "SetUser",
         payload: [user],
       });
+
+      dispatch({ type: "SetSelectedUserRole", payload: "User" });
     }
   }, [dispatch]);
 

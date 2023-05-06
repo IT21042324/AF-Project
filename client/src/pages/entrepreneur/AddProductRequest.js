@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
-import { UseUserContext } from "../../context/useUserContext";
+import { UseProductContext } from "../../hooks/useProductContext";
 
 export function AddProductRequest() {
-  const { user1 } = UseUserContext();
-  const { saveProduct } = UseBackendAPI();
+  const { dispatch } = UseProductContext();
+  const { makeProductRequest } = UseBackendAPI();
 
   // Setting initial state for the product picture as an empty string
   const [image, setProductPicture] = useState("");
@@ -27,13 +27,15 @@ export function AddProductRequest() {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
-    const data = await saveProduct({
+    const data = await makeProductRequest({
       productName: productName.current.value,
       description: description.current.value,
       price: price.current.value,
       quantity: quantity.current.value,
       image,
     });
+
+    dispatch({ type: "CreateProduct", payload: data });
 
     //To clear the form after submission
     productName.current.value = "";
@@ -103,13 +105,14 @@ export function AddProductRequest() {
                   />
                 </div>
               </div>
+
               <div className="row">
-                <div className="col">
+                <div className="col-md-4 mb-3">
                   <label for="validationCustom01" style={{ float: "left" }}>
                     Quantity
                   </label>
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
                     id="validationCustom01"
                     placeholder="0"
@@ -132,6 +135,7 @@ export function AddProductRequest() {
                   />
                 </div>
               </div>
+
               <div className="row">
                 <div className="col-md-4 mb-3">
                   <label for="validationCustom01">Unit Price</label>

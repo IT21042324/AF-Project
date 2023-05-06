@@ -1,5 +1,5 @@
 import { Product } from "./Product";
-import { UseProductContext } from "../context/useProductContext";
+import { UseProductContext } from "../hooks/useProductContext";
 import { useState, useEffect } from "react";
 import { SearchBar } from "./SearchComponent";
 
@@ -30,8 +30,9 @@ export const ProductMapper = () => {
         {products
           .filter(
             (dat) =>
-              dat.productName.toLowerCase().includes(search.toLowerCase()) ||
-              dat.userName.toLowerCase().includes(search.toLowerCase())
+              (dat.productName.toLowerCase().includes(search.toLowerCase()) ||
+                dat.userName.toLowerCase().includes(search.toLowerCase())) &&
+              dat.isApprovedByAdmin === "Approved"
           )
           .map((dat) => (
             <div
