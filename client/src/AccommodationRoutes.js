@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
-import { SideMenu } from "./components/SideMenu";
+//import { SideMenu } from "./components/SideMenu";
 import {AccLandingPage} from "./pages/accommodations/HotelLandingPage";
 import {HotelList} from "./pages/accommodations/HotelList"
 import { Hotel } from "./pages/accommodations/Hotel"
