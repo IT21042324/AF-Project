@@ -227,6 +227,42 @@ const markAsRead = async (req, res) => {
   }
 };
 
+const approveProduct = async (req, res) => {
+  try {
+    const data = await productModel.findByIdAndUpdate(
+      req.params.id,
+      { productIsApprovedByAdmin: true, productIsRejectedByAdmin: false },
+      { new: true }
+    );
+
+    console.log(data);
+    res.status(200).send(data);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send(err.message);
+  }
+};
+
+const rejectProduct = async (req, res) => {
+  try {
+    const { productID, rejectionReason } = req.body;
+
+    const data = await productModel.findByIdAndUpdate(
+      productID,
+      {
+        productIsRejectedByAdmin: true,
+        rejectionReason,
+        productIsApprovedByAdmin: false,
+      },
+      { new: true }
+    );
+
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
 module.exports = {
   postProduct,
   addReview,
@@ -242,4 +278,6 @@ module.exports = {
   incrementLikeCounter,
   decrementLikeCounter,
   markAsRead,
+  approveProduct,
+  rejectProduct,
 };

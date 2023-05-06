@@ -41,6 +41,7 @@ export function Register() {
       userName: userName.current.value,
       password: password.current.value,
       contact: contact.current.value,
+      bio: bio.current.value,
       image: profilePic,
       role: selectedUserRole,
     };

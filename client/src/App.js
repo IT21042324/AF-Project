@@ -8,7 +8,6 @@ import { CulturalEventsRoutes } from "./CulturalEventRoutes";
 import { AdminRoutes } from "./AdminRoutes";
 import { PlaceRoutesAdmin } from "./PlaceRoutesAdmin";
 
-
 function App() {
   return (
     <div className="App">
@@ -18,27 +17,14 @@ function App() {
           path="/entrepreneurship/*"
           element={<EntrepreneurshipRoutes />}
         />
-
         <Route path="/admin/*" element={<AdminRoutes />} />
-
-        {/* Accommodation Routes */}
         <Route path="/Accommodations/*" element={<AccommodationRoutes />} />
-
         <Route path="/placeRoutes/*" element={<PlaceRoutes />} />
-
         <Route path="/cultural/*" element={<CulturalEventsRoutes />} />
-        <Route
-          path="/placeRoutes/*"
-          element={<PlaceRoutes />}
-        />
-
-        <Route
-          path="/placeRoutesAdmin/*"
-          element={<PlaceRoutesAdmin />}
-        />
+        <Route path="/placeRoutes/*" element={<PlaceRoutes />} />
+        <Route path="/placeRoutesAdmin/*" element={<PlaceRoutesAdmin />} />
       </Routes>
     </div>
   );
 }
-
 export default App;

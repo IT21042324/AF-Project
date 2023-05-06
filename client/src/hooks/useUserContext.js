@@ -38,7 +38,13 @@ export const UseUserContext = () => {
   }
 
   function setSelectedUserRole(role) {
-    dispatch({ type: "SetSelectedUserRole", payload: role });
+    const userSaved = localStorage.getItem("user");
+
+    if (userSaved) {
+      const user = JSON.parse(userSaved);
+      user.role = role;
+      setUser(user);
+    }
   }
 
   function getSelectedUserRole() {

@@ -15,49 +15,57 @@ export const UseBackendAPI = () => {
   return {
     login: async function (userDetails) {
       try {
-        const { data } = await axios.post(
+        const info = await axios.post(
           "http://localhost:8070/api/users/login/",
           userDetails
         );
 
-        if (data.role) {
-          async function configureUser() {
-            localStorage.setItem("user", JSON.stringify(data));
-            dispatch({ type: "SetUser", payload: [data] });
-          }
-          await configureUser();
+        if (info.status == 200) {
+          if (info.data.role) {
+            async function configureUser() {
+              localStorage.setItem("user", JSON.stringify(info.data));
+              dispatch({ type: "SetUser", payload: [info.data] });
+            }
+            await configureUser();
 
-          if (user?.role === "User") navigate("/");
-          else if (user.role === "Entrepreneur") navigate("/entrepreneurship");
-          else if (user?.role === "Admin") navigate("/admin");
-          else alert(data.err);
+            if (user?.role === "User") navigate("/");
+            else if (user.role === "Entrepreneur")
+              navigate("/entrepreneurship");
+            else if (user?.role === "Admin") navigate("/admin");
+          }
+        } else {
+          alert(info.data.err);
         }
       } catch (err) {
         console.log(err);
-        alert(err.response.data.err);
-        return err.response.data.err;
+        alert("Oops! Something went wrong. Try again later.");
       }
     },
     registerUser: async function (userDetails) {
       try {
-        const { data } = await axios.post(
+        const info = await axios.post(
           "http://localhost:8070/api/users/signup/",
           userDetails
         );
 
         //To store in localstorage
-        setUser(data);
-        dispatch({ type: "SetUser", payload: [data] });
 
-        if (!data.err) alert("Account Created Successfully");
-        else alert(data.err);
+        if (info.status == 200) {
+          setUser(info.data);
+          dispatch({ type: "SetUser", payload: [info.data] });
 
-        if (data.role === "Entrepreneur") navigate("/entrepreneuship/product");
-        else if (data.role === "User") navigate("/");
-        else if (data.role === "Admin") navigate("/admin");
+          if (!info.data.err) alert("Account Created Successfully");
+          else alert(info.data.err);
+
+          if (info.data.role === "Entrepreneur") navigate("/entrepreneuship");
+          else if (info.data.role === "User") navigate("/");
+          else if (info.data.role === "Admin") navigate("/admin");
+        } else {
+          alert(info.data.err);
+        }
       } catch (err) {
-        alert("Ooops.. There seems to be an error. Try again later");
         console.log(err);
+        alert("Oops! Something went wrong. Try again later.");
       }
     },
 
@@ -268,6 +276,56 @@ export const UseBackendAPI = () => {
         alert(
           "There seems to be an error. Product cannot be removed at the moment"
         );
+      }
+    },
+
+    acceptProductRequest: async function (productID) {
+      try {
+        const info = await axios.patch(
+          "http://localhost:8070/api/protected/products/approveProduct/" +
+            productID,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+              role: user.role,
+            },
+          }
+        );
+
+        if (info.status == 200) {
+          alert("Product Request Accepted Successfully");
+          return info.data;
+        } else
+          alert(
+            "There seems to be an error. Your Request cannot be fulfilled at the moment"
+          );
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    rejectProductRequest: async function (details) {
+      try {
+        const info = await axios.patch(
+          "http://localhost:8070/api/protected/products/rejectProduct/",
+          details,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+              role: user.role,
+            },
+          }
+        );
+
+        if (info.status == 200) {
+          alert("Product Request Rejected");
+          return info.data;
+        } else
+          alert(
+            "There seems to be an error. Your Request cannot be fulfilled at the moment"
+          );
+      } catch (err) {
+        console.log(err);
       }
     },
   };

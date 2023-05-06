@@ -14,6 +14,8 @@ const {
   incrementLikeCounter,
   decrementLikeCounter,
   markAsRead,
+  approveProduct,
+  rejectProduct,
 } = require("../controller/product");
 
 router.use(requireAuth);
@@ -52,6 +54,10 @@ router.patch("/decrementLikeCounter", decrementLikeCounter);
 
 //Route to marks as read the notification
 router.patch("/markAsRead", markAsRead);
+
+router.patch("/approveProduct/:id", approveProduct);
+
+router.patch("/rejectProduct", rejectProduct);
 
 //export all routes
 module.exports = router;

@@ -146,7 +146,7 @@ export function AdminLandingPage() {
 
           <div className="card mb-4">
             <header className="card-header">
-              <h4>Users</h4>
+              <h4>Accepted Users</h4>
               <select
                 onChange={(e) => setUserRole(e.target.value)}
                 style={{

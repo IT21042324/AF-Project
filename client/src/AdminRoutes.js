@@ -19,15 +19,18 @@ export function AdminRoutes() {
         <>
           <AdminSideMenu />
           <Routes>
+            {/* Entrepreneurship related pages */}
             <Route path="/" element={<AdminLandingPage />} />
             <Route path="/products" element={<ProductListPage />} />
-            <Route path="/addEvent" element={<AddEvent />} />
-            <Route path="/editEvent" element={<EditInfo />} />
             <Route path="/userRequest" element={<UserRequestNotification />} />
             <Route
               path="/productRequest"
               element={<ProductRequestNotification />}
             />
+
+            {/* Cultural Events related pages */}
+            <Route path="/addEvent" element={<AddEvent />} />
+            <Route path="/editEvent" element={<EditInfo />} />
           </Routes>
         </>
       ) : (
