@@ -30,8 +30,9 @@ export const ProductMapper = () => {
         {products
           .filter(
             (dat) =>
-              dat.productName.toLowerCase().includes(search.toLowerCase()) ||
-              dat.userName.toLowerCase().includes(search.toLowerCase())
+              (dat.productName.toLowerCase().includes(search.toLowerCase()) ||
+                dat.userName.toLowerCase().includes(search.toLowerCase())) &&
+              dat.isApprovedByAdmin === "Approved"
           )
           .map((dat) => (
             <div

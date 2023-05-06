@@ -1,10 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import { ProductPage } from "./pages/entrepreneur/ProductPage";
+import { ProductListPage } from "./pages/admin/ProductListPage";
 import { UseUserContext } from "./hooks/useUserContext";
 import { AdminLandingPage } from "./pages/admin/AdminLandingPage";
 import { Navigate } from "react-router-dom";
 import { AdminSideMenu } from "./components/AdminSideMenu";
-import { ProductRequestPage } from "./pages/admin/ProductRequestPage";
+import { UserRequestNotification } from "./pages/admin/UserRequestNotification";
 
 export function AdminRoutes() {
   const { getUser } = UseUserContext();
@@ -17,7 +17,8 @@ export function AdminRoutes() {
           <AdminSideMenu />
           <Routes>
             <Route path="/" element={<AdminLandingPage />} />
-            <Route path="/productRequest" element={<ProductRequestPage />} />
+            <Route path="/products" element={<ProductListPage />} />
+            <Route path="/userRequest" element={<UserRequestNotification />} />
           </Routes>
         </>
       ) : (

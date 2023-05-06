@@ -4,33 +4,42 @@ const validator = require("validator");
 
 const bcrypt = require("bcryptjs");
 
-const userSchema = new Schema({
-  userName: {
-    type: String,
-    required: true,
+const userSchema = new Schema(
+  {
+    userName: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    contact: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
+    role: {
+      type: String,
+      required: true,
+    },
+    bio: String,
+    userIsApprovedByAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    userIsRejectedByAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    rejectionReason: String,
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  contact: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
-  role: {
-    type: String,
-    required: true,
-  },
-  bio: String,
-  userIsApprovedByAdmin: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-});
+  { timestamps: true }
+);
 
 //Creating User schema functions
 userSchema.statics.signup = async function (

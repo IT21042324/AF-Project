@@ -1,19 +1,26 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faPerson, faCubes } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faTrash,
+  faHeart,
+  faPerson,
+  faPlus,
+  faCubes,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
+import moment from "moment";
 
 import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
 import { UseUserContext } from "../../hooks/useUserContext";
 import { UseProductContext } from "../../hooks/useProductContext";
 
-export const Notification = () => {
+export function ProductListPage() {
   //Accessing necessary variables from the hooks
   const { products, dispatch } = UseProductContext();
-  const { getUser, logoutUser } = UseUserContext();
+  const { logoutUser } = UseUserContext();
 
   //getting the user
-  const user = getUser();
 
   // Define a state variable to track merchant's login status
   const [mechantIsLoggedIn, setMerchantIsLoggedIn] = useState(true);
@@ -31,14 +38,16 @@ export const Notification = () => {
     }
   }, [mechantIsLoggedIn]);
 
-  const { markAsRead } = UseBackendAPI();
+  const { removeProductDetails } = UseBackendAPI();
 
-  const setNotifcationAsRead = async (e, productID) => {
+  const removeProduct = async (e, itemID) => {
     e.preventDefault();
 
-    const data = await markAsRead({ productID, role: user.role });
+    const data = await removeProductDetails(itemID);
 
-    if (data) dispatch({ type: "UpdateProduct", payload: data });
+    if (data) {
+      dispatch({ type: "RemoveProduct", payload: data._id });
+    }
   };
 
   // Define a function to logout the user
@@ -60,7 +69,9 @@ export const Notification = () => {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <div>
-              <h2>Notifications</h2>
+              <h2 style={{ float: "left" }}>Product Details</h2>
+              <br />
+              <p style={{ float: "left" }}>View All Products From Here</p>
             </div>
             <div>
               <input
@@ -116,15 +127,19 @@ export const Notification = () => {
 
           <div className="card mb-4">
             <header className="card-header">
-              <h4>All Notifications</h4>
+              <h4>Product Requests</h4>
             </header>
-
             <div className="card-body">
               <div className="table-responsive">
                 <table className="table table-hover">
                   <thead>
                     <tr>
-                      <th scope="col">Message</th>
+                      <th scope="col">Product ID</th>
+                      <th scope="col">Image</th>
+                      <th scope="col">Posted By</th>
+                      <th scope="col">Price</th>
+                      <th scope="col">Item Posted</th>
+                      <th scope="col">Last Modified</th>
                       <th scope="col" className="text-center">
                         Action
                       </th>
@@ -132,54 +147,41 @@ export const Notification = () => {
                   </thead>
                   <tbody>
                     {product
-                      .filter((itm) => itm.userID === user._id)
+                      .filter((itm) => itm.isApprovedByAdmin)
                       .map((data) => {
                         return (
-                          <>
-                            {data.discussion.map((discussion) => {
-                              return (
-                                <>
-                                  {discussion.sender === "User" && (
-                                    <tr key={discussion.time}>
-                                      <td>You have a new notification from</td>
-                                    </tr>
-                                  )}
-                                </>
-                              );
-                            })}
-
-                            <tr key={data._id}>
-                              <td>
-                                Your Product, <b>{data.productName}</b>
-                                {data.isApprovedByAdmin === "Approved"
-                                  ? ` has been approved by admin`
-                                  : data.isApprovedByAdmin === "Rejected"
-                                  ? ` has been rejected`
-                                  : ` is awaiting admin approval`}
-                              </td>
-                              <td>
-                                <div
+                          <tr key={data._id}>
+                            <td scope="col">{data._id.slice(-4)}</td>
+                            <td>
+                              <img
+                                src={data.image}
+                                style={{ height: "50px", width: "50px" }}
+                              />
+                            </td>
+                            <td>{data.userName}</td>
+                            <td>Rs. {data.price.toFixed(2)}</td>
+                            <td>{moment(data.createdAt).fromNow()}</td>
+                            <td>{moment(data.updatedAt).fromNow()}</td>
+                            <td>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "space-around",
+                                }}
+                              >
+                                <button
+                                  title="Delete Item"
                                   style={{
-                                    display: "flex",
-                                    justifyContent: "space-around",
+                                    border: "none",
+                                    background: "none",
                                   }}
+                                  onClick={(e) => removeProduct(e, data._id)}
                                 >
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-sm"
-                                    disabled={data.markAsReadUser}
-                                    onClick={(e) =>
-                                      setNotifcationAsRead(e, data._id)
-                                    }
-                                  >
-                                    {data.markAsReadUser
-                                      ? "Seen"
-                                      : "Mark As Read"}
-                                  </button>
-                                </div>
-                              </td>
-                            </tr>
-                          </>
+                                  <FontAwesomeIcon icon={faTrash} />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
                         );
                       })}
                   </tbody>
@@ -193,4 +195,4 @@ export const Notification = () => {
       )}
     </section>
   );
-};
+}
