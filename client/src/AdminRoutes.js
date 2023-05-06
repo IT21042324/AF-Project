@@ -19,7 +19,7 @@ export function AdminRoutes() {
           <AdminSideMenu />
           <Routes>
             <Route path="/" element={<AdminLandingPage />} />
-            <Route path="/products" element={<ProductListPage />} />S
+            <Route path="/products" element={<ProductListPage />} />
             <Route path="/addEvent" element={<AddEvent />} />
             <Route path="/editEvent" element={<EditInfo />} />
             <Route path="/userRequest" element={<UserRequestNotification />} />
