@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
 import { SideMenu } from "./components/SideMenu";
-import {AccLandingPage} from "./pages/accommodations/HotelLandingPage"
+import {AccLandingPage} from "./pages/accommodations/HotelLandingPage";
+import {HotelList} from "./pages/accommodations/HotelList"
+import { Hotel } from "./pages/accommodations/Hotel"
 
 export function AccommodationRoutes() {
 
@@ -11,6 +13,9 @@ export function AccommodationRoutes() {
           <NavBar />
           <Routes>
             <Route path="/" element={<AccLandingPage/>} />
+            <Route path="/hotels" element={<HotelList/>} />
+            <Route path="/hotels/:id" element={<Hotel/>} />
+
           </Routes>
         </>
     </div>

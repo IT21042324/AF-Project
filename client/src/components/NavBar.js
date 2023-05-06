@@ -22,7 +22,7 @@ export function NavBar(props) {
       expand="lg"
       bg="dark"
       variant="dark"
-      style={{ marginBottom: "10vh" }}
+      style={{ marginBottom: "5vh" }}
     >
       <Container>
         <LinkContainer to="/" onClick={(e) => setIsSellerPage(false)}>
