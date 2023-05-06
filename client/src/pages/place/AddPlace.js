@@ -66,13 +66,13 @@ export function AddPlace() {  //ImageUpload
 
   return (
     <>
-      <table style={{marginLeft:"auto", marginRight:"auto", marginTop:"5%"}}>
+      <table style={{marginLeft:"35%", marginRight:"auto", marginTop:"5%"}}>
         <tr>
           <td>
             <div>
               <br></br>
               <form onSubmit={sendData}>
-              <h3 style={{fontFamily: "cursive"}}>Add New Place</h3>
+              <h3 style={{fontFamily: "cursive", color:"green"}}>Add New Place</h3>
               <br></br>
                 <div className="mb-3">
                   <label for="placeName">Place Name</label>
