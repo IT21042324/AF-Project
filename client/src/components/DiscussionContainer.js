@@ -1,35 +1,42 @@
 import { useRef } from "react";
 import { UseUserContext } from "../hooks/useUserContext";
+import { UseProductContext } from "../hooks/useProductContext";
 import { UseBackendAPI } from "../backendAPI/useBackendAPI";
 import moment from "moment";
 
 export function DiscussionContainer(props) {
   const { getUser } = UseUserContext();
   const user = getUser();
-  const message = useRef();
 
+  const message = useRef();
   const productID = props.productID;
   const userName = props.userName;
   const userID = props.userID;
   const sender = props.sender;
 
   const { sendMessage } = UseBackendAPI();
+  const { dispatch } = UseProductContext();
+
+  const array = props.discussionArray.filter((dat) => {
+    return dat.chatWithName === userName;
+  });
 
   const sendMessageHandler = async (e) => {
     e.preventDefault();
 
-    await sendMessage({
+    const data = await sendMessage({
       productID,
       message: message.current.value,
       chatWithName: userName,
       chatWith: userID,
       sender: sender,
     });
-  };
 
-  const array = props.discussionArray.filter((dat) => {
-    return dat.chatWithName === userName;
-  });
+    if (data) {
+      message.current.value = "";
+      dispatch({ type: "UpdateProduct", payload: data });
+    }
+  };
 
   return (
     <div style={{ width: "100%" }}>

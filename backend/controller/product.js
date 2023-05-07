@@ -268,6 +268,18 @@ const rejectProduct = async (req, res) => {
   }
 };
 
+const increaseLikeCounter = async (req, res) => {
+  try {
+    const data = await productModel.findByIdAndUpdate(req.params.id, {
+      likes: req.body.userID,
+    });
+    res.send(200).json(data);
+  } catch (err) {
+    console.log(err.message);
+    res.send(500).json(err.message);
+  }
+};
+
 module.exports = {
   postProduct,
   addReview,
@@ -285,4 +297,5 @@ module.exports = {
   markAsRead,
   approveProduct,
   rejectProduct,
+  increaseLikeCounter,
 };

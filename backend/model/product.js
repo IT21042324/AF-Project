@@ -46,8 +46,8 @@ const productSchema = new Schema(
       default: [],
     },
     likes: {
-      type: Number,
-      default: 0,
+      type: Array,
+      default: [],
     },
     isApprovedByAdmin: {
       type: String,

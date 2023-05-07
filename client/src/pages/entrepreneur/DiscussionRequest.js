@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
-import { UseUserContext } from "../../hooks/useUserContext";
 import { Link } from "react-router-dom";
 import { UseProductContext } from "../../hooks/useProductContext";
 import { EntrepreneurDashBoard } from "./EntrepreneurDashBoard";
@@ -8,7 +7,7 @@ import { DiscussionContainer } from "../../components/DiscussionContainer";
 
 export const DiscussionRequest = () => {
   //Accessing necessary variables from the hooks
-  const { products, dispatch } = UseProductContext();
+  const { products } = UseProductContext();
   const [product, setProduct] = useState([]);
 
   useEffect(() => {

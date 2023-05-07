@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faPerson, faCubes } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
-
+import { UseProductContext } from "../../hooks/useProductContext";
 import { UseUserContext } from "../../hooks/useUserContext";
 
 export const EntrepreneurDashBoard = () => {
@@ -10,21 +10,61 @@ export const EntrepreneurDashBoard = () => {
 
   const [mechantIsLoggedIn, setMerchantIsLoggedIn] = useState(true);
 
-  // Use useEffect to logout user if merchantIsLoggedIn state changes
   useEffect(() => {
     if (!mechantIsLoggedIn) {
-      // Call the logoutUser function from the context
       logoutUser();
     }
   }, [mechantIsLoggedIn]);
 
   const logoutFunction = () => {
-    // Set merchantIsLoggedIn state to false
     setMerchantIsLoggedIn(false);
-
-    // Show an alert to confirm the logout
     alert("Logged Out");
   };
+
+  const { products } = UseProductContext();
+
+  const [productCount, setProductCount] = useState(0);
+  const [approvedProductCount, setApprovedProductCount] = useState(0);
+  const [partiesCount, setPartiesCount] = useState(0);
+
+  useEffect(() => {
+    setProductCount(products.length);
+
+    const approvedProduct = products.filter((prod) => prod.isApprovedByAdmin);
+    setApprovedProductCount(approvedProduct.length);
+
+    const discussionsByUser = products
+      .flatMap((product) =>
+        product.discussion.map((discussion) => ({
+          ...discussion,
+          productId: product._id,
+        }))
+      )
+      .reduce((acc, discussion) => {
+        const existingUser = acc.find(
+          (user) => user.chatWith === discussion.chatWith
+        );
+        if (existingUser) {
+          existingUser.messages.push(discussion);
+        } else {
+          acc.push({
+            chatWith: discussion.chatWith,
+            chatWithName: discussion.chatWithName,
+            sender: discussion.sender,
+            messages: [discussion],
+            productId: discussion.productId,
+          });
+        }
+        return acc;
+      }, [])
+      .map((user) => ({
+        ...user,
+        messages: user.messages.sort((a, b) => a.time - b.time),
+      }));
+
+    setPartiesCount(discussionsByUser.length);
+  }, []);
+
   return (
     <div>
       {mechantIsLoggedIn ? (
@@ -54,8 +94,8 @@ export const EntrepreneurDashBoard = () => {
                     <FontAwesomeIcon icon={faHeart} />
                   </span>
                   <div className="text">
-                    <h6 className="mb-1 card-title">Impressions</h6>
-                    <span>0</span>
+                    <h6 className="mb-1 card-title">Approved Product Count</h6>
+                    <span>{approvedProductCount}</span>
                   </div>
                 </article>
               </div>
@@ -68,7 +108,7 @@ export const EntrepreneurDashBoard = () => {
                   </span>
                   <div className="text">
                     <h6 className="mb-1 card-title">Interested Parties</h6>
-                    <span>0</span>
+                    <span>{partiesCount}</span>
                   </div>
                 </article>
               </div>
@@ -81,7 +121,7 @@ export const EntrepreneurDashBoard = () => {
                   </span>
                   <div className="text">
                     <h6 className="mb-1 card-title">Total Products</h6>
-                    <span>0</span>
+                    <span>{productCount}</span>
                   </div>
                 </article>
               </div>

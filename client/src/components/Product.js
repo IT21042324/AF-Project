@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExpand, faRankingStar } from "@fortawesome/free-solid-svg-icons";
+import { faExpand } from "@fortawesome/free-solid-svg-icons";
 import { DiscussionContainer } from "./DiscussionContainer";
 import { UseUserContext } from "../hooks/useUserContext";
 
@@ -32,19 +32,15 @@ export function Product(props) {
           <h5>{props.details.productName}</h5>
           <span>{props.details.userName}</span>
           <h4>Rs. {props.details.price}</h4>
-          <div>
-            {props.details.quantity ? (
-              <>
-                <button
-                  title="View Product"
-                  onClick={(e) => {
-                    handleViewProductClick();
-                  }}
-                >
-                  <FontAwesomeIcon icon={faExpand} />
-                </button>
-              </>
-            ) : null}
+          <div style={{ display: "felx", justifyContent: "space-evenly" }}>
+            <button
+              title="View Product"
+              onClick={(e) => {
+                handleViewProductClick();
+              }}
+            >
+              <FontAwesomeIcon icon={faExpand} />
+            </button>
           </div>
         </div>
       </div>
