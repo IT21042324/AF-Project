@@ -1,43 +1,32 @@
 import { useState, useEffect } from "react";
 import { UseUserContext } from "../hooks/useUserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faDollarSign,
-  faTruck,
-  faUserGroup,
-} from "@fortawesome/free-solid-svg-icons";
+import { faTruck, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 import { Navigate } from "react-router-dom";
+import { UseProductContext } from "../hooks/useProductContext";
 import { UseUserListContext } from "../hooks/useUserListContext";
 
 export const AdminDashBoardDetails = () => {
-  const content = { som: [] };
-
-  const { dashBoardDetails } = content;
-  const dashDetails = dashBoardDetails;
-  const userListDispatch = UseUserListContext().dispatch;
-
   const { logoutUser } = UseUserContext();
-  const userList = UseUserListContext().content;
+  const userList = UseUserListContext().content.users;
+  const { products } = UseProductContext();
 
   // Define a state variable to track admin's login status
   const [adminIsLoggedIn, setAdminIsLoggedIn] = useState(true);
 
-  const [amount, setAmount] = useState(0);
+  const [approvedUserCount, setApprovedUserCount] = useState(0);
   const [userCount, setUserCount] = useState(0);
-  const [userRole, setUserRole] = useState("");
-  const [users, setUsers] = useState([]);
+  const [productsOnDisplayCount, setProductsOnDisplayCount] = useState(0);
 
-  //setting the dashboard details
   useEffect(() => {
-    // setOrderCount(dashDetails.orderCount);
-    setAmount(0);
+    setUserCount(userList.length);
+    setApprovedUserCount(
+      userList.filter((rec) => rec.userIsApprovedByAdmin).length
+    );
+    setProductsOnDisplayCount(
+      products.filter((prod) => prod.productIsApprovedByAdmin).length
+    );
   }, []);
-
-  //setting the users details
-  useEffect(() => {
-    setUsers(userList.users);
-    setUserCount(users.length);
-  }, [userList.users]);
 
   // Use useEffect to logout user if adminIsLoggedIn state changes
   useEffect(() => {
@@ -96,10 +85,11 @@ export const AdminDashBoardDetails = () => {
               <div className="card card-body mb-3">
                 <article className="icontext">
                   <span className="icon icon-sm rounded-circle bg-primary-light">
-                    <FontAwesomeIcon icon={faDollarSign} />
+                    <FontAwesomeIcon icon={faUserGroup} />
                   </span>
                   <div className="text">
-                    <h6 className="mb-1 card-title">User</h6>0
+                    <h6 className="mb-1 card-title">User Requests</h6>
+                    <span>{userCount}</span>
                   </div>
                 </article>
               </div>
@@ -112,8 +102,8 @@ export const AdminDashBoardDetails = () => {
                     <FontAwesomeIcon icon={faTruck} />
                   </span>
                   <div className="text">
-                    <h6 className="mb-1 card-title">Some Data</h6>
-                    <span>0</span>
+                    <h6 className="mb-1 card-title">Products on Display</h6>
+                    <span>{productsOnDisplayCount}</span>
                   </div>
                 </article>
               </div>
@@ -125,8 +115,8 @@ export const AdminDashBoardDetails = () => {
                     <FontAwesomeIcon icon={faUserGroup} />
                   </span>
                   <div className="text">
-                    <h6 className="mb-2 card-title">Some Data</h6>{" "}
-                    <span>Some value</span>
+                    <h6 className="mb-1 card-title">Approved Users</h6>
+                    <span>{approvedUserCount}</span>
                   </div>
                 </article>
               </div>
