@@ -191,7 +191,6 @@ export function EntrepreneurLandingPage() {
                       <th scope="col">Image</th>
                       <th scope="col">Product Name</th>
                       <th scope="col">Price</th>
-                      <th scope="col">Discussions</th>
                       <th scope="col" className="text-center">
                         Action
                       </th>
@@ -216,14 +215,9 @@ export function EntrepreneurLandingPage() {
                             <td>{data.productName}</td>
                             <td>Rs. {data.price.toFixed(2)}</td>
                             <td>
-                              {data.isApprovedByAdmin === "Pending" ? (
-                                "Product Awaiting Admin Approval"
-                              ) : data.isApprovedByAdmin === "Approved" &&
-                                data.discussion.length !== 0 ? (
-                                <Link>View Discussions</Link>
-                              ) : (
-                                "No Discussion Threads found for this product"
-                              )}
+                              {data.isApprovedByAdmin === "Pending"
+                                ? "Product Awaiting Admin Approval"
+                                : "Product Approved"}
                             </td>
                             <td>
                               <div

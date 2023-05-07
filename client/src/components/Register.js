@@ -39,7 +39,7 @@ export function Register() {
 
     accountType === "Entrepreneur"
       ? (bioValue = bio.current.value)
-      : (bioValue = " ");
+      : (bioValue = "None");
 
     const signupData = {
       userName: userName.current.value,
@@ -146,8 +146,8 @@ export function Register() {
                 onChange={(e) => setAccountType(e.target.value)}
               >
                 <option value="">Choose Account Type..</option>
-                <option value="User (For Event Booking & Accomodations">
-                  User
+                <option value="User">
+                  User (For Event Bookings, Accomodations and viewings)
                 </option>
                 <option value="Entrepreneur">Entrepreneur</option>
               </select>

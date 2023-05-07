@@ -3,16 +3,17 @@ import { UseUserContext } from "../hooks/useUserContext";
 import { SendEmail } from "../components/SendEmail";
 import { useNavigate } from "react-router-dom";
 import { UseProductContext } from "../hooks/useProductContext";
-import { useEffect, useState } from "react";
+import { EmailJSKeyWords } from "../pages/entrepreneur/EmailJSKeyWords";
 
 export const UseBackendAPI = () => {
   const { dispatch, setUser, getUser } = UseUserContext();
+  const user = getUser();
 
   const productDispatch = UseProductContext().dispatch;
 
-  const user = getUser();
-
   const navigate = useNavigate();
+
+  const { main_message, message } = EmailJSKeyWords();
 
   return {
     login: async function (userDetails) {
@@ -53,18 +54,28 @@ export const UseBackendAPI = () => {
           userDetails
         );
 
-        //To store in localstorage
-
         if (info.status == 200) {
-          setUser(info.data);
-          dispatch({ type: "SetUser", payload: [info.data] });
+          SendEmail({ user_name: userDetails.userName, main_message, message });
 
-          if (!info.data.err) alert("Account Created Successfully");
-          else alert(info.data.err);
+          if (info.data) {
+            if (info.data.userIsApprovedByAdmin || info.data.role === "User") {
+              setUser(info.data);
+              dispatch({ type: "SetUser", payload: [info.data] });
 
-          if (info.data.role === "Entrepreneur") navigate("/entrepreneurship");
-          else if (info.data.role === "User") navigate("/");
-          else if (info.data.role === "Admin") navigate("/admin");
+              if (!info.data.err) alert("Account Created Successfully");
+              else alert(info.data.err);
+
+              if (info.data.role === "Entrepreneur")
+                navigate("/entrepreneurship");
+              else if (info.data.role === "User") navigate("/");
+              else if (info.data.role === "Admin") navigate("/admin");
+            } else {
+              alert(
+                "Your account has been created Successfully. We will try to reach you through email regarding your account confirmation"
+              );
+              navigate("/");
+            }
+          }
         } else {
           alert(info.data.err);
         }
@@ -324,6 +335,31 @@ export const UseBackendAPI = () => {
 
         if (info.status == 200) {
           alert("Product Request Rejected");
+          return info.data;
+        } else
+          alert(
+            "There seems to be an error. Your Request cannot be fulfilled at the moment"
+          );
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    sendMessage: async function (details) {
+      try {
+        const info = await axios.patch(
+          "http://localhost:8070/api/protected/products/discussion/addOrUpdateDiscussion/",
+          details,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+
+        if (info.status == 200) {
+          alert("Message Recorded");
+
           return info.data;
         } else
           alert(

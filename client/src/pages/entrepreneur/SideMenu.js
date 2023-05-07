@@ -1,4 +1,9 @@
-import { faDashboard, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faDashboard,
+  faBell,
+  faUser,
+  faGift,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
@@ -45,13 +50,54 @@ export function SideMenu(props) {
         </div>
 
         <div className="li">
-          <Link
-            to={"/entrepreneurship/notifications"}
-            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
-          >
-            <FontAwesomeIcon icon={faBell} />
-            &nbsp;&nbsp; Notifications
-          </Link>
+          <details>
+            <summary
+              style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+            >
+              <FontAwesomeIcon icon={faBell} />
+              &nbsp;&nbsp; Notifications
+            </summary>
+            <ul style={{ listStyleType: "none", paddingLeft: 20 }}>
+              <li>
+                <Link
+                  to={"/entrepreneurship/notifications"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                    display: "block",
+                    padding: "0.5em 1em",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faUser} />
+                  &nbsp;&nbsp; Product Requests
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/entrepreneurship/messages"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                    display: "block",
+                    padding: "0.5em 1em",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faGift} />
+                  &nbsp;&nbsp; Discussions
+                </Link>
+              </li>
+            </ul>
+          </details>
         </div>
       </div>
     </section>

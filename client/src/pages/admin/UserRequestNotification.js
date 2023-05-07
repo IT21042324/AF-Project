@@ -246,7 +246,7 @@ export function UserRequestNotification() {
                                   title="Accept User Request"
                                   onClick={(e) => acceptRequest(e, usr._id)}
                                 >
-                                  Accept User
+                                  Accept
                                 </button>
                                 &nbsp;&nbsp;&nbsp;
                                 <button
@@ -259,7 +259,7 @@ export function UserRequestNotification() {
                                     setShowPopup(true);
                                   }}
                                 >
-                                  Reject User
+                                  Reject
                                 </button>
                               </div>
                             ) : usr.userIsRejectedByAdmin &&

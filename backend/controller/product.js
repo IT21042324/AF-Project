@@ -141,11 +141,12 @@ const addOrUpdateDiscussionThread = async (req, res) => {
     });
     const data = await productModel.updateOne(
       { _id: productID },
-      { discussion: product.discussion }
+      { discussion: product.discussion },
+      { new: true }
     );
-    res.json(data);
+    res.status(200).json(data);
   } catch (err) {
-    res.json(err.message);
+    res.status(500).json(err.message);
   }
 };
 
