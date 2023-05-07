@@ -26,7 +26,7 @@ export const UseBackendAPI = () => {
         console.log(info);
 
         if (info.status == 200) {
-          if (info.data.userIsApprovedByAdmin) {
+          if (info.data.userIsApprovedByAdmin || info.data.role === "User") {
             async function configureUser() {
               localStorage.setItem("user", JSON.stringify(info.data));
               dispatch({ type: "SetUser", payload: [info.data] });
