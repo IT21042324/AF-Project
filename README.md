@@ -22,7 +22,7 @@ The application should now be accessible at `http://localhost:3000`.
 
 # Group Members
 
-it21042324@my.sliit.lk - Reezan S.A
-it21014536@my.sliit.lk - Wijerathne L.G.A.T.D
-it21016752@my.sliit.lk - Sangkavi S.V
-it21149412@my.sliit.lk - Wijesundara W.M.K.H
+1. it21042324@my.sliit.lk - Reezan S.A
+2. it21014536@my.sliit.lk - Wijerathne L.G.A.T.D
+3. it21016752@my.sliit.lk - Sangkavi S.V
+4. it21149412@my.sliit.lk - Wijesundara W.M.K.H
