@@ -89,7 +89,7 @@ export const AdminDashBoardDetails = () => {
                   </span>
                   <div className="text">
                     <h6 className="mb-1 card-title">User Requests</h6>
-                    <span>{userCount}</span>
+                    <span>{userCount - 1}</span>
                   </div>
                 </article>
               </div>
@@ -116,7 +116,7 @@ export const AdminDashBoardDetails = () => {
                   </span>
                   <div className="text">
                     <h6 className="mb-1 card-title">Approved Users</h6>
-                    <span>{approvedUserCount}</span>
+                    <span>{approvedUserCount - 1}</span>
                   </div>
                 </article>
               </div>

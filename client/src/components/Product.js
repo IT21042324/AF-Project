@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExpand } from "@fortawesome/free-solid-svg-icons";
+import { faMessage } from "@fortawesome/free-solid-svg-icons";
 import { DiscussionContainer } from "./DiscussionContainer";
 import { UseUserContext } from "../hooks/useUserContext";
 
@@ -39,7 +39,7 @@ export function Product(props) {
                 handleViewProductClick();
               }}
             >
-              <FontAwesomeIcon icon={faExpand} />
+              <FontAwesomeIcon icon={faMessage} />
             </button>
           </div>
         </div>
@@ -63,7 +63,7 @@ export function Product(props) {
               {props.details.description}
             </p>
             <h3>Discussion</h3>
-            {user.role === "User" ? (
+            {user?.role === "User" ? (
               <div>
                 <DiscussionContainer
                   discussionArray={props.details.discussion}

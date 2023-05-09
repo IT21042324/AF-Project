@@ -7,12 +7,12 @@ import { DiscussionContainer } from "../../components/DiscussionContainer";
 
 export const DiscussionRequest = () => {
   //Accessing necessary variables from the hooks
-  const { products } = UseProductContext();
-  const [product, setProduct] = useState([]);
+  const product = UseProductContext().products;
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    setProduct(products);
-  }, [products]);
+    setProducts(product);
+  }, [product]);
 
   // Define a state variable to track merchant's login status
   const [productDiscussion, setProductDiscussion] = useState([]);
@@ -50,6 +50,8 @@ export const DiscussionRequest = () => {
     setProductDiscussion(discussionsByUser);
   }, [products]);
 
+  console.log(productDiscussion);
+
   const [showPopup, setShowPopup] = useState(false);
   const [productForPopUp, setProductForPopUp] = useState({});
   const [userNameToGetData, setUserNameToGetData] = useState("");
@@ -86,7 +88,9 @@ export const DiscussionRequest = () => {
                 <thead>
                   <tr>
                     <th scope="col">User Name</th>
+                    <th scope="col">Product ID</th>
                     <th scope="col">Thread Length</th>
+
                     <th scope="col" className="text-center">
                       Action
                     </th>
@@ -98,7 +102,16 @@ export const DiscussionRequest = () => {
                       <>
                         <tr key={data.time}>
                           <td>{data.chatWithName}</td>
-                          <td>{data.messages.length} Messages</td>
+                          <td>pid{data.productId.slice(-4)}</td>
+
+                          <td>
+                            {
+                              data.messages.filter(
+                                (rec) => rec.productId === data.productId
+                              ).length
+                            }{" "}
+                            Messages
+                          </td>
                           <td>
                             <Link
                               onClick={(e) => {
