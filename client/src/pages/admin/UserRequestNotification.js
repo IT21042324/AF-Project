@@ -18,10 +18,10 @@ export function UserRequestNotification() {
 
   const { acceptUserRequest, rejectUserRequest } = UseBackendAPI();
 
-  const acceptRequest = async (e, userID) => {
+  const acceptRequest = async (e, userID, userName) => {
     e.preventDefault();
 
-    const data = await acceptUserRequest(userID);
+    const data = await acceptUserRequest(userID, userName);
 
     if (data) {
       userListDispatch({ type: "ApproveUser", payload: { _id: data._id } });
@@ -43,6 +43,7 @@ export function UserRequestNotification() {
 
     const data = await rejectUserRequest({
       userID: rejectionUserID,
+      userName: rejectionUserName,
       rejectionReason: rejectionReason.current.value,
     });
 
@@ -126,7 +127,9 @@ export function UserRequestNotification() {
                               type="button"
                               class="btn btn-outline-success btn-sm"
                               title="Accept User Request"
-                              onClick={(e) => acceptRequest(e, usr._id)}
+                              onClick={(e) =>
+                                acceptRequest(e, usr._id, usr.userName)
+                              }
                             >
                               Accept
                             </button>

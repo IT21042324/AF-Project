@@ -13,7 +13,12 @@ export const UseBackendAPI = () => {
 
   const navigate = useNavigate();
 
-  const { main_message, message } = EmailJSKeyWords();
+  const {
+    user_registered_message,
+    message,
+    user_accepted_message,
+    user_rejected_message,
+  } = EmailJSKeyWords();
 
   return {
     login: async function (userDetails) {
@@ -55,7 +60,11 @@ export const UseBackendAPI = () => {
         );
 
         if (info.status == 200) {
-          SendEmail({ user_name: userDetails.userName, main_message, message });
+          SendEmail({
+            user_name: userDetails.userName,
+            main_message: user_registered_message,
+            message,
+          });
 
           if (info.data) {
             if (info.data.userIsApprovedByAdmin || info.data.role === "User") {
@@ -148,7 +157,7 @@ export const UseBackendAPI = () => {
       }
     },
 
-    acceptUserRequest: async function (userID) {
+    acceptUserRequest: async function (userID, userName) {
       try {
         const info = await axios.patch(
           "http://localhost:8070/api/users/approveUser/" + userID
@@ -156,6 +165,11 @@ export const UseBackendAPI = () => {
 
         if (info.status == 200) {
           alert("User Request Accepted Successfully");
+          SendEmail({
+            user_name: userName,
+            main_message: user_accepted_message,
+            message,
+          });
           return info.data;
         } else
           alert(
@@ -175,6 +189,11 @@ export const UseBackendAPI = () => {
 
         if (info.status == 200) {
           alert("User Request Rejected");
+          SendEmail({
+            user_name: details.userName,
+            main_message: user_rejected_message,
+            message: `Reason For Rejection : ${details.rejectionReason}`,
+          });
           return info.data;
         } else
           alert(

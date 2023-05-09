@@ -1,18 +1,27 @@
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
 import { NavBar } from "./components/NavBar";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { DisplayPlaces } from "./pages/place/DisplayPlaces";
+import { UseUserContext } from "./hooks/useUserContext";
 
 export const BaseRoutes = () => {
+  const { getUser } = UseUserContext();
+  const user = getUser();
   return (
     <div className="App">
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<DisplayPlaces />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-      </Routes>
+      {user?.role === "Entrepreneur" ? (
+        <Navigate to="/entrepreneurship" />
+      ) : (
+        <div>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<DisplayPlaces />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </div>
+      )}
     </div>
   );
 };
