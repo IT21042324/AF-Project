@@ -79,7 +79,6 @@ export const EntrepreneurDashBoard = (props) => {
           >
             <div>
               <h2>{props.title}</h2>
-              <br />
               <p
                 style={{
                   color: "black",
