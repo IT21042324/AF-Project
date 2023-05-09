@@ -30,7 +30,10 @@ export function AdminLandingPage() {
 
   return (
     <section className="main-dashboard">
-      <AdminDashBoardDetails />
+      <AdminDashBoardDetails
+        title={"Manage Users"}
+        subTitle={"Manage All Heavenly Users from Here"}
+      />
       <div className="card mb-4">
         <header className="card-header">
           <h4>Accepted Users</h4>

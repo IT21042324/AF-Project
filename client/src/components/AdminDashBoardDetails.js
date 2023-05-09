@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 import { UseProductContext } from "../hooks/useProductContext";
 import { UseUserListContext } from "../hooks/useUserListContext";
 
-export const AdminDashBoardDetails = () => {
+export const AdminDashBoardDetails = (props) => {
   const { logoutUser } = UseUserContext();
   const userList = UseUserListContext().content.users;
   const { products } = UseProductContext();
@@ -58,7 +58,7 @@ export const AdminDashBoardDetails = () => {
                   float: "left",
                 }}
               >
-                Product Notifications
+                {props.title}
               </h2>
               <br />
               <p
@@ -67,7 +67,7 @@ export const AdminDashBoardDetails = () => {
                   float: "left",
                 }}
               >
-                Add/Reject Product Requests From Here..
+                {props.subTitle}
               </p>
             </div>
             <div>

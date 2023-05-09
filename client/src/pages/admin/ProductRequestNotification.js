@@ -49,7 +49,10 @@ export function ProductRequestNotification() {
 
   return (
     <section className="main-dashboard">
-      <AdminDashBoardDetails />
+      <AdminDashBoardDetails
+        title={"Product Request Notifications"}
+        subTitle={"Handle All New Product Requests from here"}
+      />
       <>
         <div className="card mb-4">
           <header className="card-header">

@@ -5,7 +5,7 @@ import { Navigate } from "react-router-dom";
 import { UseProductContext } from "../../hooks/useProductContext";
 import { UseUserContext } from "../../hooks/useUserContext";
 
-export const EntrepreneurDashBoard = () => {
+export const EntrepreneurDashBoard = (props) => {
   const { logoutUser } = UseUserContext();
 
   const [mechantIsLoggedIn, setMerchantIsLoggedIn] = useState(true);
@@ -78,7 +78,16 @@ export const EntrepreneurDashBoard = () => {
             style={{ display: "flex", justifyContent: "space-between" }}
           >
             <div>
-              <h2>Notifications</h2>
+              <h2>{props.title}</h2>
+              <br />
+              <p
+                style={{
+                  color: "black",
+                  float: "left",
+                }}
+              >
+                {props.subTitle}
+              </p>
             </div>
             <div>
               <input

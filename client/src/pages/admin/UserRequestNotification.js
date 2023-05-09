@@ -55,7 +55,10 @@ export function UserRequestNotification() {
 
   return (
     <section className="main-dashboard">
-      <AdminDashBoardDetails />
+      <AdminDashBoardDetails
+        title={"User Request Notifications"}
+        subTitle={"Handle All New User Requests from here"}
+      />
       <div className="card mb-4">
         <header className="card-header">
           <h4>Users Requests</h4>

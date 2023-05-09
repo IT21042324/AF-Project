@@ -85,7 +85,10 @@ export function EntrepreneurLandingPage() {
   return (
     <section className="main-wrap">
       {/* If the merchant is logged in, display the dashboard */}
-      <EntrepreneurDashBoard />
+      <EntrepreneurDashBoard
+        title={"Approved Products"}
+        subTitle={"Checkout All Your Approved Products From Here"}
+      />
 
       <div className="card mb-4">
         <header className="card-header">

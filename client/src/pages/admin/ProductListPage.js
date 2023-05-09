@@ -32,7 +32,10 @@ export function ProductListPage() {
 
   return (
     <section className="main-wrap">
-      <AdminDashBoardDetails />
+      <AdminDashBoardDetails
+        title={"Manage Products"}
+        subTitle={"Manage All Display Products from Here"}
+      />
       <div className="card mb-4">
         <header className="card-header">
           <h4>Product Requests</h4>

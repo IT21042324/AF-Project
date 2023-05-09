@@ -75,7 +75,10 @@ export const DiscussionRequest = () => {
   return (
     <section className="main-wrap">
       <>
-        <EntrepreneurDashBoard />
+        <EntrepreneurDashBoard
+          title={"Product Discussions"}
+          subTitle={"See Who Are Interested In Reaching Out To You"}
+        />
 
         <div className="card mb-4">
           <header className="card-header">

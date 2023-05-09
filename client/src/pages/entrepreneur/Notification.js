@@ -31,8 +31,10 @@ export const Notification = () => {
   return (
     <section className="main-wrap">
       {/* If the merchant is logged in, display the dashboard */}
-      <EntrepreneurDashBoard />
-
+      <EntrepreneurDashBoard
+        title={"Product Notifications"}
+        subTitle={"Checkout The Status Of Your Uploaded Products From Here"}
+      />
       <div className="card mb-4">
         <header className="card-header">
           <h4>All Notifications</h4>
