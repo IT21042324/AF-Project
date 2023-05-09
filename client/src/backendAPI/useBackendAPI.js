@@ -18,8 +18,12 @@ export const UseBackendAPI = () => {
     message,
     user_accepted_message,
     user_rejected_message,
+    user_rejected_by_admin_title,
+    user_accepted_by_admin_title,
+    account_registered_title,
   } = EmailJSKeyWords();
 
+  console.log(user_accepted_message);
   return {
     login: async function (userDetails) {
       try {
@@ -64,6 +68,7 @@ export const UseBackendAPI = () => {
             user_name: userDetails.userName,
             main_message: user_registered_message,
             message,
+            title: account_registered_title,
           });
 
           if (info.data) {
@@ -166,6 +171,7 @@ export const UseBackendAPI = () => {
         if (info.status == 200) {
           alert("User Request Accepted Successfully");
           SendEmail({
+            title: user_accepted_by_admin_title,
             user_name: userName,
             main_message: user_accepted_message,
             message,
@@ -190,6 +196,7 @@ export const UseBackendAPI = () => {
         if (info.status == 200) {
           alert("User Request Rejected");
           SendEmail({
+            title: user_rejected_by_admin_title,
             user_name: details.userName,
             main_message: user_rejected_message,
             message: `Reason For Rejection : ${details.rejectionReason}`,
