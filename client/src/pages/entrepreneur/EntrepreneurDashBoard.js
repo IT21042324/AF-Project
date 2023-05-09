@@ -21,23 +21,27 @@ export const EntrepreneurDashBoard = () => {
     alert("Logged Out");
   };
 
-  const { products } = UseProductContext();
+  const product = UseProductContext().products;
 
   const [productCount, setProductCount] = useState(0);
   const [approvedProductCount, setApprovedProductCount] = useState(0);
   const [partiesCount, setPartiesCount] = useState(0);
 
-  useEffect(() => {
-    setProductCount(products.length);
+  const [products, setProducts] = useState([]);
 
-    const approvedProduct = products.filter((prod) => prod.isApprovedByAdmin);
+  useEffect(() => {
+    setProducts(product);
+
+    setProductCount(product.length);
+
+    const approvedProduct = product.filter((prod) => prod.isApprovedByAdmin);
     setApprovedProductCount(approvedProduct.length);
 
-    const discussionsByUser = products
-      .flatMap((product) =>
-        product.discussion.map((discussion) => ({
+    const discussionsByUser = product
+      .flatMap((prod) =>
+        prod.discussion.map((discussion) => ({
           ...discussion,
-          productId: product._id,
+          productId: prod._id,
         }))
       )
       .reduce((acc, discussion) => {
@@ -94,7 +98,7 @@ export const EntrepreneurDashBoard = () => {
                     <FontAwesomeIcon icon={faHeart} />
                   </span>
                   <div className="text">
-                    <h6 className="mb-1 card-title">Approved Product Count</h6>
+                    <h6 className="mb-1 card-title">Approved Products</h6>
                     <span>{approvedProductCount}</span>
                   </div>
                 </article>
