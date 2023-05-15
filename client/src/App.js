@@ -7,7 +7,6 @@ import { PlaceRoutes } from "./PlaceRoutes";
 import { CulturalEventsRoutes } from "./CulturalEventRoutes";
 import { AdminRoutes } from "./AdminRoutes";
 
-
 function App() {
   return (
     <div className="App">

@@ -3,6 +3,8 @@ import axios from "axios";
 import '../../styles/place.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import cover from '../../assets/PlaceCoverPic.jpg'
+import '../../styles/place.css'
 
 export function DisplayPlaces() {
 
@@ -12,6 +14,8 @@ export function DisplayPlaces() {
     const [searchResults, setSearchResults] = useState([]);
     const [placeName, setPlaceName] = useState("");
     const [placeDescription, setPlaceDescription] = useState("");
+    const [noResults, setNoResults] = useState('')
+    const [errorDisplay, setErrorDisplay] = useState('none')
 
     //function to display all the items
     useEffect(() => {
@@ -25,14 +29,24 @@ export function DisplayPlaces() {
         getPlaces();
     }, [])
 
-    //Search items
+    //Search places
     const searchPlaces = async (e) => {
 
         e.preventDefault()
 
         axios.get(`http://localhost:8070/api/place/search/${searchTerm}`).then((res) => {
             setSearchResults(res.data)
+            if (res.data.length < 1) {
+                setNoResults('No Results Found')
+                setErrorDisplay('block')
+            } else {
+                setNoResults('')
+                setErrorDisplay('none')
+            }
         }).catch((err) => {
+            setNoResults('')
+            setErrorDisplay('none')
+            setSearchResults([])
             console.log(err)
         })
     };
@@ -102,17 +116,36 @@ export function DisplayPlaces() {
 
     return (
         <>
+
+            <div className='place-header' style={{ display: 'flex', width: '100%', height: '300px', overflow: 'hidden', textAlign: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <img src={cover} style={{ display: 'flex', width: '100%', filter: 'brightness(50%)' }} />
+                <div style={{ position: 'absolute', color: 'white', fontSize: '128px', textAlign: 'center' }}>
+                    <span>
+                        HEAVENLY
+                    </span>
+                    <div style={{ color: 'white', fontSize: '48px', textAlign: 'center', textTransform: 'uppercase' }}>
+                        Explore the Beauty of Sri Lanka
+                    </div>
+                </div>
+
+            </div>
+            <br />
+
+            {/* Search bar */}
             <form style={{ backgroundColor: "transparent", border: "0", marginLeft: "20px", margintop: "0", padding: "0" }} role="search" onSubmit={searchPlaces}>
                 <input className="form-control me-2" type="search" placeholder="Search Places" aria-label="Search" style={{ width: "20%" }}
                     onChange={(e) => {
                         setSearchTerm(e.target.value)
                     }} />
             </form>
+            <br></br>
 
             {/* Displaying search items */}
 
             < div class="container text-center" >
-
+                <div style={{ color: "red", backgroundColor: "rgba(255,0,0,0.2)", padding: "10px 0", border: "1px solid #ff0000", borderRadius: "5px", display: errorDisplay }}>
+                    {noResults}
+                </div>
                 <div class="row">
 
                     {searchResults.map((place) => (
@@ -136,7 +169,6 @@ export function DisplayPlaces() {
 
             {/* Display all items */}
             < div class="container text-center" >
-                <h3 style={{ fontFamily: "cursive", color: "green"}}>TOURIST PLACES</h3>
                 <br></br>
                 <div class="row">
                     {places.map(place => (
@@ -197,7 +229,7 @@ export function DisplayPlaces() {
                             <tr>
                                 <td>
                                     <div className="mb-3">
-                                        <h3>{placeName}</h3>
+                                        <h3 style={{color:'green'}}>{placeName}</h3>
                                         <p style={{ textAlign: "left" }}>{placeDescription}</p>
                                     </div>
                                 </td>

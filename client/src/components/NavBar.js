@@ -19,7 +19,7 @@ export function NavBar(props) {
       expand="lg"
       bg="dark"
       variant="dark"
-      style={{ marginBottom: "4vh" }}
+      style={{ marginBottom: "0vh" }}
 
     >
       <Container>

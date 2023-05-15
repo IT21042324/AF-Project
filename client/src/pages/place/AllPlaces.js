@@ -83,8 +83,16 @@ export function AllPlaces() {
       });
   }
 
+  
   //delete place function
   function deletePlace(id) {
+    
+    //Getting confirmation for delete 
+    const confirmDel = window.confirm("Are your sure to this place details?");
+    if(confirmDel != true) {
+      return
+    }
+    
     axios
       .delete("http://localhost:8070/api/protectedPlace/delete/" + id)
       .then((res) => {
@@ -243,7 +251,7 @@ export function AllPlaces() {
               <table>
                 <tr>
                   <td>
-                    <h3 style={{ fontFamily: "cursive" }}>Update Place</h3>
+                    <h3 style={{ fontFamily: "cursive", color:'green'}}>Update Place</h3>
                     <br></br>
                     <div className="mb-3">
                       <label for="placeID">Place ID</label>
