@@ -154,7 +154,7 @@ function convertToBase64(e) {
 
   return (
     <>
-      <div className="container shadow rounded">
+      <div className="hotelContainer">
 
         <h2>Hotels</h2>
         <button className="btn btn-primary" onClick={handlenew}> Add New Hotel </button>

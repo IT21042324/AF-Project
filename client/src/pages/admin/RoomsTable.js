@@ -112,7 +112,7 @@ export function EditRoom() {
 
   return (
     <>
-      <div className="container shadow rounded">
+      <div className="hotelContainer">
 
         <h2>Rooms</h2>
         <button className="btn btn-primary" onClick={handlenew}> Add New Room </button>
