@@ -12,16 +12,15 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-  <SearchContextProvider>
-      <UserContextProvider>
-        <UserListContextProvider>
-          <ProductContextProvider>
-            <App />
-          </ProductContextProvider>
-        </UserListContextProvider>
-      </UserContextProvider>
-  </SearchContextProvider>
-
+      <SearchContextProvider>
+        <UserContextProvider>
+          <UserListContextProvider>
+            <ProductContextProvider>
+              <App />
+            </ProductContextProvider>
+          </UserListContextProvider>
+        </UserContextProvider>
+      </SearchContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

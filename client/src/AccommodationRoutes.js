@@ -8,15 +8,14 @@ import { Hotel } from "./pages/accommodations/Hotel"
 export function AccommodationRoutes() {
   return (
     <div className="App">
-        <>
-          <NavBar />
-          <Routes>
-            <Route path="/" element={<AccLandingPage/>} />
-            <Route path="/hotels" element={<HotelList/>} />
-            <Route path="/hotels/:id" element={<Hotel/>} />
-
-          </Routes>
-        </>
+      <>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<AccLandingPage />} />
+          <Route path="/hotels" element={<HotelList />} />
+          <Route path="/hotels/:id" element={<Hotel />} />
+        </Routes>
+      </>
     </div>
   );
 }

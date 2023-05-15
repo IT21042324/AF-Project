@@ -20,6 +20,7 @@ export const ProductMapper = () => {
   return (
     <div>
       <SearchBar functionSearch={getSearchValue} />
+      <br /> <br />
       <div
         style={{
           display: "flex",

@@ -141,11 +141,12 @@ const addOrUpdateDiscussionThread = async (req, res) => {
     });
     const data = await productModel.updateOne(
       { _id: productID },
-      { discussion: product.discussion }
+      { discussion: product.discussion },
+      { new: true }
     );
-    res.json(data);
+    res.status(200).json(data);
   } catch (err) {
-    res.json(err.message);
+    res.status(500).json(err.message);
   }
 };
 
@@ -227,6 +228,58 @@ const markAsRead = async (req, res) => {
   }
 };
 
+const approveProduct = async (req, res) => {
+  try {
+    const data = await productModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        productIsApprovedByAdmin: true,
+        productIsRejectedByAdmin: false,
+        isApprovedByAdmin: "Approved",
+      },
+      { new: true }
+    );
+
+    console.log(data);
+    res.status(200).send(data);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send(err.message);
+  }
+};
+
+const rejectProduct = async (req, res) => {
+  try {
+    const { productID, rejectionReason } = req.body;
+
+    const data = await productModel.findByIdAndUpdate(
+      productID,
+      {
+        productIsRejectedByAdmin: true,
+        rejectionReason,
+        productIsApprovedByAdmin: false,
+      },
+      { new: true }
+    );
+
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
+const increaseLikeCounter = async (req, res) => {
+  try {
+    const data = await productModel.findByIdAndUpdate(req.params.id, {
+      likes: req.body.userID,
+    });
+    res.send(200).json(data);
+  } catch (err) {
+    console.log(err.message);
+    res.send(500).json(err.message);
+  }
+};
+
 module.exports = {
   postProduct,
   addReview,
@@ -242,4 +295,7 @@ module.exports = {
   incrementLikeCounter,
   decrementLikeCounter,
   markAsRead,
+  approveProduct,
+  rejectProduct,
+  increaseLikeCounter,
 };

@@ -7,10 +7,10 @@ import {
   faTrash,
   faGift,
   faBox,
+  faGlobe
   faHouse,
   faBed,
   faHotel,
-
 
 
 } from "@fortawesome/free-solid-svg-icons";
@@ -110,6 +110,16 @@ export function AdminSideMenu(props) {
           </details>
         </div>
 
+        <div className="li">
+          <Link
+            to={"/admin/adminPlace"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            <FontAwesomeIcon icon={faGlobe} />
+            &nbsp;&nbsp; Tourist Places
+          </Link>
+        </div>
+         
         <div className="li">
           <Link
             to={"/admin/addEvent"}

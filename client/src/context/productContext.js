@@ -13,6 +13,32 @@ export const ProductContextProvider = (props) => {
       case "CreateProduct":
         return { products: [action.payload, ...state.products] };
 
+      case "ApproveProduct":
+        return {
+          products: state.products.map((product) =>
+            product._id === action.payload._id
+              ? {
+                  ...product,
+                  productIsApprovedByAdmin: true,
+                  productIsRejectedByAdmin: false,
+                }
+              : product
+          ),
+        };
+
+      case "RejectProduct":
+        return {
+          products: state.products.map((product) =>
+            product._id === action.payload._id
+              ? {
+                  ...product,
+                  productIsApprovedByAdmin: false,
+                  productIsRejectedByAdmin: true,
+                }
+              : product
+          ),
+        };
+
       case "UpdateProduct":
         return {
           ...state,
