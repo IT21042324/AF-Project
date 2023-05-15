@@ -5,6 +5,7 @@ const {
   updateRoom,
   deleteRoom,
   getOneRoom,
+  updateRoomAvailability
 } = require("../controller/room");
 
 //create new room
@@ -15,6 +16,7 @@ router.get("/", getAllRooms);
 
 //update room details
 router.put("/update/:id", updateRoom);
+router.put("/availability/:id", updateRoomAvailability);
 
 //delete room from the system
 router.delete("/delete/:id/:hotelID", deleteRoom);

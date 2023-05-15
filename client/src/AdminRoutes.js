@@ -8,6 +8,10 @@ import { UserRequestNotification } from "./pages/admin/UserRequestNotification";
 import { AddEvent } from "./pages/admin/addEvent";
 import EditInfo from "./pages/admin/editEvent";
 import { ProductRequestNotification } from "./pages/admin/ProductRequestNotification";
+import {EditHotel} from "./pages/admin/HotelsTable";
+import {AddHotelForm} from "./pages/admin/AddHotel";
+import {NewRoom} from "./pages/admin/NewRoom";
+import { EditRoom } from "./pages/admin/RoomsTable";
 
 export function AdminRoutes() {
   const { getUser } = UseUserContext();
@@ -28,6 +32,10 @@ export function AdminRoutes() {
               path="/productRequest"
               element={<ProductRequestNotification />}
             />
+            <Route path="/hotels" element={<EditHotel />} />
+            <Route path="/addHotel" element={<AddHotelForm />} />
+            <Route path="/rooms" element={<EditRoom />} />
+            <Route path="/addRoom" element={<NewRoom />} />
           </Routes>
         </>
       ) : (

@@ -7,6 +7,7 @@ const {
   getOneHotel,
   countByCity,
   countByType,
+  getHotelRooms,
 } = require("../controller/hotel");
 
 //adding a new hotel
@@ -27,5 +28,6 @@ router.get("/get/:id", getOneHotel);
 //get hotels by type
 router.get("/countByCity", countByCity);
 router.get("/countByType", countByType);
+router.get("/room/:id", getHotelRooms);
 
 module.exports = router;
