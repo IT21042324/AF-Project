@@ -9,7 +9,7 @@ const login = async (userName, password) => {
   if (!user) {
     console.log("User Name doesn't exist");
     throw Error("User Name doesn't exist");
-  } else console.log("user found:", user);
+  } else console.log("user found");
 
   const match = await bcrypt.compare(password, user.password); //returns true or false
 
