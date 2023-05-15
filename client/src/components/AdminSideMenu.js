@@ -7,7 +7,7 @@ import {
   faTrash,
   faGift,
   faBox,
-  faGlobe
+  faGlobe,
   faHouse,
   faBed,
   faHotel,
