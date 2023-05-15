@@ -8,6 +8,11 @@ import {
   faGift,
   faBox,
   faGlobe
+  faHouse,
+  faBed,
+  faHotel,
+
+
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -135,6 +140,58 @@ export function AdminSideMenu(props) {
             <FontAwesomeIcon icon={faTrash} />
             &nbsp;&nbsp; Edit/Delete event
           </Link>
+        </div>
+
+        <div className="li">
+          <details>
+            <summary
+              style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+            >
+              <FontAwesomeIcon icon={faHouse} />
+              &nbsp;&nbsp; Accommodations
+            </summary>
+            <ul style={{ listStyleType: "none", paddingLeft: 20 }}>
+              <li>
+                <Link
+                  to={"/admin/hotels"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                    display: "block",
+                    padding: "0.5em 1em",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faHotel} />
+                  &nbsp;&nbsp; Hotels
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/admin/rooms"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                    display: "block",
+                    padding: "0.5em 1em",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faBed} />
+                  &nbsp;&nbsp; Rooms
+                </Link>
+              </li>
+            </ul>
+          </details>
+        
         </div>
       </div>
     </section>

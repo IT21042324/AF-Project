@@ -30,13 +30,14 @@ const Reserve = ({ setOpen, hotelId }) => {
   };
 
   const alldates = getDatesInRange(dates[0].startDate, dates[0].endDate);
+  console.log(alldates);
 
   const isAvailable = (roomNumber) => {
     const isFound = roomNumber.unavailableDates.some((date) =>
       alldates.includes(new Date(date).getTime())
     );
 
-    return !isFound;
+    return !isFound; 
   };
 
   const handleSelect = (e) => {
@@ -55,14 +56,15 @@ const Reserve = ({ setOpen, hotelId }) => {
     try {
       await Promise.all(
         selectedRooms.map((roomId) => {
-          const res = axios.put(`/rooms/availability/${roomId}`, {
+          const res = axios.put(`http://localhost:8070/api/rooms/availability/${roomId}`, {
             dates: alldates,
           });
           return res.data;
         })
       );
       setOpen(false);
-      navigate("/");
+      alert("Congratulations! you Have successfully placed your booking!!");
+      navigate("/Accommodations");
     } catch (err) {}
   };
   return (
