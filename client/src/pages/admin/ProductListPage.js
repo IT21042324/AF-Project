@@ -88,7 +88,10 @@ export function ProductListPage() {
                               }}
                               onClick={(e) => removeProduct(e, data._id)}
                             >
-                              <FontAwesomeIcon icon={faTrash} />
+                              <FontAwesomeIcon
+                                icon={faTrash}
+                                style={{ color: "red" }}
+                              />
                             </button>
                           </div>
                         </td>
