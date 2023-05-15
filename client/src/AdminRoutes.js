@@ -8,7 +8,7 @@ import { UserRequestNotification } from "./pages/admin/UserRequestNotification";
 import { AddEvent } from "./pages/admin/addEvent";
 import EditInfo from "./pages/admin/editEvent";
 import { ProductRequestNotification } from "./pages/admin/ProductRequestNotification";
-import { AddPlace } from './pages/place/AddPlace'
+import { AddPlace } from "./pages/place/AddPlace";
 import { AllPlaces } from "./pages/place/AllPlaces";
 import { AdminMainPage } from "./pages/place/AdminMainPage";
 
@@ -22,15 +22,18 @@ export function AdminRoutes() {
         <>
           <AdminSideMenu />
           <Routes>
+            {/* Entrepreneurship related pages */}
             <Route path="/" element={<AdminLandingPage />} />
             <Route path="/products" element={<ProductListPage />} />
-            <Route path="/addEvent" element={<AddEvent />} />
-            <Route path="/editEvent" element={<EditInfo />} />
             <Route path="/userRequest" element={<UserRequestNotification />} />
             <Route
               path="/productRequest"
               element={<ProductRequestNotification />}
             />
+
+            {/* Cultural Events related pages */}
+            <Route path="/addEvent" element={<AddEvent />} />
+            <Route path="/editEvent" element={<EditInfo />} />
             {/* Place Routes */}
             <Route path="/adminPlace" element={<AdminMainPage />} />
             <Route path="/addPlace" element={<AddPlace />} />

@@ -54,9 +54,9 @@ userSchema.statics.signup = async function (
   if (!validator.isEmail(userName)) throw Error("Email is invalid");
 
   //Check if the user exists and throw an error if he does.
-  const exist = await this.find({ userName });
+  const exist = await this.findOne({ userName });
 
-  if (exist.userName) throw Error("Email is already in use");
+  if (exist) throw Error("Email is already in use");
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);

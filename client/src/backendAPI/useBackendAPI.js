@@ -3,61 +3,99 @@ import { UseUserContext } from "../hooks/useUserContext";
 import { SendEmail } from "../components/SendEmail";
 import { useNavigate } from "react-router-dom";
 import { UseProductContext } from "../hooks/useProductContext";
+import { EmailJSKeyWords } from "../pages/entrepreneur/EmailJSKeyWords";
 
 export const UseBackendAPI = () => {
-  const { dispatch, setUser, getUser, user1 } = UseUserContext();
+  const { dispatch, setUser, getUser } = UseUserContext();
+  const user = getUser();
 
   const productDispatch = UseProductContext().dispatch;
 
-  const user = getUser();
   const navigate = useNavigate();
 
+  const {
+    user_registered_message,
+    message,
+    user_accepted_message,
+    user_rejected_message,
+    user_rejected_by_admin_title,
+    user_accepted_by_admin_title,
+    account_registered_title,
+  } = EmailJSKeyWords();
+
+  console.log(user_accepted_message);
   return {
     login: async function (userDetails) {
       try {
-        const { data } = await axios.post(
+        const info = await axios.post(
           "http://localhost:8070/api/users/login/",
           userDetails
         );
 
-        if (data.role) {
-          async function configureUser() {
-            localStorage.setItem("user", JSON.stringify(data));
-            dispatch({ type: "SetUser", payload: [data] });
-          }
-          await configureUser();
+        console.log(info);
 
-          if (user?.role === "User") navigate("/");
-          else if (user.role === "Entrepreneur") navigate("/entrepreneurship");
-          else if (user?.role === "Admin") navigate("/admin");
-          else alert(data.err);
+        if (info.status == 200) {
+          if (info.data.userIsApprovedByAdmin || info.data.role === "User") {
+            async function configureUser() {
+              localStorage.setItem("user", JSON.stringify(info.data));
+              dispatch({ type: "SetUser", payload: [info.data] });
+            }
+            await configureUser();
+
+            if (user?.role === "User") navigate("/");
+            else if (user.role === "Entrepreneur")
+              navigate("/entrepreneurship");
+            else if (user?.role === "Admin") navigate("/admin");
+          } else
+            alert("Your Account is under review. Check your email for updates");
+        } else {
+          alert(info.data.err);
         }
       } catch (err) {
-        console.log(err);
-        alert(err.response.data.err);
-        return err.response.data.err;
+        const errMsg = err.response.data.err;
+        alert(errMsg);
       }
     },
     registerUser: async function (userDetails) {
       try {
-        const { data } = await axios.post(
+        const info = await axios.post(
           "http://localhost:8070/api/users/signup/",
           userDetails
         );
 
-        //To store in localstorage
-        setUser(data);
-        dispatch({ type: "SetUser", payload: [data] });
+        if (info.status == 200) {
+          SendEmail({
+            user_name: userDetails.userName,
+            main_message: user_registered_message,
+            message,
+            title: account_registered_title,
+          });
 
-        if (!data.err) alert("Account Created Successfully");
-        else alert(data.err);
+          if (info.data) {
+            if (info.data.userIsApprovedByAdmin || info.data.role === "User") {
+              setUser(info.data);
+              dispatch({ type: "SetUser", payload: [info.data] });
 
-        if (data.role === "Entrepreneur") navigate("/entrepreneuship/product");
-        else if (data.role === "User") navigate("/");
-        else if (data.role === "Admin") navigate("/admin");
+              if (!info.data.err) alert("Account Created Successfully");
+              else alert(info.data.err);
+
+              if (info.data.role === "Entrepreneur")
+                navigate("/entrepreneurship");
+              else if (info.data.role === "User") navigate("/");
+              else if (info.data.role === "Admin") navigate("/admin");
+            } else {
+              alert(
+                "Your account has been created Successfully. We will try to reach you through email regarding your account confirmation"
+              );
+              navigate("/");
+            }
+          }
+        } else {
+          alert(info.data.err);
+        }
       } catch (err) {
-        alert("Ooops.. There seems to be an error. Try again later");
-        console.log(err);
+        const errMsg = err.response.data.err;
+        alert(errMsg);
       }
     },
 
@@ -124,7 +162,7 @@ export const UseBackendAPI = () => {
       }
     },
 
-    acceptUserRequest: async function (userID) {
+    acceptUserRequest: async function (userID, userName) {
       try {
         const info = await axios.patch(
           "http://localhost:8070/api/users/approveUser/" + userID
@@ -132,6 +170,12 @@ export const UseBackendAPI = () => {
 
         if (info.status == 200) {
           alert("User Request Accepted Successfully");
+          SendEmail({
+            title: user_accepted_by_admin_title,
+            user_name: userName,
+            main_message: user_accepted_message,
+            message,
+          });
           return info.data;
         } else
           alert(
@@ -151,6 +195,12 @@ export const UseBackendAPI = () => {
 
         if (info.status == 200) {
           alert("User Request Rejected");
+          SendEmail({
+            title: user_rejected_by_admin_title,
+            user_name: details.userName,
+            main_message: user_rejected_message,
+            message: `Reason For Rejection : ${details.rejectionReason}`,
+          });
           return info.data;
         } else
           alert(
@@ -223,10 +273,10 @@ export const UseBackendAPI = () => {
         const info = await axios.delete(
           "http://localhost:8070/api/protected/products/deleteProduct/" +
             itemID,
+          {},
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
-              role: user.role,
             },
           }
         );
@@ -253,7 +303,6 @@ export const UseBackendAPI = () => {
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
-              role: user.role,
             },
           }
         );
@@ -268,6 +317,83 @@ export const UseBackendAPI = () => {
         alert(
           "There seems to be an error. Product cannot be removed at the moment"
         );
+      }
+    },
+
+    acceptProductRequest: async function (productID) {
+      try {
+        console.log(user);
+
+        const info = await axios.patch(
+          "http://localhost:8070/api/protected/products/approveProduct/" +
+            productID,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+
+        if (info.status == 200) {
+          alert("Product Request Accepted Successfully");
+
+          return info.data;
+        } else
+          alert(
+            "There seems to be an error. Your Request cannot be fulfilled at the moment"
+          );
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    rejectProductRequest: async function (details) {
+      try {
+        const info = await axios.patch(
+          "http://localhost:8070/api/protected/products/rejectProduct/",
+          details,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+
+        if (info.status == 200) {
+          alert("Product Request Rejected");
+          return info.data;
+        } else
+          alert(
+            "There seems to be an error. Your Request cannot be fulfilled at the moment"
+          );
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    sendMessage: async function (details) {
+      try {
+        const info = await axios.patch(
+          "http://localhost:8070/api/protected/products/discussion/addOrUpdateDiscussion/",
+          details,
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
+
+        if (info.status == 200) {
+          alert("Message Recorded");
+
+          return info.data;
+        } else
+          alert(
+            "There seems to be an error. Your Request cannot be fulfilled at the moment"
+          );
+      } catch (err) {
+        console.log(err);
       }
     },
   };

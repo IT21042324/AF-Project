@@ -22,11 +22,10 @@ const userLogin = async (req, res) => {
 
     // Send JWT and user data in response
 
-    console.log({ ...user.toObject(), token });
-    res.json({ ...user.toObject(), token });
+    res.status(200).json({ ...user.toObject(), token });
   } catch (err) {
     console.log(err.message);
-    res.json({ err: err.message });
+    res.status(500).json({ err: err.message });
   }
 };
 
@@ -49,10 +48,10 @@ const userSignUp = async function (req, res) {
     const token = createToken(user._id);
 
     // Send JWT and user data in response
-    res.json({ ...user.toObject(), token });
+    res.status(200).json({ ...user.toObject(), token });
   } catch (err) {
     console.log(err.message);
-    res.json({ err: err.message });
+    res.status(500).json({ err: err.message });
   }
 };
 
@@ -79,8 +78,6 @@ const updateUserProfile = async function (req, res) {
       { contact, image, bio },
       { new: true }
     );
-
-    console.log(user);
 
     // Send updated user data in response
     return res.status(200).json(user);

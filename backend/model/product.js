@@ -46,8 +46,8 @@ const productSchema = new Schema(
       default: [],
     },
     likes: {
-      type: Number,
-      default: 0,
+      type: Array,
+      default: [],
     },
     isApprovedByAdmin: {
       type: String,
@@ -61,6 +61,17 @@ const productSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    productIsApprovedByAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    productIsRejectedByAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    rejectionReason: String,
   },
   { timestamps: true }
 );
