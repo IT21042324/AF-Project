@@ -57,6 +57,7 @@ function EditInfo() {
                   src={event.url}
                   className="card-img-top"
                   alt={event.name}
+                  style={{ height: "300px" }}
                 />
               )}
               <div className="card-body">
@@ -87,28 +88,38 @@ function EditInfo() {
                   <strong>Ticket Availability:</strong>{" "}
                   {event.ticketAvailability}
                 </p>
-                <button
-                  className="btn btn-primary"
-                  disabled={event.ticketAvailability !== "available"}
-                  onClick={() => {
-                    if (event.ticketAvailability !== "available") {
-                      alert("Tickets are unavailable for this event.");
-                    } else {
-                      setSelectedEvent(event);
-                    }
+
+                <br />
+                <br />
+
+                <Link
+                  to={{
+                    pathname: `/cultural/BookEvent/${event._id}`,
+                    search: `?price=${event.price}&eventId=${event._id}&title=${event.name}`,
                   }}
+                  disabled={event.ticketAvailability !== "available"}
                 >
-                  <Link
-                    to={{
-                      pathname: `/cultural/BookEvent/${event._id}`,
-                      search: `?price=${event.price}&eventId=${event._id}&title=${event.name}`,
-                    }}
+                  <button
                     className="btn btn-primary"
                     disabled={event.ticketAvailability !== "available"}
+                    onClick={() => {
+                      if (event.ticketAvailability !== "available") {
+                        alert("Tickets are unavailable for this event.");
+                      } else {
+                        setSelectedEvent(event);
+                      }
+                    }}
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      marginBottom: "30px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                    }}
                   >
                     Book Now
-                  </Link>
-                </button>
+                  </button>
+                </Link>
                 {selectedEvent && (
                   <img
                     src={selectedEvent.url}
