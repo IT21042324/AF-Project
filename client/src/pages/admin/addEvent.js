@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
+import "./editevent.css";
 
 export function AddEvent() {
   const [name, setname] = useState("");

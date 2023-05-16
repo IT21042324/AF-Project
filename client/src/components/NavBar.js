@@ -57,10 +57,6 @@ export function NavBar(props) {
               <Nav.Link>Accomodations</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer to="/cultural/BookEvent">
-              <Nav.Link>Temporary Book event</Nav.Link>
-            </LinkContainer>
-
             <NavDropdown title="Drop-Down" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
 
