@@ -45,6 +45,7 @@ export function AdminLandingPage() {
               border: "1px solid #ccc",
               fontSize: "16px",
               fontFamily: "sans-serif",
+              width: "30%",
             }}
           >
             <option value="">--Please select a user role--</option>
