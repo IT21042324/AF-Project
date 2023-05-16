@@ -8,6 +8,7 @@ import { AddProductRequest } from "./pages/entrepreneur/AddProductRequest";
 import { Profile } from "./pages/entrepreneur/Profile";
 import { ChangeProfile } from "./pages/entrepreneur/ChangeProfile";
 import { Notification } from "./pages/entrepreneur/Notification";
+import { DiscussionRequest } from "./pages/entrepreneur/DiscussionRequest";
 
 export function EntrepreneurshipRoutes() {
   const { getUser } = UseUserContext();
@@ -24,6 +25,7 @@ export function EntrepreneurshipRoutes() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/edit-profile" element={<ChangeProfile />} />
             <Route path="/notifications" element={<Notification />} />
+            <Route path="/messages" element={<DiscussionRequest />} />
           </Routes>
         </>
       ) : (

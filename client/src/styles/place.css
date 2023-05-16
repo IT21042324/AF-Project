@@ -1,9 +1,11 @@
-.scroll-description{
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+
+.scroll-description {
     height: 210px;
     overflow-y: scroll;
 }
 
-.scroll-description-user{
+.scroll-description-user {
     height: 300px;
     overflow-y: scroll;
 }
@@ -17,7 +19,7 @@
     position: absolute;
 }
 
-.backdrop-black{
+.backdrop-black {
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.4);
@@ -29,9 +31,15 @@
     display: none;
 }
 
-/* .search-form{
-    background-Color:"transparent";
-    border:"0";
-    margin:"0";
-    padding:"0";
-} */
+.form-admin {
+    width: 450px;
+    margin: 20px auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 40px 60px;
+    box-shadow: 0px 0px 10px #000000;
+    color: white
+}
+
+.place-header {
+    font-family: 'Carter One', cursive;
+}

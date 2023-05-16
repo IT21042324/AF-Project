@@ -13,8 +13,53 @@ export const ProductContextProvider = (props) => {
       case "CreateProduct":
         return { products: [action.payload, ...state.products] };
 
+      case "ApproveProduct":
+        return {
+          products: state.products.map((product) =>
+            product._id === action.payload._id
+              ? {
+                  ...product,
+                  productIsApprovedByAdmin: true,
+                  productIsRejectedByAdmin: false,
+                }
+              : product
+          ),
+        };
+
+      case "RejectProduct":
+        return {
+          products: state.products.map((product) =>
+            product._id === action.payload._id
+              ? {
+                  ...product,
+                  productIsApprovedByAdmin: false,
+                  productIsRejectedByAdmin: true,
+                }
+              : product
+          ),
+        };
+
+      case "UpdateProduct":
+        return {
+          ...state,
+          products: state.products.map((product) => {
+            if (product._id === action.payload._id) {
+              return action.payload;
+            } else {
+              return product;
+            }
+          }),
+        };
+
       case "SetProducts":
         return { products: action.payload };
+
+      case "RemoveProduct":
+        return {
+          products: state.products.filter(
+            (product) => product._id !== action.payload
+          ),
+        };
 
       case "AddReview":
         //[{userID, userName, rating, review},...{}] what a review contains

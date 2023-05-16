@@ -4,33 +4,42 @@ const validator = require("validator");
 
 const bcrypt = require("bcryptjs");
 
-const userSchema = new Schema({
-  userName: {
-    type: String,
-    required: true,
+const userSchema = new Schema(
+  {
+    userName: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    contact: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
+    role: {
+      type: String,
+      required: true,
+    },
+    bio: String,
+    userIsApprovedByAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    userIsRejectedByAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    rejectionReason: String,
   },
-  password: {
-    type: String,
-    required: true,
-  },
-  contact: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-  },
-  role: {
-    type: String,
-    required: true,
-  },
-  bio: String,
-  userIsApprovedByAdmin: {
-    type: Boolean,
-    required: true,
-    default: false,
-  },
-});
+  { timestamps: true }
+);
 
 //Creating User schema functions
 userSchema.statics.signup = async function (
@@ -45,9 +54,9 @@ userSchema.statics.signup = async function (
   if (!validator.isEmail(userName)) throw Error("Email is invalid");
 
   //Check if the user exists and throw an error if he does.
-  const exist = await this.find({ userName });
+  const exist = await this.findOne({ userName });
 
-  if (exist.userName) throw Error("Email is already in use");
+  if (exist) throw Error("Email is already in use");
 
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);

@@ -20,6 +20,7 @@ export const ProductMapper = () => {
   return (
     <div>
       <SearchBar functionSearch={getSearchValue} />
+      <br /> <br />
       <div
         style={{
           display: "flex",
@@ -30,8 +31,9 @@ export const ProductMapper = () => {
         {products
           .filter(
             (dat) =>
-              dat.productName.toLowerCase().includes(search.toLowerCase()) ||
-              dat.userName.toLowerCase().includes(search.toLowerCase())
+              (dat.productName.toLowerCase().includes(search.toLowerCase()) ||
+                dat.userName.toLowerCase().includes(search.toLowerCase())) &&
+              dat.isApprovedByAdmin === "Approved"
           )
           .map((dat) => (
             <div

@@ -1,0 +1,124 @@
+.hotelContainer {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    margin-left: 380px;
+    width: 1150px;
+
+  }
+  
+  .table {
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 14px;
+    color: #212529;
+    max-width: 2000px;
+  }
+  
+  th {
+    background-color: #343a40;
+    color: #2a2929;
+  }
+  
+  td {
+    padding: 10px;
+    border: 1px solid #dee2e6;
+  }
+  
+  .shadow {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .rounded {
+    border-radius: 5px;
+  }
+  
+  .btn {
+    border-radius: 5px;
+    margin: 5px;
+  }
+  
+  .backdrop-black {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    height: 2200px;
+    margin-left: 1000px;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: none;
+    margin-left: 1300;
+
+  }
+  
+  .form-style3 {
+    max-width: 800px;
+    max-height: 1000px;
+    font-size: 16px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(10, 10, 10, 10);
+    margin-left: 500px;
+    margin-top: 1150px;
+    margin-bottom: 500px;
+  }
+  
+  .form-style3 label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-style3 input[type="text"],
+  .form-style3 select {
+    display: block;
+    width: 100%;
+    padding:1px;
+    margin-bottom: 3px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #555;
+  }
+  
+  .form-style3 input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 3px 5px;
+    margin-top: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+  }
+  
+  .form-style3 input[type="submit"]:hover {
+    background-color: #0069d9;
+  }
+  
+  .form-style3 button.btn-outline-danger {
+    margin-top: -10px;
+  }
+  
+  @media (max-width: 576px) {
+    .form-style3 {
+      max-width: 100%;
+      margin: 20px;
+      padding: 10px;
+    }
+  }
+
+  .formInput textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+    margin-bottom: 20px;
+  }
+  
+  

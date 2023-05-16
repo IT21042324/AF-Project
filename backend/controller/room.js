@@ -53,6 +53,22 @@ const updateRoom = async (req, res, next) => {
   }
 };
 
+//update the hotel available dates
+
+const updateRoomAvailability = async (req, res, next) => {
+  try{
+        await roomModel.updateOne({"roomNumbers._id": req.params.id}, {
+          $push: {
+            "roomNumbers.$.unavailableDates": req.body.dates
+          }
+        })
+        res.status(200).send({status: "Room Updated"});
+  }catch (err){
+    next(err);
+  }
+};
+
+
 //remove the hotel from the system
 
 const deleteRoom = async (req, res, next) => {
@@ -95,4 +111,5 @@ module.exports = {
   updateRoom,
   deleteRoom,
   getOneRoom,
+  updateRoomAvailability
 }

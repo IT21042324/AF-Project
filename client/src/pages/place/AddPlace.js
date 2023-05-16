@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import picture from "../../assets/placeMain.png";
+import { useNavigate } from 'react-router-dom';
 
 export function AddPlace() {  //ImageUpload
 
   const [placeName, setName] = useState("");
   const [placeDescription, setDescription] = useState("");
   const [placeImage, setImage] = useState("");
+
+  const navigate = useNavigate();
 
   //image
   const [loading, setLoading] = useState(false)
@@ -27,9 +30,40 @@ export function AddPlace() {  //ImageUpload
     });
   };
 
+
+  //form validation
+  function validateForm() {
+
+    //validation for place name
+    if (placeName.length < 3 || placeName.length > 30) {
+      alert("Place Name should be between 3 and 30 characters.");
+      return false;
+    }
+
+    //validation for place description
+    if (placeDescription.length < 25) {
+      alert("Place Description should be at least 25 characters.");
+      return false;
+    }
+
+    //validation for place image
+    if (!imageUrl) {
+      alert("Place Image should be uploaded.");
+      return false;
+    }
+
+    return true;
+  }
+
+
   //function for sending data
   function sendData(e) {
     e.preventDefault();
+
+    //calling validation function
+    if (!validateForm()) {
+      return;
+    }
 
     const newPlace = {
       placeName,
@@ -39,6 +73,7 @@ export function AddPlace() {  //ImageUpload
 
     axios.post("http://localhost:8070/api/protectedPlace/add", newPlace).then(() => {
       alert("Place added")
+      navigate('../allPlaces')
     }).catch((err) => {
       alert(err)
     })
@@ -66,13 +101,14 @@ export function AddPlace() {  //ImageUpload
 
   return (
     <>
+    <section className="main-dashboard">
       <table style={{marginLeft:"auto", marginRight:"auto", marginTop:"5%"}}>
         <tr>
           <td>
             <div>
               <br></br>
               <form onSubmit={sendData}>
-              <h3 style={{fontFamily: "cursive"}}>Add New Place</h3>
+              <h3 style={{fontFamily: "cursive", color:"green"}}>Add New Place</h3>
               <br></br>
                 <div className="mb-3">
                   <label for="placeName">Place Name</label>
@@ -83,10 +119,6 @@ export function AddPlace() {  //ImageUpload
                 </div>
                 <div className="mb-3">
                   <label for="placeDescription">Place Description</label>
-                  {/* <input type="text" class="form-control" id="placeDescription" placeholder="Enter Place Description"
-                    onChange={(e) => {
-                      setDescription(e.target.value);
-                    }} /> */}
                     <textarea style={{height: 150 }} class="form-control" id="placeDescription" placeholder="Enter Place Description"
                     onChange={(e) => {
                       setDescription(e.target.value);
@@ -110,6 +142,7 @@ export function AddPlace() {  //ImageUpload
           </td>
         </tr>
       </table>
+      </section>
     </>
   )
 }

@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import pic from "../assets/login.png";
-import { useEffect, useRef, useState } from "react";
-import { UseUserContext } from "../hooks/useUserContext";
+import { useRef, useState } from "react";
 import { UseBackendAPI } from "../backendAPI/useBackendAPI";
 
 export function Login(e) {
@@ -10,8 +9,6 @@ export function Login(e) {
   //Creating refs to hold values of login form values
   const userName = useRef(),
     password = useRef();
-
-  const [isAdmin, setIsAdmin] = useState(false);
 
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
@@ -34,9 +31,7 @@ export function Login(e) {
       >
         <div className="login-c">
           <form onSubmit={(e) => loginSubmitHandler(e)}>
-            <h3 className="text-center mb-4">
-              {isAdmin ? "Welcome Admin" : "Sign In"}
-            </h3>
+            <h3 className="text-center mb-4">User Login</h3>
             <div className="mb-3">
               <label>Username</label>
               <input
@@ -65,22 +60,11 @@ export function Login(e) {
                 value="Sign In"
               />
             </div>
-            {!isAdmin ? (
-              <>
-                <p className="forgot-password text-center">
-                  Don't have an account yet?
-                  <Link to={"/register"} onClick={(e) => {}}>
-                    Register Now
-                  </Link>
-                </p>
 
-                <p className="forgot-password text-center">
-                  <Link onClick={(e) => setIsAdmin(true)}>admin?</Link>
-                </p>
-              </>
-            ) : (
-              <Link onClick={(e) => setIsAdmin(false)}>user?</Link>
-            )}
+            <p className="forgot-password text-center">
+              Don't have an account yet?
+              <Link to={"/register"}>Register</Link>
+            </p>
           </form>
         </div>
         <div>

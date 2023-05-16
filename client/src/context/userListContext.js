@@ -18,6 +18,33 @@ export const UserListContextProvider = (props) => {
         return {
           users: state.users.filter((ord) => ord._id !== action.payload._id),
         };
+
+      case "ApproveUser":
+        return {
+          users: state.users.map((user) =>
+            user._id === action.payload._id
+              ? {
+                  ...user,
+                  userIsApprovedByAdmin: true,
+                  userIsRejectedByAdmin: false,
+                }
+              : user
+          ),
+        };
+
+      case "RejectUser":
+        return {
+          users: state.users.map((user) =>
+            user._id === action.payload._id
+              ? {
+                  ...user,
+                  userIsApprovedByAdmin: false,
+                  userIsRejectedByAdmin: true,
+                }
+              : user
+          ),
+        };
+
       default:
         return state;
     }

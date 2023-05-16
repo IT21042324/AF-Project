@@ -5,6 +5,14 @@ import {
   faPlus,
   faEdit,
   faTrash,
+  faGift,
+  faBox,
+  faGlobe,
+  faHouse,
+  faBed,
+  faHotel,
+
+
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -43,13 +51,75 @@ export function AdminSideMenu(props) {
 
         <div className="li">
           <Link
-            to={"/admin/productRequest"}
+            to={"/admin/products"}
             style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
           >
-            <FontAwesomeIcon icon={faUser} />
-            &nbsp;&nbsp; Product Requests
+            <FontAwesomeIcon icon={faBox} />
+            &nbsp;&nbsp; Products
           </Link>
         </div>
+
+        <div className="li">
+          <details>
+            <summary
+              style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+            >
+              <FontAwesomeIcon icon={faBell} />
+              &nbsp;&nbsp; Request Notifications
+            </summary>
+            <ul style={{ listStyleType: "none", paddingLeft: 20 }}>
+              <li>
+                <Link
+                  to={"/admin/userRequest"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                    display: "block",
+                    padding: "0.5em 1em",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faUser} />
+                  &nbsp;&nbsp; User Requests
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/admin/productRequest"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                    display: "block",
+                    padding: "0.5em 1em",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faGift} />
+                  &nbsp;&nbsp; Product Requests
+                </Link>
+              </li>
+            </ul>
+          </details>
+        </div>
+
+        <div className="li">
+          <Link
+            to={"/admin/adminPlace"}
+            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+          >
+            <FontAwesomeIcon icon={faGlobe} />
+            &nbsp;&nbsp; Tourist Places
+          </Link>
+        </div>
+         
         <div className="li">
           <Link
             to={"/admin/addEvent"}
@@ -59,6 +129,7 @@ export function AdminSideMenu(props) {
             &nbsp;&nbsp; Add an event
           </Link>
         </div>
+
         <div className="li">
           <Link
             to={"/admin/editEvent"}
@@ -69,6 +140,58 @@ export function AdminSideMenu(props) {
             <FontAwesomeIcon icon={faTrash} />
             &nbsp;&nbsp; Edit/Delete event
           </Link>
+        </div>
+
+        <div className="li">
+          <details>
+            <summary
+              style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+            >
+              <FontAwesomeIcon icon={faHouse} />
+              &nbsp;&nbsp; Accommodations
+            </summary>
+            <ul style={{ listStyleType: "none", paddingLeft: 20 }}>
+              <li>
+                <Link
+                  to={"/admin/hotels"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                    display: "block",
+                    padding: "0.5em 1em",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faHotel} />
+                  &nbsp;&nbsp; Hotels
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/admin/rooms"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                    display: "block",
+                    padding: "0.5em 1em",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faBed} />
+                  &nbsp;&nbsp; Rooms
+                </Link>
+              </li>
+            </ul>
+          </details>
+        
         </div>
       </div>
     </section>
