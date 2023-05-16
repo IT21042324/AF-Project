@@ -125,7 +125,7 @@ export function UserRequestNotification() {
                           <div>
                             <button
                               type="button"
-                              class="btn btn-outline-success btn-sm"
+                              className="btn btn-outline-success btn-sm"
                               title="Accept User Request"
                               onClick={(e) =>
                                 acceptRequest(e, usr._id, usr.userName)
@@ -136,7 +136,7 @@ export function UserRequestNotification() {
                             &nbsp;&nbsp;&nbsp;
                             <button
                               type="button"
-                              class="btn btn-outline-danger btn-sm"
+                              className="btn btn-outline-danger btn-sm"
                               title="Reject User Request"
                               onClick={(e) => {
                                 setRejectionFormUserName(usr.userName);

@@ -93,15 +93,15 @@ export function AddEvent() {
 
   return (
     <div className="container">
-      <div class="form-style">
+      <div className="form-style">
         <h2>Add new Event Information</h2>
         <br></br>
         <form onSubmit={sendData}>
-          <div class="form-group">
+          <div className="form-group">
             <label for="title">Title:</label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="title"
               placeholder="Enter event title"
               onChange={(e) => {
@@ -110,11 +110,11 @@ export function AddEvent() {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="description">Description:</label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="description"
               placeholder="colombo 03 "
               onChange={(e) => {
@@ -123,11 +123,11 @@ export function AddEvent() {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="province">Location:</label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="province"
               placeholder="Ex:Central"
               onChange={(e) => {
@@ -136,11 +136,11 @@ export function AddEvent() {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="price">Price:</label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="price"
               placeholder="Rs."
               onChange={(e) => {
@@ -153,11 +153,11 @@ export function AddEvent() {
             />
             {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="date">Date:</label>
             <input
               type="date"
-              class="form-control"
+              className="form-control"
               id="date"
               onChange={(e) => {
                 setDate(e.target.value);
@@ -165,10 +165,10 @@ export function AddEvent() {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="category">category:</label>
             <select
-              class="form-control"
+              className="form-control"
               id="category"
               onChange={(e) => {
                 setCategory(e.target.value);
@@ -183,11 +183,11 @@ export function AddEvent() {
               <option value="festival">Festival</option>
             </select>
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="organizerName">organizer Name:</label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="organizerName"
               placeholder="Ex:20000"
               onChange={(e) => {
@@ -196,11 +196,11 @@ export function AddEvent() {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="organizerContact">organizer Contact:</label>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               id="organizerContact"
               placeholder="Ex:20000"
               onChange={(e) => {
@@ -209,10 +209,10 @@ export function AddEvent() {
               required
             />
           </div>
-          <div class="form-group">
+          <div className="form-group">
             <label for="ticketAvailability">Ticket Availability:</label>
             <select
-              class="form-control"
+              className="form-control"
               id="ticketAvailability"
               onChange={(e) => setTicketAvailability(e.target.value)}
               required
@@ -226,7 +226,7 @@ export function AddEvent() {
             <label for="itemImage"> Image</label>
             <input
               type="file"
-              class="form-control"
+              className="form-control"
               id="itemImage"
               onChange={(e) => convertToBase64(e)}
               ref={imageInputRef}
@@ -236,7 +236,7 @@ export function AddEvent() {
           <br></br>
           <input type="checkbox" name="terms" required /> <br></br>
           <br></br>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             Submit
           </button>
         </form>

@@ -105,7 +105,7 @@ export function ProductRequestNotification() {
                               <div>
                                 <button
                                   type="button"
-                                  class="btn btn-outline-success btn-sm"
+                                  className="btn btn-outline-success btn-sm"
                                   title="Accept Product Request"
                                   onClick={(e) => acceptRequest(e, data._id)}
                                 >
@@ -114,7 +114,7 @@ export function ProductRequestNotification() {
                                 &nbsp;&nbsp;&nbsp;
                                 <button
                                   type="button"
-                                  class="btn btn-outline-danger btn-sm"
+                                  className="btn btn-outline-danger btn-sm"
                                   title="Reject Product Request"
                                   onClick={(e) => {
                                     setRejectionFormUserName(data.userName);

@@ -4,8 +4,6 @@ import axios from "axios";
 
 import "../../styles/hotelList.css";
 
-
-
 import { Navigate, useNavigate } from "react-router-dom";
 
 export function EditHotel() {
@@ -28,26 +26,25 @@ export function EditHotel() {
 
   const [photos, setProductPicture] = useState([]);
 
-//   
+  //
 
-function convertToBase64(e) {
-  const file = e.target.files[0];
-  if (!file.type.startsWith("image/")) {
-    alert("Please upload only image files.");
-    return;
+  function convertToBase64(e) {
+    const file = e.target.files[0];
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload only image files.");
+      return;
+    }
+    const reader = new FileReader();
+
+    reader.readAsDataURL(e.target.files[0]);
+
+    reader.onload = () => {
+      const newPhotos = [...photos, reader.result];
+      setProductPicture(newPhotos);
+    };
+
+    reader.onerror = (error) => console.log("error: ", error);
   }
-  const reader = new FileReader();
-
-  reader.readAsDataURL(e.target.files[0]);
-
-  reader.onload = () => {
-    const newPhotos = [...photos, reader.result];
-    setProductPicture(newPhotos);
-  };
-
-  reader.onerror = (error) => console.log("error: ", error);
-}
-
 
   useEffect(() => {
     function getHotelinfo() {
@@ -146,18 +143,18 @@ function convertToBase64(e) {
   }
   const navigate = useNavigate();
 
-  function handlenew(){
-      navigate('/admin/addHotel')
+  function handlenew() {
+    navigate("/admin/addHotel");
   }
-  
-
 
   return (
     <>
       <div className="hotelContainer">
-
         <h2>Hotels</h2>
-        <button className="btn btn-primary" onClick={handlenew}> Add New Hotel </button>
+        <button className="btn btn-primary" onClick={handlenew}>
+          {" "}
+          Add New Hotel{" "}
+        </button>
         <table
           className="table"
           style={{
@@ -181,7 +178,6 @@ function convertToBase64(e) {
               <th scope="col">Cheapest Price</th>
 
               <th scope="col">Photos</th>
-
             </tr>
           </thead>
 
@@ -265,8 +261,8 @@ function convertToBase64(e) {
               <label htmlFor="type" className="form-label">
                 Accommodation Type
               </label>
-                <select
-                class="form-control"
+              <select
+                className="form-control"
                 id="type"
                 onChange={(e) => {
                   settype(e.target.value);
@@ -279,7 +275,6 @@ function convertToBase64(e) {
                 <option value="Resort">Resort</option>
                 <option value="Cabin">Cabin</option>
               </select>
-              
             </div>
             <div className="mb-3">
               <label htmlFor="city" className="form-label">
@@ -311,10 +306,12 @@ function convertToBase64(e) {
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="distance" className="form-label">Distance</label>
+              <label htmlFor="distance" className="form-label">
+                Distance
+              </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="distance"
                 onChange={(e) => {
                   setdistance(e.target.value);
@@ -323,10 +320,12 @@ function convertToBase64(e) {
             </div>
 
             <div className="mb-3">
-              <label htmlFor="title" className="form-label">Title</label>
+              <label htmlFor="title" className="form-label">
+                Title
+              </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="title"
                 onChange={(e) => {
                   setTitle(e.target.value);
@@ -335,10 +334,12 @@ function convertToBase64(e) {
             </div>
 
             <div className="mb-3">
-              <label htmlFor="description" className="form-label">Description</label>
+              <label htmlFor="description" className="form-label">
+                Description
+              </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="description"
                 onChange={(e) => {
                   setdescription(e.target.value);
@@ -347,17 +348,18 @@ function convertToBase64(e) {
             </div>
 
             <div className="mb-3">
-              <label htmlFor="cheapestPrice" className="form-label">Cheapest Price $ per night</label>
+              <label htmlFor="cheapestPrice" className="form-label">
+                Cheapest Price $ per night
+              </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="cheapestPrice"
                 onChange={(e) => {
                   setcheapestprice(e.target.value);
                 }}
               />
             </div>
-            
 
             <div className="mb-3">
               <label htmlFor="featured" className="form-label">
@@ -365,7 +367,7 @@ function convertToBase64(e) {
               </label>
 
               <select
-                class="form-control"
+                className="form-control"
                 id="featured"
                 onChange={(e) => {
                   setfeatured(e.target.value);
@@ -376,12 +378,12 @@ function convertToBase64(e) {
                 <option value="false">Not Featured</option>
               </select>
             </div>
-            
+
             <div className="mb-3">
               <label for="itemImage"> Image</label>
               <input
                 type="file"
-                class="form-control"
+                className="form-control"
                 id="itemImage"
                 onChange={(e) => convertToBase64(e)}
                 ref={imageInputRef}

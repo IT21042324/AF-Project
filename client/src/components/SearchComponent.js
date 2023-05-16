@@ -15,11 +15,9 @@ export function SearchBar(props) {
           placeholder="Search based on Item or Entrepreneur"
           aria-label="Search"
           aria-describedby="search-addon"
+          style={{ top: "20px" }}
           onChange={(e) => props.functionSearch(e.target.value)}
         />
-        <button type="button" className="btn btn-outline-primary">
-          Search
-        </button>
       </div>
       <br />
       <br />

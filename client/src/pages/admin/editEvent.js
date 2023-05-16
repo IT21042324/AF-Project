@@ -296,11 +296,11 @@ function EditInfo() {
                 required
               />
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <label for="date">Date:</label>
               <input
                 type="date"
-                class="form-control"
+                className="form-control"
                 id="date"
                 onChange={(e) => {
                   setDate(e.target.value);
@@ -314,7 +314,7 @@ function EditInfo() {
               </label>
 
               <select
-                class="form-control"
+                className="form-control"
                 id="category"
                 onChange={(e) => {
                   setCategory(e.target.value);
@@ -358,10 +358,10 @@ function EditInfo() {
                 required
               />
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <label for="ticketAvailability">Ticket Availability:</label>
               <select
-                class="form-control"
+                className="form-control"
                 id="ticketAvailability"
                 onChange={(e) => setTicketAvailability(e.target.value)}
               >
@@ -374,7 +374,7 @@ function EditInfo() {
               <label for="itemImage"> Image</label>
               <input
                 type="file"
-                class="form-control"
+                className="form-control"
                 id="itemImage"
                 onChange={(e) => convertToBase64(e)}
                 ref={imageInputRef}

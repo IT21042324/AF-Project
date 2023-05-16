@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../styles/place.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 export function AllPlaces() {
   const [places, setPlaces] = useState([]);
@@ -83,16 +83,14 @@ export function AllPlaces() {
       });
   }
 
-  
   //delete place function
   function deletePlace(id) {
-    
-    //Getting confirmation for delete 
+    //Getting confirmation for delete
     const confirmDel = window.confirm("Are your sure to this place details?");
-    if(confirmDel != true) {
-      return
+    if (confirmDel != true) {
+      return;
     }
-    
+
     axios
       .delete("http://localhost:8070/api/protectedPlace/delete/" + id)
       .then((res) => {
@@ -147,13 +145,13 @@ export function AllPlaces() {
   return (
     <>
       <section className="main-dashboard">
-        <div class="container text-center">
-          <div class="row">
+        <div className="container text-center">
+          <div className="row">
             <h3
               style={{
                 fontFamily: "cursive",
                 color: "green",
-                marginTop: "20px"
+                marginTop: "20px",
               }}
             >
               UPDATE / DELETE PLACES
@@ -161,16 +159,16 @@ export function AllPlaces() {
             <br></br>
             <br></br>
             {places.map((place) => (
-              <div class="col-12 col-md-6 col-lg-4">
+              <div className="col-12 col-md-6 col-lg-4">
                 <div
-                  class="card"
+                  className="card"
                   style={{
                     width: "20rem",
                     height: "35rem",
-                    marginBottom: "40px"
+                    marginBottom: "40px",
                   }}
                 >
-                  <div class="card-image-area">
+                  <div className="card-image-area">
                     <img
                       src={place.imageUrl}
                       style={{
@@ -178,21 +176,21 @@ export function AllPlaces() {
                         height: "10rem",
                         margin: "0px auto",
                       }}
-                      class="card-img-top"
+                      className="card-img-top"
                       alt="..."
                     ></img>
-                    <div class="card-body">
-                      <h6 class="card-title">Place ID: {place._id}</h6>
-                      <h5 class="card-text">{place.placeName}</h5>
+                    <div className="card-body">
+                      <h6 className="card-title">Place ID: {place._id}</h6>
+                      <h5 className="card-text">{place.placeName}</h5>
                       <div className="scroll-description">
-                        <p style={{ textAlign: "left" }} class="card-text">
+                        <p style={{ textAlign: "left" }} className="card-text">
                           {place.placeDescription}
                         </p>
                       </div>
                       <br></br>
                       <button
                         type="button"
-                        class="btn btn-dark"
+                        className="btn btn-dark"
                         style={{ marginRight: "10px", padding: "10px 24px" }}
                         onClick={() => {
                           getOnePlace(place._id);
@@ -203,7 +201,7 @@ export function AllPlaces() {
                       </button>
                       <button
                         type="button"
-                        class="btn btn-outline-dark"
+                        className="btn btn-outline-dark"
                         style={{ padding: "10px 24px" }}
                         onClick={() => {
                           deletePlace(place._id);
@@ -235,13 +233,16 @@ export function AllPlaces() {
                 top: "30px",
                 border: "none",
                 backgroundColor: "transparent",
-                color: "red"
+                color: "red",
               }}
             >
-              <FontAwesomeIcon style={{
-                width: "30px",
-                height: "30px",
-              }} icon={faXmark} />
+              <FontAwesomeIcon
+                style={{
+                  width: "30px",
+                  height: "30px",
+                }}
+                icon={faXmark}
+              />
             </button>
             <form
               onSubmit={sendData}
@@ -251,13 +252,15 @@ export function AllPlaces() {
               <table>
                 <tr>
                   <td>
-                    <h3 style={{ fontFamily: "cursive", color:'green'}}>Update Place</h3>
+                    <h3 style={{ fontFamily: "cursive", color: "green" }}>
+                      Update Place
+                    </h3>
                     <br></br>
                     <div className="mb-3">
                       <label for="placeID">Place ID</label>
                       <input
                         type="text"
-                        class="form-control"
+                        className="form-control"
                         id="placeID"
                         value={placeID}
                         disabled
@@ -267,7 +270,7 @@ export function AllPlaces() {
                       <label for="placeName">Place Name</label>
                       <input
                         type="text"
-                        class="form-control"
+                        className="form-control"
                         id="placeName"
                         placeholder="Enter Place Name"
                         value={placeName}
@@ -278,13 +281,13 @@ export function AllPlaces() {
                     </div>
                     <div className="mb-3">
                       <label for="placeDescription">Place Description</label>
-                      {/* <input type="text" class="form-control" id="placeDescription" placeholder="Enter Place Description" value={placeDescription}
+                      {/* <input type="text" className="form-control" id="placeDescription" placeholder="Enter Place Description" value={placeDescription}
                                             onChange={(e) => {
                                                 setPlaceDescription(e.target.value);
                                             }} /> */}
                       <textarea
                         style={{ height: 150 }}
-                        class="form-control"
+                        className="form-control"
                         id="placeDescription"
                         placeholder="Enter Place Description"
                         value={placeDescription}
@@ -297,12 +300,12 @@ export function AllPlaces() {
                       <label for="placeImage">Place Image</label>
                       <input
                         type="file"
-                        class="form-control"
+                        className="form-control"
                         id="placeImage"
                         onChange={uploadImage}
                       />
                     </div>
-                    <button type="submit" class="btn btn-dark">
+                    <button type="submit" className="btn btn-dark">
                       Update Place
                     </button>
                   </td>
