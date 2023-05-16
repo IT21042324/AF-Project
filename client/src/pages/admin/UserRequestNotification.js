@@ -133,7 +133,7 @@ export function UserRequestNotification() {
                             >
                               Accept
                             </button>
-                            &nbsp;&nbsp;&nbsp;
+                            <br />
                             <button
                               type="button"
                               className="btn btn-outline-danger btn-sm"

@@ -111,7 +111,7 @@ export function ProductRequestNotification() {
                                 >
                                   Accept
                                 </button>
-                                &nbsp;&nbsp;&nbsp;
+                                <br />
                                 <button
                                   type="button"
                                   className="btn btn-outline-danger btn-sm"
