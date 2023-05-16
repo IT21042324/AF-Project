@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 import axios from "axios";
 
-import "../../index.css";
+import "./editevent.css";
 
 function EditInfo() {
   const [event, setEvent] = useState([]);
@@ -234,7 +234,7 @@ function EditInfo() {
           <br></br>
 
           <br></br>
-
+          <h3>Edit information here</h3>
           <form onSubmit={sendData}>
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
