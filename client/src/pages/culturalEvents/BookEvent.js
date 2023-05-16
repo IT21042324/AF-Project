@@ -70,12 +70,12 @@ function BookTicket() {
         );
         console.log("Response:", response.data);
         if (response.status === 200) {
-          // SendEmail({
-          //   user_name: user.userName,
-          //   main_message: "Your tickets have been booked successfully",
-          //   message: "Book more tickets and become and earn discounts",
-          //   title: "Booking Confirmation",
-          // });
+          SendEmail({
+            user_name: user.userName,
+            main_message: "Your tickets have been booked successfully",
+            message: "Book more tickets and become and earn discounts",
+            title: "Booking Confirmation",
+          });
           alert("Ticket booked successfully!");
         } else {
           alert("Error booking ticket. Please try again later.");
