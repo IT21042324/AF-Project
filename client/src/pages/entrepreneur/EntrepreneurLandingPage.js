@@ -110,6 +110,7 @@ export function EntrepreneurLandingPage() {
                   <th scope="col">Image</th>
                   <th scope="col">Product Name</th>
                   <th scope="col">Price</th>
+                  <th scope="col">Status</th>
                   <th scope="col" className="text-center">
                     Action
                   </th>
@@ -141,13 +142,14 @@ export function EntrepreneurLandingPage() {
                           <div
                             style={{
                               display: "flex",
-                              justifyContent: "space-around",
+                              justifyContent: "space-evenly",
                             }}
                           >
                             <button
                               style={{
                                 border: "none",
                                 background: "none",
+                                color: "black",
                               }}
                               onClick={(e) => {
                                 passDataToEditForm({
@@ -168,6 +170,7 @@ export function EntrepreneurLandingPage() {
                               style={{
                                 border: "none",
                                 background: "none",
+                                color: "red",
                               }}
                               onClick={(e) => removeProduct(e, data._id)}
                               title="Remove Product"

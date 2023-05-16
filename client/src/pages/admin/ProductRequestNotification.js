@@ -136,7 +136,6 @@ export function ProductRequestNotification() {
                             ) : !data.productIsRejectedByAdmin &&
                               data.productIsApprovedByAdmin ? (
                               <h6 style={{ color: "#198754" }}>
-                                {" "}
                                 Product Approved
                               </h6>
                             ) : null}
