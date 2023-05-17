@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../../styles/place.css";
+import "../../styles/place.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
@@ -42,11 +42,11 @@ export function AllPlaces() {
   }
 
   const showUpdateBox = () => {
-    document.getElementById("backdrop").style.display = "block";
+    document.getElementById("backdropPlace").style.display = "block";
   };
 
   const handleClose = () => {
-    document.getElementById("backdrop").style.display = "none";
+    document.getElementById("backdropPlace").style.display = "none";
     setNewImageUrl("");
   };
 
@@ -191,7 +191,7 @@ export function AllPlaces() {
                       <button
                         type="button"
                         className="btn btn-dark"
-                        style={{ marginRight: "10px", padding: "10px 24px" }}
+                        style={{ marginRight: "10px", padding: "10px 16px", float:"left", width:"120px" }}
                         onClick={() => {
                           getOnePlace(place._id);
                           showUpdateBox();
@@ -202,7 +202,7 @@ export function AllPlaces() {
                       <button
                         type="button"
                         className="btn btn-outline-dark"
-                        style={{ padding: "10px 24px" }}
+                        style={{ padding: "10px 24px", float:"right", width:"120px" }}
                         onClick={() => {
                           deletePlace(place._id);
                         }}
@@ -217,10 +217,10 @@ export function AllPlaces() {
           </div>
         </div>
 
-        <div id="backdrop" className="backdrop-black">
+        <div id="backdropPlace" className="backdropPlace-black">
           <div
-            id="update-box"
-            className="container, form-style"
+            // id="update-box"
+            className="container"
             style={{ position: "relative", marginLeft: "10%" }}
           >
             <br></br>
@@ -229,8 +229,8 @@ export function AllPlaces() {
               className="btn btn-outline-danger"
               style={{
                 position: "absolute",
-                right: "280px",
-                top: "30px",
+                right: "215px",
+                top: "10px",
                 border: "none",
                 backgroundColor: "transparent",
                 color: "red",
@@ -305,7 +305,7 @@ export function AllPlaces() {
                         onChange={uploadImage}
                       />
                     </div>
-                    <button type="submit" className="btn btn-dark">
+                    <button type="submit" className="btn btn-dark" style={{width:"200px"}}>
                       Update Place
                     </button>
                   </td>
