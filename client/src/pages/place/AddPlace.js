@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import axios from 'axios';
-import picture from "../../assets/placeMain.png";
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
+import picture from "../../assets/placeMain.png"
+import { useNavigate } from 'react-router-dom'
 
 export function AddPlace() {  //ImageUpload
 
@@ -111,14 +111,14 @@ export function AddPlace() {  //ImageUpload
               <h3 style={{fontFamily: "cursive", color:"green"}}>Add New Place</h3>
               <br></br>
                 <div className="mb-3">
-                  <label for="placeName">Place Name</label>
+                  <label htmlFor="placeName">Place Name</label>
                   <input type="text" class="form-control" id="placeName" placeholder="Enter Place Name"
                     onChange={(e) => {
                       setName(e.target.value);
                     }} />
                 </div>
                 <div className="mb-3">
-                  <label for="placeDescription">Place Description</label>
+                  <label htmlFor="placeDescription">Place Description</label>
                     <textarea style={{height: 150 }} class="form-control" id="placeDescription" placeholder="Enter Place Description"
                     onChange={(e) => {
                       setDescription(e.target.value);
@@ -126,7 +126,7 @@ export function AddPlace() {  //ImageUpload
                 </div>
 
                 <div className="mb-3">
-                  <label for="placeImage">Place Image</label>
+                  <label htmlFor="placeImage">Place Image</label>
                   <input type="file" class="form-control" id="placeImage"
                     onChange={uploadImage} />
                 </div>

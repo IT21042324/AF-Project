@@ -1,67 +1,69 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { AddPlace } from '../pages/place/AddPlace';
+import { validateForm } from '../pages/place/AddPlaceValidations';
+global.alert = jest.fn();
 
-describe('AddPlace component', () => {
-  test('should display an error when Place Name is less than 3 characters', () => {
-    render(<AddPlace />);
-    const placeNameInput = screen.getByLabelText('Place Name');
-    const addButton = screen.getByRole('button', { name: 'Add Place' });
+describe('validateForm', () => {
+  test('returns true for valid inputs', () => {
+    // Arrange
+    const placeName = 'Beautiful Place';
+    const placeDescription = 'A stunning place with breathtaking views.';
+    const imageUrl = 'https://example.com/image.jpg';
 
-    fireEvent.change(placeNameInput, { target: { value: 'ab' } });
-    fireEvent.click(addButton);
+    // Act
+    const result = validateForm(placeName, placeDescription, imageUrl);
 
-    const errorMessage = screen.getByText('Place Name should be between 3 and 50 characters.');
-    expect(errorMessage).toBeInTheDocument();
+    // Assert
+    expect(result).toBe(true);
   });
 
-  test('should display an error when Place Name is more than 50 characters', () => {
-    render(<AddPlace />);
-    const placeNameInput = screen.getByLabelText('Place Name');
-    const addButton = screen.getByRole('button', { name: 'Add Place' });
+  test('returns false if place name length is less than 3', () => {
+    // Arrange
+    const placeName = 'A';
+    const placeDescription = 'A stunning place with breathtaking views.';
+    const imageUrl = 'https://example.com/image.jpg';
 
-    fireEvent.change(placeNameInput, { target: { value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur a dolor vel neque.' } });
-    fireEvent.click(addButton);
+    // Act
+    const result = validateForm(placeName, placeDescription, imageUrl);
 
-    const errorMessage = screen.getByText('Place Name should be between 3 and 50 characters.');
-    expect(errorMessage).toBeInTheDocument();
+    // Assert
+    expect(result).toBe(false);
   });
 
-  test('should display an error when Place Description is less than 25 characters', () => {
-    render(<AddPlace />);
-    const placeDescriptionInput = screen.getByLabelText('Place Description');
-    const addButton = screen.getByRole('button', { name: 'Add Place' });
+  test('returns false if place name length is greater than 30', () => {
+    // Arrange
+    const placeName = 'This is a very long place name exceeding thirty characters.';
+    const placeDescription = 'A stunning place with breathtaking views.';
+    const imageUrl = 'https://example.com/image.jpg';
 
-    fireEvent.change(placeDescriptionInput, { target: { value: 'Short description.' } });
-    fireEvent.click(addButton);
+    // Act
+    const result = validateForm(placeName, placeDescription, imageUrl);
 
-    const errorMessage = screen.getByText('Place Description should be at least 25 characters.');
-    expect(errorMessage).toBeInTheDocument();
+    // Assert
+    expect(result).toBe(false);
   });
 
-  test('should display an error when Place Image is not uploaded', () => {
-    render(<AddPlace />);
-    const placeImageInput = screen.getByLabelText('Place Image');
-    const addButton = screen.getByRole('button', { name: 'Add Place' });
+  test('returns false if place description length is less than 25', () => {
+    // Arrange
+    const placeName = 'Beautiful Place';
+    const placeDescription = 'Short description.';
+    const imageUrl = 'https://example.com/image.jpg';
 
-    fireEvent.click(addButton);
+    // Act
+    const result = validateForm(placeName, placeDescription, imageUrl);
 
-    const errorMessage = screen.getByText('Place Image should be uploaded.');
-    expect(errorMessage).toBeInTheDocument();
+    // Assert
+    expect(result).toBe(false);
   });
 
-  test('should not display any error when all fields are valid', () => {
-    render(<AddPlace />);
-    const placeNameInput = screen.getByLabelText('Place Name');
-    const placeDescriptionInput = screen.getByLabelText('Place Description');
-    const placeImageInput = screen.getByLabelText('Place Image');
-    const addButton = screen.getByRole('button', { name: 'Add Place' });
+  test('returns false if place image URL is not provided', () => {
+    // Arrange
+    const placeName = 'Beautiful Place';
+    const placeDescription = 'A stunning place with breathtaking views.';
+    const imageUrl = '';
 
-    fireEvent.change(placeNameInput, { target: { value: 'Sample Place' } });
-    fireEvent.change(placeDescriptionInput, { target: { value: 'This is a sample place description.' } });
-    fireEvent.change(placeImageInput, { target: { files: [new File(['image content'], 'test.png', { type: 'image/png' })] } });
-    fireEvent.click(addButton);
+    // Act
+    const result = validateForm(placeName, placeDescription, imageUrl);
 
-    const errorMessage = screen.queryByText(/Place Name should be between 3 and 50 characters.|Place Description should be at least 25 characters.|Place Image should be uploaded./);
-    expect(errorMessage).not.toBeInTheDocument();
+    // Assert
+    expect(result).toBe(false);
   });
 });
