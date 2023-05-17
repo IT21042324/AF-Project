@@ -63,7 +63,7 @@ export const Hotel = () => {
       {loading ? (
         "loading"
       ) : (
-        <div className="hotelContainer">
+        <div className="hotelsContainer">
           {open && (
             <div className="slider">
               <FontAwesomeIcon

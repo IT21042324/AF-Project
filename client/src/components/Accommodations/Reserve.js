@@ -7,6 +7,7 @@ import { useContext, useState } from "react";
 import { SearchContext } from "../../context/SearchContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {SendEmail} from "../SendEmail"
 
 const Reserve = ({ setOpen, hotelId }) => {
   const [selectedRooms, setSelectedRooms] = useState([]);
@@ -65,7 +66,10 @@ const Reserve = ({ setOpen, hotelId }) => {
       setOpen(false);
       alert("Congratulations! you Have successfully placed your booking!!");
       navigate("/Accommodations");
-    } catch (err) {}
+
+    } catch (err) {
+
+    }
   };
   return (
     <div className="reserve">

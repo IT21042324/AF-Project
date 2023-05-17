@@ -233,7 +233,7 @@ function convertToBase64(e) {
       </div>
 
       <div id="backdrop" className="backdrop-black">
-        <div id="update-box" className="container form-style3 ">
+        <div id="update-box" className="container form-style ">
           <button
             onClick={handleClose}
             className="btn btn-outline-danger"
