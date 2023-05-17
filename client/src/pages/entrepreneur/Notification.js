@@ -87,7 +87,7 @@ export const Notification = () => {
                             >
                               <button
                                 type="button"
-                                class="btn btn-success btn-sm"
+                                className="btn btn-success btn-sm"
                                 disabled={data.markAsReadUser}
                                 onClick={(e) =>
                                   setNotifcationAsRead(e, data._id)

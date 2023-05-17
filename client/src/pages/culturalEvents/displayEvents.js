@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import "../../index.css";
+import "./BookTicket.css";
+import { Link } from "react-router-dom";
 
 function EditInfo() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const imageInputRef = useRef(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     async function getEventInfo() {
@@ -24,11 +26,28 @@ function EditInfo() {
 
   return (
     <div className="container">
-      <h1 className="text-center mb-5">Events</h1>
+      <h1
+        className="text-center mb-5"
+        style={{
+          fontSize: "36px",
+          fontWeight: "bold",
+          textAlign: "center",
+          marginTop: "50px",
+          marginBottom: "30px",
+          color: "#333",
+          textShadow: "1px 1px #fff",
+          letterSpacing: "2px",
+          textTransform: "uppercase",
+        }}
+      >
+        Discover the Best Cultural Experiences in Our country...
+      </h1>
+
       {loading && <div className="text-center">Loading...</div>}
       {!loading && events.length === 0 && (
         <div className="text-center">No events found.</div>
       )}
+
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {events.map((event) => (
           <div key={event._id} className="col">
@@ -38,6 +57,7 @@ function EditInfo() {
                   src={event.url}
                   className="card-img-top"
                   alt={event.name}
+                  style={{ height: "300px" }}
                 />
               )}
               <div className="card-body">
@@ -68,19 +88,45 @@ function EditInfo() {
                   <strong>Ticket Availability:</strong>{" "}
                   {event.ticketAvailability}
                 </p>
-                <button
-                  className="btn btn-primary"
-                  disabled={event.ticketAvailability !== "available"}
-                  onClick={() => {
-                    if (event.ticketAvailability !== "available") {
-                      alert("Tickets are unavailable for this event.");
-                    } else {
-                      //window.location.href = `/book/${event._id}`;
-                    }
+
+                <br />
+                <br />
+
+                <Link
+                  to={{
+                    pathname: `/cultural/BookEvent/${event._id}`,
+                    search: `?price=${event.price}&eventId=${event._id}&title=${event.name}`,
                   }}
+                  disabled={event.ticketAvailability !== "available"}
                 >
-                  Book Now
-                </button>
+                  <button
+                    className="btn btn-primary"
+                    disabled={event.ticketAvailability !== "available"}
+                    onClick={() => {
+                      if (event.ticketAvailability !== "available") {
+                        alert("Tickets are unavailable for this event.");
+                      } else {
+                        setSelectedEvent(event);
+                      }
+                    }}
+                    style={{
+                      position: "absolute",
+                      bottom: 0,
+                      marginBottom: "30px",
+                      left: "50%",
+                      transform: "translateX(-50%)",
+                    }}
+                  >
+                    Book Now
+                  </button>
+                </Link>
+                {selectedEvent && (
+                  <img
+                    src={selectedEvent.url}
+                    alt={selectedEvent.name}
+                    className="selected-event-image"
+                  />
+                )}
               </div>
             </div>
           </div>

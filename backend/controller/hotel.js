@@ -1,5 +1,6 @@
 const hotels = require("../model/hotel");
 const hotelModel = require("../model/hotel");
+const roomModel = require("../model/room");
 
 
 //insert new hotel to the system
@@ -171,6 +172,18 @@ const countByType = async (req, res, next) => {
   }
 };
 
+const getHotelRooms = async (req,res,next)=>{
+  try{
+    const hotel = await hotelModel.findById(req.params.id)
+    const list = await Promise.all(hotel.rooms.map(room=>{
+      return roomModel.findById(room);
+    }));
+    res.status(200).json(list);
+
+  }catch(err){
+    next(err)
+  }
+}
 
 module.exports = {
   addHotel,
@@ -180,4 +193,5 @@ module.exports = {
   getOneHotel,
   countByCity,
   countByType,
+  getHotelRooms
 };

@@ -105,16 +105,16 @@ export function ProductRequestNotification() {
                               <div>
                                 <button
                                   type="button"
-                                  class="btn btn-outline-success btn-sm"
+                                  className="btn btn-outline-success btn-sm"
                                   title="Accept Product Request"
                                   onClick={(e) => acceptRequest(e, data._id)}
                                 >
                                   Accept
                                 </button>
-                                &nbsp;&nbsp;&nbsp;
+                                <br />
                                 <button
                                   type="button"
-                                  class="btn btn-outline-danger btn-sm"
+                                  className="btn btn-outline-danger btn-sm"
                                   title="Reject Product Request"
                                   onClick={(e) => {
                                     setRejectionFormUserName(data.userName);
@@ -136,7 +136,6 @@ export function ProductRequestNotification() {
                             ) : !data.productIsRejectedByAdmin &&
                               data.productIsApprovedByAdmin ? (
                               <h6 style={{ color: "#198754" }}>
-                                {" "}
                                 Product Approved
                               </h6>
                             ) : null}

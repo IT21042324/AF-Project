@@ -1,7 +1,6 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 import { UseUserContext } from "../hooks/useUserContext";
@@ -26,6 +25,7 @@ export function NavBar(props) {
     async function setProfilePicture() {
       if (user?.image) setProfilePic(user.image);
     }
+
     setProfilePicture();
   }, []);
 
@@ -50,17 +50,11 @@ export function NavBar(props) {
             <LinkContainer to="/entrepreneurship">
               <Nav.Link>Entrepreneurship</Nav.Link>
             </LinkContainer>
-
             <LinkContainer to="/Accommodations">
               <Nav.Link>Accomodations</Nav.Link>
             </LinkContainer>
-
-            <LinkContainer to="/cultural/BookEvent">
-              <Nav.Link>Temporary Book event</Nav.Link>
-            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
-
         <div className="navbar-icons">
           <div>
             {user ? (
@@ -72,15 +66,17 @@ export function NavBar(props) {
                   </Link>
                 </div>
                 &nbsp;&nbsp;&nbsp;
-                {/* Displaying the user profile picture*/}
                 {profilePic && (
                   <img
                     src={profilePic}
                     alt={user.userName}
                     style={{
                       width: "25px",
+
                       height: "25px",
+
                       borderRadius: "40px",
+
                       marginTop: "10px",
                     }}
                   />
@@ -88,6 +84,7 @@ export function NavBar(props) {
               </div>
             ) : (
               // Displaying a link to the login page if the user is not logged in
+
               <Link
                 to="/login"
                 onClick={(e) => {

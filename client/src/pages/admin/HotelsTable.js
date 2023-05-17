@@ -2,25 +2,31 @@ import React, { useState, useEffect, useRef } from "react";
 
 import axios from "axios";
 
-import "./editevent.css";
+import "../../styles/hotelList.css";
 
-function EditInfo() {
-  const [event, setEvent] = useState([]);
+import { Navigate, useNavigate } from "react-router-dom";
+
+export function EditHotel() {
+  const [hotel, setHotel] = useState([]);
   const [id, setid] = useState("");
   const [name, setname] = useState("");
+  const [type, settype] = useState("");
+  const [city, setcity] = useState("");
+  const [address, setaddress] = useState("");
+  const [distance, setdistance] = useState("");
+  const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
-  const [location, setlocation] = useState("");
-  const [price, setPrice] = useState("");
-  const [Date, setDate] = useState("");
-  const [category, setCategory] = useState("");
-  const [organizerName, setOrganizerName] = useState("");
-  const [organizerContact, setOrganizerContact] = useState("");
-  const [ticketAvailability, setTicketAvailability] = useState("");
+  const [rating, setrating] = useState("");
+  const [rooms, setrooms] = useState([]);
+  const [cheapestPrice, setcheapestprice] = useState("");
+  const [featured, setfeatured] = useState("");
   const imageInputRef = useRef(null);
 
   //image
 
-  const [image, setProductPicture] = useState("");
+  const [photos, setProductPicture] = useState([]);
+
+  //
 
   function convertToBase64(e) {
     const file = e.target.files[0];
@@ -32,45 +38,50 @@ function EditInfo() {
 
     reader.readAsDataURL(e.target.files[0]);
 
-    reader.onload = () => setProductPicture(reader.result);
+    reader.onload = () => {
+      const newPhotos = [...photos, reader.result];
+      setProductPicture(newPhotos);
+    };
 
     reader.onerror = (error) => console.log("error: ", error);
   }
 
   useEffect(() => {
-    function getEventinfo() {
+    function getHotelinfo() {
       axios
-        .get("http://localhost:8070/api/events/")
+        .get("http://localhost:8070/api/hotels/")
         .then((res) => {
           //console.log(res.data); // debug
 
-          setEvent(res.data);
+          setHotel(res.data);
         })
         .catch((err) => {
           alert(err.message);
         });
     }
 
-    getEventinfo();
+    getHotelinfo();
   }, []);
 
   //function to get one item
 
-  function getOneItem(did) {
+  function getOneHotel(did) {
     axios
-      .get("http://localhost:8070/api/events/get/" + did)
+      .get("http://localhost:8070/api/hotels/get/" + did)
       .then((res) => {
         // console.log(res.data);
         setid(res.data._id);
         setname(res.data.name);
+        settype(res.data.type);
+        setcity(res.data.city);
+        setaddress(res.data.address);
+        setdistance(res.data.distance);
+        setTitle(res.data.title);
         setdescription(res.data.description);
-        setlocation(res.data.location);
-        setPrice(res.data.price);
-        setDate(res.data.Date);
-        setCategory(res.data.category);
-        setOrganizerName(res.data.organizerName);
-        setOrganizerContact(res.data.organizerContact);
-        setTicketAvailability(res.data.ticketAvailability);
+        setrating(res.data.rating);
+        setrooms(res.data.rooms);
+        setcheapestprice(res.data.cheapestPrice);
+        setfeatured(res.data.featured);
       })
       .catch((err) => {
         alert(err.message);
@@ -90,22 +101,24 @@ function EditInfo() {
   function sendData(e) {
     e.preventDefault();
 
-    const newEvent = {
+    const NewHotel = {
       name,
+      type,
+      city,
+      address,
+      distance,
+      title,
       description,
-      location,
-      price,
-      Date,
-      category,
-      organizerName,
-      organizerContact,
-      ticketAvailability,
+      rating,
+      rooms,
+      cheapestPrice,
+      featured,
     };
 
     axios
-      .put("http://localhost:8070/api/events/update/" + id, newEvent)
+      .put("http://localhost:8070/api/hotels/update/" + id, NewHotel)
       .then(() => {
-        alert("Event information Updated");
+        alert("Hotel information Updated");
 
         window.location.reload();
       })
@@ -116,11 +129,11 @@ function EditInfo() {
 
   //delete function
 
-  function deleteItem(ID) {
+  function deleteHotel(ID) {
     axios
-      .delete("http://localhost:8070/api/events/delete/" + ID)
+      .delete("http://localhost:8070/api/hotels/delete/" + ID)
       .then((res) => {
-        alert("Event Information Deleted");
+        alert("Hotel Information Deleted");
 
         window.location.reload();
       })
@@ -128,10 +141,20 @@ function EditInfo() {
         alert(err.message);
       });
   }
+  const navigate = useNavigate();
+
+  function handlenew() {
+    navigate("/admin/addHotel");
+  }
 
   return (
     <>
-      <div className="container shadow rounded">
+      <div className="hotelContainer">
+        <h2>Hotels</h2>
+        <button className="btn btn-primary" onClick={handlenew}>
+          {" "}
+          Add New Hotel{" "}
+        </button>
         <table
           className="table"
           style={{
@@ -142,57 +165,41 @@ function EditInfo() {
         >
           <thead>
             <tr>
-              <th scope="col">ID</th>
+              <th scope="col">Hotel ID</th>
+
+              <th scope="col">Hotel</th>
+
+              <th scope="col">Type</th>
+
+              <th scope="col">City</th>
 
               <th scope="col">Title</th>
 
-              <th scope="col">Description</th>
+              <th scope="col">Cheapest Price</th>
 
-              <th scope="col">Location</th>
-
-              <th scope="col">Price</th>
-
-              <th scope="col">Date</th>
-
-              <th scope="col">Category</th>
-
-              <th scope="col">Organizer name</th>
-
-              <th scope="col">Organizer Contact</th>
-
-              <th scope="col">ticketAvailability</th>
-
-              <th scope="col">image</th>
+              <th scope="col">Photos</th>
             </tr>
           </thead>
 
           <tbody>
-            {event.map((event) => (
-              <tr key={event._id}>
-                <td>{event._id}</td>
+            {hotel.map((hotel) => (
+              <tr key={hotel._id}>
+                <td>{hotel._id}</td>
 
-                <td>{event.name}</td>
+                <td>{hotel.name}</td>
 
-                <td>{event.description}</td>
+                <td>{hotel.type}</td>
 
-                <td>{event.location}</td>
+                <td>{hotel.city}</td>
 
-                <td>{event.price}</td>
+                <td>{hotel.title}</td>
 
-                <td>{event.Date}</td>
-
-                <td>{event.category}</td>
-
-                <td>{event.organizerName}</td>
-
-                <td>{event.organizerContact}</td>
-
-                <td>{event.ticketAvailability}</td>
+                <td>{hotel.cheapestPrice}</td>
 
                 <td>
                   <img
-                    src={event.url}
-                    alt="event image"
+                    src={hotel.photos[0]}
+                    alt="hotel image"
                     style={{ width: "100px", height: "100px" }}
                   />
                 </td>
@@ -201,7 +208,7 @@ function EditInfo() {
                   <button
                     className="btn btn-primary"
                     onClick={() => {
-                      getOneItem(event._id);
+                      getOneHotel(hotel._id);
                       showUpdateBox();
                     }}
                   >
@@ -210,7 +217,7 @@ function EditInfo() {
 
                   <button
                     className="btn btn-danger"
-                    onClick={() => deleteItem(event._id)}
+                    onClick={() => deleteHotel(hotel._id)}
                   >
                     Delete
                   </button>
@@ -234,142 +241,144 @@ function EditInfo() {
           <br></br>
 
           <br></br>
-          <h3>Edit information here</h3>
+
           <form onSubmit={sendData}>
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
-                Title
+                Hotel Name
               </label>
 
               <input
                 type="text"
                 className="form-control"
                 id="name"
-                placeholder="Enter Title here"
                 value={name}
                 onChange={(e) => setname(e.target.value)}
                 required
               />
             </div>
             <div className="mb-3">
+              <label htmlFor="type" className="form-label">
+                Accommodation Type
+              </label>
+              <select
+                className="form-control"
+                id="type"
+                onChange={(e) => {
+                  settype(e.target.value);
+                }}
+              >
+                <option value="">-- Select --</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Villa">Villa</option>
+                <option value="Apartment">Apartments</option>
+                <option value="Resort">Resort</option>
+                <option value="Cabin">Cabin</option>
+              </select>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="city" className="form-label">
+                City
+              </label>
+
+              <input
+                type="text"
+                className="form-control"
+                id="city"
+                placeholder="Colombo, Kandy..."
+                value={city}
+                onChange={(e) => setcity(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="address" className="form-label">
+                Address
+              </label>
+
+              <input
+                type="text"
+                className="form-control"
+                id="address"
+                value={address}
+                onChange={(e) => setaddress(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="distance" className="form-label">
+                Distance
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="distance"
+                onChange={(e) => {
+                  setdistance(e.target.value);
+                }}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="title" className="form-label">
+                Title
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="title"
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+              />
+            </div>
+
+            <div className="mb-3">
               <label htmlFor="description" className="form-label">
                 Description
               </label>
-
               <input
                 type="text"
                 className="form-control"
                 id="description"
-                placeholder="Enter Description"
-                value={description}
-                onChange={(e) => setdescription(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="location" className="form-label">
-                Location:
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="location"
-                placeholder="Enter location"
-                value={location}
-                onChange={(e) => setlocation(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="price" className="form-label">
-                Price:
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="price"
-                placeholder="Enter price:"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label for="date">Date:</label>
-              <input
-                type="date"
-                className="form-control"
-                id="date"
                 onChange={(e) => {
-                  setDate(e.target.value);
+                  setdescription(e.target.value);
                 }}
               />
             </div>
 
             <div className="mb-3">
-              <label htmlFor="category" className="form-label">
-                Category:
+              <label htmlFor="cheapestPrice" className="form-label">
+                Cheapest Price $ per night
+              </label>
+              <input
+                type="text"
+                className="form-control"
+                id="cheapestPrice"
+                onChange={(e) => {
+                  setcheapestprice(e.target.value);
+                }}
+              />
+            </div>
+
+            <div className="mb-3">
+              <label htmlFor="featured" className="form-label">
+                Featured status
               </label>
 
               <select
                 className="form-control"
-                id="category"
+                id="featured"
                 onChange={(e) => {
-                  setCategory(e.target.value);
+                  setfeatured(e.target.value);
                 }}
               >
                 <option value="">-- Select --</option>
-                <option value="music">Music</option>
-                <option value="dance">Dance</option>
-                <option value="theater">Theater</option>
-                <option value="art">Art</option>
-                <option value="festival">Festival</option>
+                <option value="true">Featured</option>
+                <option value="false">Not Featured</option>
               </select>
             </div>
-            <div className="mb-3">
-              <label htmlFor="organizerName" className="form-label">
-                Organizer Name:
-              </label>
 
-              <input
-                type="text"
-                className="form-control"
-                id="organizerName"
-                placeholder="Enter organizer Name"
-                value={organizerName}
-                onChange={(e) => setOrganizerName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="organizerContact" className="form-label">
-                organizer Contact
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="organizerContact"
-                placeholder="Enter Contact Name"
-                value={organizerContact}
-                onChange={(e) => setOrganizerContact(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label for="ticketAvailability">Ticket Availability:</label>
-              <select
-                className="form-control"
-                id="ticketAvailability"
-                onChange={(e) => setTicketAvailability(e.target.value)}
-              >
-                <option value="">-- Select --</option>
-                <option value="available">Available</option>
-                <option value="unavailable">Unavailable</option>
-              </select>
-            </div>
             <div className="mb-3">
               <label for="itemImage"> Image</label>
               <input
@@ -394,4 +403,4 @@ function EditInfo() {
   );
 }
 
-export default EditInfo;
+export default EditHotel;

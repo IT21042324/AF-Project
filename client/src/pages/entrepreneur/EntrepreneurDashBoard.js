@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { UseProductContext } from "../../hooks/useProductContext";
 import { UseUserContext } from "../../hooks/useUserContext";
+import "../../index.css";
 
 export const EntrepreneurDashBoard = (props) => {
   const { logoutUser } = UseUserContext();

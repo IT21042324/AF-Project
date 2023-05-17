@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import axios from 'axios'
-import picture from "../../assets/placeMain.png"
-import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import picture from "../../assets/placeMain.png";
+import { useNavigate } from 'react-router-dom';
 
-export function AddPlace() {  //ImageUpload
+export function AddPlace() {
+  //ImageUpload
 
   const [placeName, setName] = useState("");
   const [placeDescription, setDescription] = useState("");
@@ -12,8 +13,8 @@ export function AddPlace() {  //ImageUpload
   const navigate = useNavigate();
 
   //image
-  const [loading, setLoading] = useState(false)
-  const [imageUrl, setImageUrl] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
 
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -30,10 +31,8 @@ export function AddPlace() {  //ImageUpload
     });
   };
 
-
   //form validation
   function validateForm() {
-
     //validation for place name
     if (placeName.length < 3 || placeName.length > 30) {
       alert("Place Name should be between 3 and 30 characters.");
@@ -55,7 +54,6 @@ export function AddPlace() {  //ImageUpload
     return true;
   }
 
-
   //function for sending data
   function sendData(e) {
     e.preventDefault();
@@ -68,36 +66,40 @@ export function AddPlace() {  //ImageUpload
     const newPlace = {
       placeName,
       placeDescription,
-      imageUrl
-    }
+      imageUrl,
+    };
 
-    axios.post("http://localhost:8070/api/protectedPlace/add", newPlace).then(() => {
-      alert("Place added")
-      navigate('../allPlaces')
-    }).catch((err) => {
-      alert(err)
-    })
-
+    axios
+      .post("http://localhost:8070/api/protectedPlace/add", newPlace)
+      .then(() => {
+        alert("Place added");
+        navigate("../allPlaces");
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }
 
   //uploading the image
   const uploadImage = async (event) => {
-
-    event.preventDefault()
+    event.preventDefault();
 
     const file = event.target.files[0];
-    const base64 = await convertBase64(file)
+    const base64 = await convertBase64(file);
     setLoading(true);
-    console.log(base64)
-    axios.post("http://localhost:8070/uploadImage", { image: base64 }).then((res) => {
-      console.log(res.data)
-      setImageUrl(res.data);
+    console.log(base64);
+    axios
+      .post("http://localhost:8070/uploadImage", { image: base64 })
+      .then((res) => {
+        console.log(res.data);
+        setImageUrl(res.data);
 
-      //res.data
-      alert("Image uploaded Succesfully");
-    }).then(() => setLoading(false))
+        //res.data
+        alert("Image uploaded Succesfully");
+      })
+      .then(() => setLoading(false))
       .catch(console.log);
-  }
+  };
 
   return (
     <>
@@ -126,7 +128,7 @@ export function AddPlace() {  //ImageUpload
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="placeImage">Place Image</label>
+                  <label for="placeImage">Place Image</label>
                   <input type="file" class="form-control" id="placeImage"
                     onChange={uploadImage} />
                 </div>
@@ -144,5 +146,5 @@ export function AddPlace() {  //ImageUpload
       </table>
       </section>
     </>
-  )
+  );
 }
