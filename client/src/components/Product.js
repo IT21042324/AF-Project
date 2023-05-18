@@ -31,7 +31,7 @@ export function Product(props) {
           </div>
           <h5>{props.details.productName}</h5>
           <span>{props.details.userName}</span>
-          <h4>Rs. {props.details.price}</h4>
+          <h4 style={{ color: "green" }}>Rs. {props.details.price}</h4>
           <div style={{ display: "felx", justifyContent: "space-evenly" }}>
             <button
               title="View Product"
@@ -62,7 +62,7 @@ export function Product(props) {
               <h5>Description</h5>
               {props.details.description}
             </p>
-            <h3>Discussion</h3>
+            <h3 style={{ color: "black" }}>Discussion</h3>
             {user?.role === "User" ? (
               <div>
                 <DiscussionContainer

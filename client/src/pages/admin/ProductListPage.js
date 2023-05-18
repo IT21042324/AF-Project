@@ -38,7 +38,7 @@ export function ProductListPage() {
       />
       <div className="card mb-4">
         <header className="card-header">
-          <h4>Product Requests</h4>
+          <h4 style={{ color: "black" }}>Product Requests</h4>
         </header>
         <div className="card-body">
           <div className="table-responsive">
