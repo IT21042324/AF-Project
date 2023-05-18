@@ -7,11 +7,11 @@ export const UseProductContext = () => {
   const { dispatch, products } = productContext;
 
   useEffect(() => {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     async function fetchData() {
       try {
-        const { data } = await axios.get(
-          "http://localhost:8070/api/normal/products"
-        );
+        const { data } = await axios.get(`${backendUrl}/api/normal/products`);
         dispatch({
           type: "SetProducts",
           payload: data,

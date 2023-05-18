@@ -4,6 +4,8 @@ import "./editevent.css";
 import { AdminDashBoardDetails } from "../../components/AdminDashBoardDetails";
 
 export function AddEvent() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
   const [location, setlocation] = useState("");
@@ -73,7 +75,7 @@ export function AddEvent() {
     };
 
     axios
-      .post("http://localhost:8070/api/events/add", newEvent)
+      .post(`${backendUrl}/api/events/add`, newEvent)
       .then(() => {
         alert("event infromation added");
         setname("");

@@ -1,9 +1,10 @@
 import { useContext, useEffect } from "react";
 import { UserContext } from "../context/userContext";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const UseUserContext = () => {
   const { dispatch, user1, selectedUserRole } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
@@ -59,7 +60,7 @@ export const UseUserContext = () => {
       dispatch({ type: "Logout" });
 
       //to navigate to home page after logging out
-      Navigate("/");
+      navigate("/");
       return true;
     } else return false;
   }

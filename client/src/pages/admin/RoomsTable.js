@@ -4,10 +4,12 @@ import axios from "axios";
 
 import "../../styles/hotelList.css";
 
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AdminDashBoardDetails } from "../../components/AdminDashBoardDetails";
 
 export function EditRoom() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [room, setRoom] = useState([]);
   const [id, setid] = useState("");
   const [title, settitle] = useState("");
@@ -21,7 +23,7 @@ export function EditRoom() {
   useEffect(() => {
     function getRoominfo() {
       axios
-        .get("http://localhost:8070/api/rooms/")
+        .get(`${backendUrl}/api/rooms/`)
         .then((res) => {
           //console.log(res.data); // debug
 
@@ -39,7 +41,7 @@ export function EditRoom() {
 
   function getOneRoom(did) {
     axios
-      .get("http://localhost:8070/api/rooms/get/" + did)
+      .get(`${backendUrl}/api/rooms/get/${did}`)
       .then((res) => {
         // console.log(res.data);
         setid(res.data._id);
@@ -75,7 +77,7 @@ export function EditRoom() {
     };
 
     axios
-      .put("http://localhost:8070/api/rooms/update/" + id, NewRoom)
+      .put(`${backendUrl}/api/rooms/update/${id}`, NewRoom)
       .then(() => {
         alert("Room information Updated");
 
@@ -90,7 +92,7 @@ export function EditRoom() {
 
   function deleteRoom(ID) {
     axios
-      .delete("http://localhost:8070/api/rooms/delete/" + ID)
+      .delete(`${backendUrl}/api/rooms/delete/${ID}`)
       .then((res) => {
         alert("Room Information Deleted");
 

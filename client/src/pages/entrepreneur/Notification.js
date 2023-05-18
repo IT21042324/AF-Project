@@ -12,12 +12,6 @@ export const Notification = () => {
   //getting the user
   const user = getUser();
 
-  const [product, setProduct] = useState([]);
-
-  useEffect(() => {
-    setProduct(products);
-  }, [products]);
-
   const { markAsRead } = UseBackendAPI();
 
   const setNotifcationAsRead = async (e, productID) => {
@@ -52,8 +46,8 @@ export const Notification = () => {
                 </tr>
               </thead>
               <tbody>
-                {product
-                  .filter((itm) => itm.userID === user._id)
+                {products
+                  ?.filter((itm) => itm.userID === user._id)
                   .map((data) => {
                     return (
                       <>

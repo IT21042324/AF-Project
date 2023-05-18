@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
-
 import axios from "axios";
-
 import "../../styles/hotelList.css";
-
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AdminDashBoardDetails } from "../../components/AdminDashBoardDetails";
 
 export function EditHotel() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [hotel, setHotel] = useState([]);
   const [id, setid] = useState("");
   const [name, setname] = useState("");
@@ -50,7 +49,7 @@ export function EditHotel() {
   useEffect(() => {
     function getHotelinfo() {
       axios
-        .get("http://localhost:8070/api/hotels/")
+        .get(`${backendUrl}/api/hotels/`)
         .then((res) => {
           //console.log(res.data); // debug
 
@@ -68,7 +67,7 @@ export function EditHotel() {
 
   function getOneHotel(did) {
     axios
-      .get("http://localhost:8070/api/hotels/get/" + did)
+      .get(`${backendUrl}/api/hotels/get/${did}`)
       .then((res) => {
         // console.log(res.data);
         setid(res.data._id);
@@ -117,7 +116,7 @@ export function EditHotel() {
     };
 
     axios
-      .put("http://localhost:8070/api/hotels/update/" + id, NewHotel)
+      .put(`${backendUrl}/api/hotels/update/${id}`, NewHotel)
       .then(() => {
         alert("Hotel information Updated");
 
@@ -132,7 +131,7 @@ export function EditHotel() {
 
   function deleteHotel(ID) {
     axios
-      .delete("http://localhost:8070/api/hotels/delete/" + ID)
+      .delete(`${backendUrl}/api/hotels/delete/${ID}`)
       .then((res) => {
         alert("Hotel Information Deleted");
 
@@ -234,7 +233,10 @@ export function EditHotel() {
         </div>
 
         <div id="backdrop" className="backdrop-black1">
-          <div id="update-box" className="hotelContainer form-styles scrollable">
+          <div
+            id="update-box"
+            className="hotelContainer form-styles scrollable"
+          >
             <button
               onClick={handleClose}
               className="btn11 btn-outline-danger"

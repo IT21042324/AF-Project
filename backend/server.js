@@ -16,7 +16,7 @@ app.use(express.urlencoded({ limit: "100mb", extended: true }));
 app.use(cors());
 
 // Get port number and database URI from environment variables
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8070;
 const URI = process.env.URI;
 
 // Connect to MongoDB database and start server
