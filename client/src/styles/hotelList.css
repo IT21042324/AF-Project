@@ -38,11 +38,11 @@
     margin: 5px;
   }
   
-  .backdrop-black {
+  .backdrop-black1 {
     background-color: rgba(0, 0, 0, 0.4);
     position: fixed;
-    height: 2200px;
-    margin-left: 1000px;
+    height: 1000px;
+    margin-left: 0px;
     top: 0;
     left: 0;
     right: 0;
@@ -52,27 +52,27 @@
 
   }
   
-  .form-style {
+  .form-styles {
     max-width: 800px;
     max-height: 1000px;
-    font-size: 16px;
+    font-size: 14px;
     margin: 50px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(10, 10, 10, 10);
-    margin-left: 500px;
-    margin-top: 1150px;
+    margin-left: 400px;
+    margin-top: 50px;
     margin-bottom: 500px;
   }
   
-  .form-style3 label {
+  .form-styles label {
     display: block;
     margin-bottom: 5px;
   }
   
-  .form-style3 input[type="text"],
-  .form-style3 select {
+  .form-styles input[type="text"],
+  .form-styles select {
     display: block;
     width: 100%;
     padding:1px;
@@ -83,26 +83,27 @@
     color: #555;
   }
   
-  .form-style3 input[type="submit"] {
+  .form-styles input[type="submit"] {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 3px 5px;
-    margin-top: 10px;
+    padding: 1px 3px;
+    margin-top: 5px;
     font-size: 14px;
     border-radius: 5px;
   }
   
-  .form-style3 input[type="submit"]:hover {
+  .form-styles input[type="submit"]:hover {
     background-color: #0069d9;
   }
   
-  .form-style3 button.btn-outline-danger {
+  .form-styles button.btn-outline-danger {
     margin-top: -10px;
+    width: 100px;
   }
   
   @media (max-width: 576px) {
-    .form-style3 {
+    .form-styles {
       max-width: 100%;
       margin: 20px;
       padding: 10px;

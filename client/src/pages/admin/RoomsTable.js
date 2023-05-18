@@ -176,7 +176,7 @@ export function EditRoom() {
       </div>
 
       <div id="backdrop" className="backdrop-black">
-        <div id="update-box" className="container form-style ">
+        <div id="update-box" className="container form-styles ">
           <button
             onClick={handleClose}
             className="btn btn-outline-danger"

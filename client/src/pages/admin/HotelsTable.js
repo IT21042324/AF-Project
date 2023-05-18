@@ -232,8 +232,8 @@ function convertToBase64(e) {
         </table>
       </div>
 
-      <div id="backdrop" className="backdrop-black">
-        <div id="update-box" className="container form-style ">
+      <div id="backdrop" className="backdrop-black1">
+        <div id="update-box" className="container form-styles ">
           <button
             onClick={handleClose}
             className="btn btn-outline-danger"
@@ -268,6 +268,7 @@ function convertToBase64(e) {
                 <select
                 class="form-control"
                 id="type"
+                value={type}
                 onChange={(e) => {
                   settype(e.target.value);
                 }}
@@ -316,6 +317,7 @@ function convertToBase64(e) {
                 type="text"
                 class="form-control"
                 id="distance"
+                value={distance}
                 onChange={(e) => {
                   setdistance(e.target.value);
                 }}
@@ -328,6 +330,7 @@ function convertToBase64(e) {
                 type="text"
                 class="form-control"
                 id="title"
+                value={title}
                 onChange={(e) => {
                   setTitle(e.target.value);
                 }}
@@ -340,6 +343,7 @@ function convertToBase64(e) {
                 type="text"
                 class="form-control"
                 id="description"
+                value={description}
                 onChange={(e) => {
                   setdescription(e.target.value);
                 }}
@@ -352,6 +356,7 @@ function convertToBase64(e) {
                 type="text"
                 class="form-control"
                 id="cheapestPrice"
+                value={cheapestPrice}
                 onChange={(e) => {
                   setcheapestprice(e.target.value);
                 }}
@@ -367,6 +372,7 @@ function convertToBase64(e) {
               <select
                 class="form-control"
                 id="featured"
+                value={featured}
                 onChange={(e) => {
                   setfeatured(e.target.value);
                 }}
@@ -391,7 +397,7 @@ function convertToBase64(e) {
               <input type="checkbox" name="terms" required /> <br></br>
               <br></br>
               <button type="submit" className="btn btn-primary">
-                Update Details
+                Update
               </button>
             </div>
           </form>
