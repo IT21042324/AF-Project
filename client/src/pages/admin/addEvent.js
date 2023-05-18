@@ -445,7 +445,6 @@ export function AddEvent() {
                     box
                   </label>
                 </div>
-
                 <br></br>
               </div>
             </div>
