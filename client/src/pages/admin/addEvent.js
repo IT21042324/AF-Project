@@ -267,26 +267,139 @@ export function AddEvent() {
             <div className="card-body">
               <div className="row">
                 <div className="col-md-4 mb-3">
-                  <label for="validationCustom01" style={{ float: "left" }}>
-                    Event title
+                  <label htmlFor="eventTitle" style={{ float: "left" }}>
+                    Event Title
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="validationCustom01"
-                    placeholder="Type here"
+                    id="title"
+                    placeholder="Enter event title"
+                    onChange={(e) => {
+                      setname(e.target.value);
+                    }}
                     required
                   />
                 </div>
                 <div className="col">
-                  <label for="validationCustom01" style={{ float: "left" }}>
-                    Product description
+                  <label htmlFor="description" style={{ float: "left" }}>
+                    Description
                   </label>
                   <input
                     type="text"
                     className="form-control"
-                    id="validationCustom01"
-                    placeholder="Type here"
+                    id="description"
+                    placeholder="colombo 03 "
+                    onChange={(e) => {
+                      setdescription(e.target.value);
+                    }}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="eventTitle" style={{ float: "left" }}>
+                    Province
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="province"
+                    placeholder="Ex:Central"
+                    onChange={(e) => {
+                      setlocation(e.target.value);
+                    }}
+                    required
+                  />
+                </div>
+                <div className="col">
+                  <label htmlFor="description" style={{ float: "left" }}>
+                    Price
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="price"
+                    placeholder="Rs."
+                    onChange={(e) => {
+                      setPrice(e.target.value);
+                    }}
+                    onBlur={(e) => {
+                      validatePrice(e.target.value);
+                    }}
+                    required
+                  />
+                  {errorMessage && (
+                    <div style={{ color: "red" }}>{errorMessage}</div>
+                  )}
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="eventTitle" style={{ float: "left" }}>
+                    Date
+                  </label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    id="date"
+                    onChange={(e) => {
+                      setDate(e.target.value);
+                    }}
+                    required
+                  />
+                </div>
+                <div className="col">
+                  <label htmlFor="description" style={{ float: "left" }}>
+                    Category
+                  </label>
+                  <select
+                    className="form-control"
+                    id="category"
+                    onChange={(e) => {
+                      setCategory(e.target.value);
+                    }}
+                    required
+                  >
+                    <option value="">-- Select --</option>
+                    <option value="music">Music</option>
+                    <option value="dance">Dance</option>
+                    <option value="theater">Theater</option>
+                    <option value="art">Art</option>
+                    <option value="festival">Festival</option>
+                  </select>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-4 mb-3">
+                  <label htmlFor="eventTitle" style={{ float: "left" }}>
+                    Organizer Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="organizerName"
+                    placeholder="Ex:20000"
+                    onChange={(e) => {
+                      setOrganizerName(e.target.value);
+                    }}
+                    required
+                  />
+                </div>
+                <div className="col">
+                  <label htmlFor="description" style={{ float: "left" }}>
+                    Organizer Contact
+                  </label>
+
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="organizerContact"
+                    placeholder="Ex:20000"
+                    onChange={(e) => {
+                      setOrganizerContact(e.target.value);
+                    }}
                     required
                   />
                 </div>
@@ -294,41 +407,39 @@ export function AddEvent() {
 
               <div className="row">
                 <div className="col-md-4 mb-3">
-                  <label for="validationCustom01" style={{ float: "left" }}>
-                    Quantity
+                  <label htmlFor="quantity" style={{ float: "left" }}>
+                    Ticket Availability
                   </label>
-                  <input
-                    type="text"
+                  <select
                     className="form-control"
-                    id="validationCustom01"
-                    placeholder="0"
+                    id="ticketAvailability"
+                    onChange={(e) => setTicketAvailability(e.target.value)}
                     required
-                  />
+                  >
+                    <option value="">-- Select --</option>
+                    <option value="available">Available</option>
+                    <option value="unavailable">Unavailable</option>
+                  </select>
                 </div>
                 <div className="col">
-                  <label for="validationCustom01" style={{ float: "left" }}>
+                  <label htmlFor="image" style={{ float: "left" }}>
                     Image
                   </label>
                   <input
                     type="file"
                     className="form-control"
-                    id="validationCustom01"
-                    placeholder="0.00"
+                    id="itemImage"
+                    onChange={(e) => convertToBase64(e)}
+                    ref={imageInputRef}
                     required
                   />
-                </div>
-              </div>
-
-              <div className="row">
-                <div className="col-md-4 mb-3">
-                  <label for="validationCustom01">Unit Price</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="validationCustom01"
-                    placeholder="0.00"
-                    required
-                  />
+                  <br></br>
+                  <label>
+                    Please click the checkbox to confirm your intention to add
+                    the new event to the system
+                  </label>
+                  <input type="checkbox" name="terms" required /> <br></br>
+                  <br></br>
                 </div>
               </div>
             </div>

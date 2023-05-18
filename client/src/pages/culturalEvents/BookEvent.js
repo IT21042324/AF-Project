@@ -9,7 +9,6 @@ function BookTicket() {
   const location = useLocation();
   const [title, setTitle] = useState("");
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [numberOfTickets, setNumberOfTickets] = useState("");
   const [price, setPrice] = useState("");
@@ -52,7 +51,6 @@ function BookTicket() {
       console.log("Total Amount:", totalAmount);
       const data = {
         name,
-        email,
         phone,
         numberOfTickets,
         price,
@@ -72,11 +70,17 @@ function BookTicket() {
         if (response.status === 200) {
           SendEmail({
             user_name: user.userName,
-            main_message: "Your tickets have been booked successfully",
-            message: "Book more tickets and become and earn discounts",
+            main_message: "Your tickets have been booked successfully!!!",
+            message:
+              "🥳🥳🥳Congratulations on booking your event ticket through our system! We're thrilled to have you join us for this exciting event.\n\n" +
+              "To secure your tickets, please follow these steps:\n\n" +
+              "1.Contact the event organizers at your earliest convenience to arrange the ticket fee payment.📞\n" +
+              "2.Coordinate with the organizers to have the tickets delivered straight to your doorstep.🚚\n" +
+              "3.Sit back, relax, and get ready to enjoy an incredible experience😊😊!\n\n" +
+              "🙌Thank you for choosing HEAVENLY to book your tickets. If you have any further questions or need assistance, please don't hesitate to reach out to our customer support team. We hope you have an amazing time at the event!",
             title: "Booking Confirmation",
           });
-          alert("Ticket booked successfully!");
+          alert("Ticket booked successfully!    Please check your email");
         } else {
           alert("Error booking ticket. Please try again later.");
         }
@@ -94,7 +98,6 @@ function BookTicket() {
   };
   const formData = {
     name,
-    email,
     phone,
     numberOfTickets,
     price,
@@ -113,14 +116,7 @@ function BookTicket() {
       valid = false;
       alert("Please enter your name.");
     }
-    // validate email
-    if (email.trim() === "") {
-      valid = false;
-      alert("Please enter your email address.");
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      valid = false;
-      alert("Please enter a valid email address.");
-    }
+
     // validate phone
     if (phone.trim() === "") {
       valid = false;
@@ -167,19 +163,7 @@ function BookTicket() {
             required
           />
         </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
+
         <div className="mb-3">
           <label htmlFor="phone" className="form-label">
             Phone Number
