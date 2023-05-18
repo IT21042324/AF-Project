@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import "./editevent.css";
+import { AdminDashBoardDetails } from "../../components/AdminDashBoardDetails";
 
 export function AddEvent() {
   const [name, setname] = useState("");
@@ -241,21 +242,15 @@ export function AddEvent() {
 
     <div>
       <section className="main-wrap">
-        <div
-          className="content-main"
-          style={{ display: "flex", justifyContent: "space-between" }}
-        >
-          <div>
-            <h2 style={{ float: "left" }}>Add New Event</h2>
-            <br />
-            <p style={{ float: "left" }}>Add A New Event Here</p>
-          </div>
-        </div>
+        <AdminDashBoardDetails
+          title={"Add New Event"}
+          subTitle={"Add Your Events From Here.."}
+        />
 
         <div className="card mb-4">
           <form onSubmit={sendData}>
             <header className="card-header">
-              <h4>Event</h4>
+              <h4 style={{ color: "black" }}>Add Event</h4>
               <div>
                 <input
                   className="btn btn-success"
@@ -434,13 +429,24 @@ export function AddEvent() {
                     required
                   />
                   <br></br>
-                  <label>
-                    Please click the checkbox to confirm your intention to add
-                    the new event to the system
-                  </label>
-                  <input type="checkbox" name="terms" required /> <br></br>
-                  <br></br>
                 </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    textAlign: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <input type="checkbox" name="terms" required />
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <label>
+                    I agree to add the new event to the system by checking the
+                    box
+                  </label>
+                </div>
+
+                <br></br>
               </div>
             </div>
           </form>

@@ -133,10 +133,14 @@ function EditInfo() {
   return (
     <section className="main-dashboard">
       <>
-        <h1>Event Details</h1>
+        <AdminDashBoardDetails
+          title={"Manage Events"}
+          subTitle={"Manage All Events From Here.."}
+        />
+
         <div className="card mb-4">
           <header className="card-header">
-            <h4>Edit or Delete an event here</h4>
+            <h4 style={{ color: "black" }}>Event Details</h4>
           </header>
           <div className="card-body">
             <div className="table-responsive">
@@ -242,7 +246,7 @@ function EditInfo() {
                 <br></br>
 
                 <br></br>
-                <h3>Edit information here</h3>
+                <h3 style={{ color: "black" }}>Edit information here</h3>
                 <form onSubmit={sendData}>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">

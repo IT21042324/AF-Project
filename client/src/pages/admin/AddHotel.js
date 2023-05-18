@@ -14,7 +14,6 @@ export function AddHotelForm() {
   const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
   const [cheapestPrice, setcheapestprice] = useState("");
-  
 
   //image
 
@@ -47,7 +46,7 @@ export function AddHotelForm() {
         setdescription("");
         setcheapestprice("");
       })
-      
+
       .catch((err) => {
         alert(err);
       });
@@ -121,10 +120,11 @@ export function AddHotelForm() {
                       setdistance(value);
                     }
                   }}
-
                   onInvalid={(e) => {
-                    e.target.setCustomValidity("Please enter a valid Distance.");
-                      alert("Please enter a valid Distance.");
+                    e.target.setCustomValidity(
+                      "Please enter a valid Distance."
+                    );
+                    alert("Please enter a valid Distance.");
                   }}
                 />
               </div>
@@ -166,12 +166,11 @@ export function AddHotelForm() {
                   }}
                   onInvalid={(e) => {
                     e.target.setCustomValidity("Please enter a valid Price.");
-                      alert("Please enter a valid Price.");
+                    alert("Please enter a valid Price.");
                   }}
                   required
                 />
               </div>
-
 
               <div className="formInput">
                 <br></br>
