@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../../styles/place.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import cover from "../../assets/PlaceCoverPic.jpg";
@@ -56,11 +55,11 @@ export function DisplayPlaces() {
   };
 
   const showUpdateBox = () => {
-    document.getElementById("backdrop").style.display = "block";
+    document.getElementById("backdropPlace").style.display = "block";
   };
 
   const handleClose = () => {
-    document.getElementById("backdrop").style.display = "none";
+    document.getElementById("backdropPlace").style.display = "none";
     setNewImageUrl("");
   };
 
@@ -288,10 +287,10 @@ export function DisplayPlaces() {
       </div>
 
       {/* View */}
-      <div id="backdrop" className="backdrop-black">
+      <div id="backdropPlace" className="backdropPlace-black">
         <div
-          id="update-box"
-          className="container, form-style"
+          //id="update-box"
+          className="container"
           style={{ position: "relative", marginLeft: "10%" }}
         >
           <br></br>
@@ -299,8 +298,8 @@ export function DisplayPlaces() {
             onClick={handleClose}
             style={{
               position: "absolute",
-              right: "280px",
-              top: "30px",
+              right: "215px",
+              top: "10px",
               border: "none",
               backgroundColor: "transparent",
               color: "red",

@@ -43,10 +43,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.21.5",
-    "@testing-library/react": "^14.0.0",
-    "babel-jest": "^29.5.0"
   }
 }

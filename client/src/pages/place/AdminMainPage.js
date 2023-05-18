@@ -15,7 +15,7 @@ export function AdminMainPage() {
         <div style={{ position: "absolute", right: "20px", top: "30px" }}>
           <button
             className="btn"
-            style={{ marginRight: "5px" }}
+            style={{ marginRight: "5px" , width:"180px"}}
             type="submit"
             onClick={() => {
               navigate("/admin/addPlace");
@@ -25,6 +25,7 @@ export function AdminMainPage() {
           </button>
           <button
             className="btn"
+            style={{ width:"180px"}}
             type="submit"
             onClick={() => {
               navigate("/admin/allPlaces");
