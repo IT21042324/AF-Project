@@ -5,7 +5,6 @@ import { EntrepreneurshipRoutes } from "./EntrepreneurshipRoutes";
 import { AccommodationRoutes } from "./AccommodationRoutes";
 import { CulturalEventsRoutes } from "./CulturalEventRoutes";
 import { AdminRoutes } from "./AdminRoutes";
-import { useState } from "react";
 
 function App() {
   return (
@@ -20,8 +19,6 @@ function App() {
         <Route path="/Accommodations/*" element={<AccommodationRoutes />} />
 
         <Route path="/cultural/*" element={<CulturalEventsRoutes />} />
-
-        {/* <Route path="/placeRoutesAdmin/*" element={<PlaceRoutesAdmin />} /> */}
       </Routes>
     </div>
   );
