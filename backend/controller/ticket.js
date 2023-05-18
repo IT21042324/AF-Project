@@ -1,12 +1,11 @@
 const Ticket = require("../model/ticket");
 
 const addTicket = async (req, res) => {
-  const { name, email, phone, price, numberOfTickets, total, userId, eventId } =
+  const { name, phone, price, numberOfTickets, total, userId, eventId } =
     req.body;
 
   const newTicket = new Ticket({
     name,
-    email,
     phone,
     price,
     numberOfTickets,
@@ -39,12 +38,11 @@ const getAllTickets = (req, res) => {
 
 const updateTicket = async (req, res) => {
   let ticketId = req.params.id;
-  const { name, email, phone, price, numberOfTickets, total, userId, eventId } =
+  const { name, phone, price, numberOfTickets, total, userId, eventId } =
     req.body;
 
   const updatedTicket = {
     name,
-    email,
     phone,
     price,
     numberOfTickets,

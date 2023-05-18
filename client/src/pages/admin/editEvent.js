@@ -78,11 +78,11 @@ function EditInfo() {
   }
 
   const showUpdateBox = () => {
-    document.getElementById("backdrop").style.display = "block";
+    document.getElementById("backdropEvent").style.display = "block";
   };
 
   const handleClose = () => {
-    document.getElementById("backdrop").style.display = "none";
+    document.getElementById("backdropEvent").style.display = "none";
   };
 
   //Update function
@@ -221,8 +221,8 @@ function EditInfo() {
         </table>
       </div>
 
-      <div id="backdrop" className="backdrop-black">
-        <div id="update-box" className="container form-style3 ">
+      <div id="backdropEvent" className="backdropEvent-black">
+        <div id="update-box" className="container form-styleEvent ">
           <button
             onClick={handleClose}
             className="btn btn-outline-danger"
