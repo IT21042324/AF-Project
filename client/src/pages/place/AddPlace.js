@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import picture from "../../assets/placeMain.png";
 import { useNavigate } from 'react-router-dom';
+import {validateForm} from './AddPlaceValidations';
 
 export function AddPlace() {
   //ImageUpload
@@ -31,35 +32,12 @@ export function AddPlace() {
     });
   };
 
-  //form validation
-  function validateForm() {
-    //validation for place name
-    if (placeName.length < 3 || placeName.length > 30) {
-      alert("Place Name should be between 3 and 30 characters.");
-      return false;
-    }
-
-    //validation for place description
-    if (placeDescription.length < 25) {
-      alert("Place Description should be at least 25 characters.");
-      return false;
-    }
-
-    //validation for place image
-    if (!imageUrl) {
-      alert("Place Image should be uploaded.");
-      return false;
-    }
-
-    return true;
-  }
-
   //function for sending data
   function sendData(e) {
     e.preventDefault();
 
     //calling validation function
-    if (!validateForm()) {
+    if (!validateForm(placeName, placeDescription, imageUrl)) {
       return;
     }
 
