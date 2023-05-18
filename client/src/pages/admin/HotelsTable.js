@@ -234,10 +234,10 @@ export function EditHotel() {
         </div>
 
         <div id="backdrop" className="backdrop-black1">
-          <div id="update-box" className="container form-styles ">
+          <div id="update-box" className="hotelContainer form-styles scrollable">
             <button
               onClick={handleClose}
-              className="btn btn-outline-danger"
+              className="btn11 btn-outline-danger"
               style={{ width: "40px", height: "40px", float: "right" }}
             >
               X
