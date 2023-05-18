@@ -11,8 +11,7 @@ import {
   faHouse,
   faBed,
   faHotel,
-
-
+  faClipboard,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
@@ -119,27 +118,53 @@ export function AdminSideMenu(props) {
             &nbsp;&nbsp; Tourist Places
           </Link>
         </div>
-         
-        <div className="li">
-          <Link
-            to={"/admin/addEvent"}
-            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
-          >
-            <FontAwesomeIcon icon={faPlus} />
-            &nbsp;&nbsp; Add an event
-          </Link>
-        </div>
 
         <div className="li">
-          <Link
-            to={"/admin/editEvent"}
-            style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
-          >
-            {" "}
-            <FontAwesomeIcon icon={faEdit} /> &nbsp;&nbsp;
-            <FontAwesomeIcon icon={faTrash} />
-            &nbsp;&nbsp; Edit/Delete event
-          </Link>
+          <details>
+            <summary
+              style={{ textDecoration: "none", color: "gray", lineHeight: 2 }}
+            >
+              <FontAwesomeIcon icon={faClipboard} />
+              &nbsp;&nbsp; Events
+            </summary>
+            <ul style={{ listStyleType: "none", paddingLeft: 20 }}>
+              <li>
+                <Link
+                  to={"/admin/editEvent"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faEdit} /> &nbsp;&nbsp;
+                  <FontAwesomeIcon icon={faTrash} />
+                  &nbsp;&nbsp; Edit/Delete event
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to={"/admin/addEvent"}
+                  style={{
+                    textDecoration: "none",
+                    color: "gray",
+                    lineHeight: 2,
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#eee")
+                  }
+                  onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+                  &nbsp;&nbsp; Add event
+                </Link>
+              </li>
+            </ul>
+          </details>
         </div>
 
         <div className="li">
@@ -191,7 +216,6 @@ export function AdminSideMenu(props) {
               </li>
             </ul>
           </details>
-        
         </div>
       </div>
     </section>

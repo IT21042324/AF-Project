@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { AdminDashBoardDetails } from "../../components/AdminDashBoardDetails";
 
 import axios from "axios";
 
@@ -130,267 +131,277 @@ function EditInfo() {
   }
 
   return (
-    <>
-      <div className="container shadow rounded">
-        <table
-          className="table"
-          style={{
-            width: "100%",
-            border: "1px solid black",
-            backgroundColor: "white",
-          }}
-        >
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-
-              <th scope="col">Title</th>
-
-              <th scope="col">Description</th>
-
-              <th scope="col">Location</th>
-
-              <th scope="col">Price</th>
-
-              <th scope="col">Date</th>
-
-              <th scope="col">Category</th>
-
-              <th scope="col">Organizer name</th>
-
-              <th scope="col">Organizer Contact</th>
-
-              <th scope="col">ticketAvailability</th>
-
-              <th scope="col">image</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {event.map((event) => (
-              <tr key={event._id}>
-                <td>{event._id}</td>
-
-                <td>{event.name}</td>
-
-                <td>{event.description}</td>
-
-                <td>{event.location}</td>
-
-                <td>{event.price}</td>
-
-                <td>{event.Date}</td>
-
-                <td>{event.category}</td>
-
-                <td>{event.organizerName}</td>
-
-                <td>{event.organizerContact}</td>
-
-                <td>{event.ticketAvailability}</td>
-
-                <td>
-                  <img
-                    src={event.url}
-                    alt="event image"
-                    style={{ width: "100px", height: "100px" }}
-                  />
-                </td>
-
-                <td>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      getOneItem(event._id);
-                      showUpdateBox();
-                    }}
-                  >
-                    Edit
-                  </button>
-
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => deleteItem(event._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div id="backdropEvent" className="backdropEvent-black">
-        <div id="update-box" className="container form-styleEvent ">
-          <button
-            onClick={handleClose}
-            className="btn btn-outline-danger"
-            style={{ width: "40px", height: "40px", float: "right" }}
-          >
-            X
-          </button>
-
-          <br></br>
-
-          <br></br>
-          <h3>Edit information here</h3>
-          <form onSubmit={sendData}>
-            <div className="mb-3">
-              <label htmlFor="name" className="form-label">
-                Title
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="name"
-                placeholder="Enter Title here"
-                value={name}
-                onChange={(e) => setname(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="description" className="form-label">
-                Description
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="description"
-                placeholder="Enter Description"
-                value={description}
-                onChange={(e) => setdescription(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="location" className="form-label">
-                Location:
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="location"
-                placeholder="Enter location"
-                value={location}
-                onChange={(e) => setlocation(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="price" className="form-label">
-                Price:
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="price"
-                placeholder="Enter price:"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label for="date">Date:</label>
-              <input
-                type="date"
-                className="form-control"
-                id="date"
-                onChange={(e) => {
-                  setDate(e.target.value);
-                }}
-              />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="category" className="form-label">
-                Category:
-              </label>
-
-              <select
-                className="form-control"
-                id="category"
-                onChange={(e) => {
-                  setCategory(e.target.value);
+    <section className="main-dashboard">
+      <>
+        <h1>Event Details</h1>
+        <div className="card mb-4">
+          <header className="card-header">
+            <h4>Edit or Delete an event here</h4>
+          </header>
+          <div className="card-body">
+            <div className="table-responsive">
+              <table
+                className="table"
+                style={{
+                  width: "100%",
+                  border: "1px solid black",
+                  backgroundColor: "white",
                 }}
               >
-                <option value="">-- Select --</option>
-                <option value="music">Music</option>
-                <option value="dance">Dance</option>
-                <option value="theater">Theater</option>
-                <option value="art">Art</option>
-                <option value="festival">Festival</option>
-              </select>
-            </div>
-            <div className="mb-3">
-              <label htmlFor="organizerName" className="form-label">
-                Organizer Name:
-              </label>
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
 
-              <input
-                type="text"
-                className="form-control"
-                id="organizerName"
-                placeholder="Enter organizer Name"
-                value={organizerName}
-                onChange={(e) => setOrganizerName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="organizerContact" className="form-label">
-                organizer Contact
-              </label>
+                    <th scope="col">Title</th>
 
-              <input
-                type="text"
-                className="form-control"
-                id="organizerContact"
-                placeholder="Enter Contact Name"
-                value={organizerContact}
-                onChange={(e) => setOrganizerContact(e.target.value)}
-                required
-              />
+                    <th scope="col">Description</th>
+
+                    <th scope="col">Location</th>
+
+                    <th scope="col">Price</th>
+
+                    <th scope="col">Date</th>
+
+                    <th scope="col">Category</th>
+
+                    <th scope="col">Organizer name</th>
+
+                    <th scope="col">Organizer Contact</th>
+
+                    <th scope="col">ticketAvailability</th>
+
+                    <th scope="col">image</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {event.map((event) => (
+                    <tr key={event._id}>
+                      <td>{event._id}</td>
+
+                      <td>{event.name}</td>
+
+                      <td>{event.description}</td>
+
+                      <td>{event.location}</td>
+
+                      <td>{event.price}</td>
+
+                      <td>{event.Date}</td>
+
+                      <td>{event.category}</td>
+
+                      <td>{event.organizerName}</td>
+
+                      <td>{event.organizerContact}</td>
+
+                      <td>{event.ticketAvailability}</td>
+
+                      <td>
+                        <img
+                          src={event.url}
+                          alt="event image"
+                          style={{ width: "100px", height: "100px" }}
+                        />
+                      </td>
+
+                      <td>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            getOneItem(event._id);
+                            showUpdateBox();
+                          }}
+                        >
+                          Edit
+                        </button>
+
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteItem(event._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-            <div className="form-group">
-              <label for="ticketAvailability">Ticket Availability:</label>
-              <select
-                className="form-control"
-                id="ticketAvailability"
-                onChange={(e) => setTicketAvailability(e.target.value)}
-              >
-                <option value="">-- Select --</option>
-                <option value="available">Available</option>
-                <option value="unavailable">Unavailable</option>
-              </select>
+
+            <div id="backdropEvent" className="backdropEvent-black">
+              <div id="update-box" className="container form-styleEvent ">
+                <button
+                  onClick={handleClose}
+                  className="btn btn-outline-danger"
+                  style={{ width: "40px", height: "40px", float: "right" }}
+                >
+                  X
+                </button>
+
+                <br></br>
+
+                <br></br>
+                <h3>Edit information here</h3>
+                <form onSubmit={sendData}>
+                  <div className="mb-3">
+                    <label htmlFor="name" className="form-label">
+                      Title
+                    </label>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="name"
+                      placeholder="Enter Title here"
+                      value={name}
+                      onChange={(e) => setname(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="description" className="form-label">
+                      Description
+                    </label>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="description"
+                      placeholder="Enter Description"
+                      value={description}
+                      onChange={(e) => setdescription(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="location" className="form-label">
+                      Location:
+                    </label>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="location"
+                      placeholder="Enter location"
+                      value={location}
+                      onChange={(e) => setlocation(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="price" className="form-label">
+                      Price:
+                    </label>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="price"
+                      placeholder="Enter price:"
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label for="date">Date:</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      id="date"
+                      onChange={(e) => {
+                        setDate(e.target.value);
+                      }}
+                    />
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="category" className="form-label">
+                      Category:
+                    </label>
+
+                    <select
+                      className="form-control"
+                      id="category"
+                      onChange={(e) => {
+                        setCategory(e.target.value);
+                      }}
+                    >
+                      <option value="">-- Select --</option>
+                      <option value="music">Music</option>
+                      <option value="dance">Dance</option>
+                      <option value="theater">Theater</option>
+                      <option value="art">Art</option>
+                      <option value="festival">Festival</option>
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="organizerName" className="form-label">
+                      Organizer Name:
+                    </label>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="organizerName"
+                      placeholder="Enter organizer Name"
+                      value={organizerName}
+                      onChange={(e) => setOrganizerName(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="organizerContact" className="form-label">
+                      organizer Contact
+                    </label>
+
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="organizerContact"
+                      placeholder="Enter Contact Name"
+                      value={organizerContact}
+                      onChange={(e) => setOrganizerContact(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label for="ticketAvailability">Ticket Availability:</label>
+                    <select
+                      className="form-control"
+                      id="ticketAvailability"
+                      onChange={(e) => setTicketAvailability(e.target.value)}
+                    >
+                      <option value="">-- Select --</option>
+                      <option value="available">Available</option>
+                      <option value="unavailable">Unavailable</option>
+                    </select>
+                  </div>
+                  <div className="mb-3">
+                    <label for="itemImage"> Image</label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      id="itemImage"
+                      onChange={(e) => convertToBase64(e)}
+                      ref={imageInputRef}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <input type="checkbox" name="terms" required /> <br></br>
+                    <br></br>
+                    <button type="submit" className="btn btn-primary">
+                      Update Details
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div className="mb-3">
-              <label for="itemImage"> Image</label>
-              <input
-                type="file"
-                className="form-control"
-                id="itemImage"
-                onChange={(e) => convertToBase64(e)}
-                ref={imageInputRef}
-              />
-            </div>
-            <div className="mb-3">
-              <input type="checkbox" name="terms" required /> <br></br>
-              <br></br>
-              <button type="submit" className="btn btn-primary">
-                Update Details
-              </button>
-            </div>
-          </form>
+          </div>{" "}
         </div>
-      </div>
-    </>
+      </>
+    </section>
   );
 }
 
