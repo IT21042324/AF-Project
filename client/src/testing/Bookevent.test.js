@@ -1,74 +1,116 @@
-describe("Form Validations", () => {
-  let valid, alertMessages;
+import { ValidateBookevent } from "../pages/culturalEvents/Bookeventvalidations";
+global.alert = jest.fn();
 
-  beforeEach(() => {
-    valid = true;
-    alertMessages = [];
+describe("ValidateBookevent", () => {
+  test("returns true for valid inputs", () => {
+    // Arrange
+    const name = "John Doe";
+    const phone = "1234567890";
+    const numberOfTickets = "5";
+    const price = "100";
 
-    // Mocking the alert function
-    global.alert = (message) => {
-      alertMessages.push(message);
-    };
+    // Act
+    const result = ValidateBookevent(name, phone, numberOfTickets, price);
+
+    // Assert
+    expect(result).toBe(true);
   });
 
-  afterEach(() => {
-    alertMessages = [];
-  });
-
-  it("should validate name field", () => {
+  test("returns false if name is empty", () => {
+    // Arrange
     const name = "";
+    const phone = "1234567890";
+    const numberOfTickets = "5";
+    const price = "100";
 
-    if (name.trim() === "") {
-      valid = false;
-      alert("Please enter your name.");
-    }
+    // Act
+    const result = ValidateBookevent(name, phone, numberOfTickets, price);
 
-    expect(valid).toBe(false);
-    expect(alertMessages).toContain("Please enter your name.");
+    // Assert
+    expect(result).toBe(false);
   });
 
-  it("should validate phone field", () => {
+  test("returns false if phone is empty", () => {
+    // Arrange
+    const name = "John Doe";
     const phone = "";
+    const numberOfTickets = "5";
+    const price = "100";
 
-    if (phone.trim() === "") {
-      valid = false;
-      alert("Please enter your phone number.");
-    } else if (!/^\d{10}$/.test(phone)) {
-      valid = false;
-      alert("Please enter a valid phone number.");
-    }
+    // Act
+    const result = ValidateBookevent(name, phone, numberOfTickets, price);
 
-    expect(valid).toBe(false);
-    expect(alertMessages).toContain("Please enter your phone number.");
+    // Assert
+    expect(result).toBe(false);
   });
 
-  it("should validate number of tickets field", () => {
+  test("returns false if phone is not valid", () => {
+    // Arrange
+    const name = "John Doe";
+    const phone = "12345";
+    const numberOfTickets = "5";
+    const price = "100";
+
+    // Act
+    const result = ValidateBookevent(name, phone, numberOfTickets, price);
+
+    // Assert
+    expect(result).toBe(false);
+  });
+
+  test("returns false if number of tickets is empty", () => {
+    // Arrange
+    const name = "John Doe";
+    const phone = "1234567890";
     const numberOfTickets = "";
+    const price = "100";
 
-    if (numberOfTickets.trim() === "") {
-      valid = false;
-      alert("Please enter the number of tickets.");
-    } else if (numberOfTickets < 1 || numberOfTickets > 10) {
-      valid = false;
-      alert("Please enter a number between 1 and 10.");
-    }
+    // Act
+    const result = ValidateBookevent(name, phone, numberOfTickets, price);
 
-    expect(valid).toBe(false);
-    expect(alertMessages).toContain("Please enter the number of tickets.");
+    // Assert
+    expect(result).toBe(false);
   });
 
-  it("should validate price field", () => {
+  test("returns false if number of tickets is not between 1 and 10", () => {
+    // Arrange
+    const name = "John Doe";
+    const phone = "1234567890";
+    const numberOfTickets = "15";
+    const price = "100";
+
+    // Act
+    const result = ValidateBookevent(name, phone, numberOfTickets, price);
+
+    // Assert
+    expect(result).toBe(false);
+  });
+
+  test("returns false if price is empty", () => {
+    // Arrange
+    const name = "John Doe";
+    const phone = "1234567890";
+    const numberOfTickets = "5";
     const price = "";
 
-    if (price.trim() === "") {
-      valid = false;
-      alert("Please enter the price.");
-    } else if (isNaN(price)) {
-      valid = false;
-      alert("Please enter a valid price.");
-    }
+    // Act
+    const result = ValidateBookevent(name, phone, numberOfTickets, price);
 
-    expect(valid).toBe(false);
-    expect(alertMessages).toContain("Please enter the price.");
+    // Assert
+    expect(result).toBe(false);
+  });
+
+  test("returns false if price is not a number", () => {
+    // Arrange
+    const name = "John Doe";
+    const phone = "1234567890";
+    const numberOfTickets = "5";
+    const price = "abc";
+
+    // Act
+    const result = ValidateBookevent(name, phone, numberOfTickets, price);
+
+    // Assert
+    expect(result).toBe(false);
   });
 });

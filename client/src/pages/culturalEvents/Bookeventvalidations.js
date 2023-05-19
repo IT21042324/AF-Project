@@ -1,4 +1,6 @@
 export function ValidateBookevent(name, phone, numberOfTickets, price) {
+  let valid = true;
+
   if (name.trim() === "") {
     valid = false;
     alert("Please enter your name.");
@@ -28,4 +30,6 @@ export function ValidateBookevent(name, phone, numberOfTickets, price) {
     valid = false;
     alert("Please enter a valid price.");
   }
+
+  return valid;
 }

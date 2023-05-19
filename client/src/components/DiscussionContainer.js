@@ -53,8 +53,8 @@ export function DiscussionContainer(props) {
                     className="review-name"
                     style={{
                       float: diss.sender === "seller" ? "left" : "right",
+                      color: diss.sender === "seller" ? "brown" : "green",
                       fontWeight: 400,
-                      justifyContent: "end",
                     }}
                   >
                     {diss.message}
