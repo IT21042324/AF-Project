@@ -3,6 +3,7 @@ import axios from "axios";
 import "../../styles/place.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 
 export function AllPlaces() {
   const [places, setPlaces] = useState([]);
@@ -10,6 +11,7 @@ export function AllPlaces() {
   const [placeName, setPlaceName] = useState("");
   const [placeDescription, setPlaceDescription] = useState("");
   // const [imageUrl, setUrl] = useState('')
+  const navigate = useNavigate();
 
   //function to display all the places
   useEffect(() => {
@@ -76,7 +78,8 @@ export function AllPlaces() {
       .patch("http://localhost:8070/api/protectedPlace/update/" + id, newPlace)
       .then(() => {
         alert("Place Details Updated");
-        window.location.reload();
+        // window.location.reload();
+        navigate('admin/allPlaces', { replace: true });
       })
       .catch((err) => {
         alert(err);
@@ -95,7 +98,8 @@ export function AllPlaces() {
       .delete("http://localhost:8070/api/protectedPlace/delete/" + id)
       .then((res) => {
         alert("Place Deleted");
-        window.location.reload();
+        // window.location.reload();
+        navigate('admin/allPlaces', { replace: true }); 
       })
       .catch((err) => {
         alert(err.message);
@@ -191,7 +195,7 @@ export function AllPlaces() {
                       <button
                         type="button"
                         className="btn btn-dark"
-                        style={{ marginRight: "10px", padding: "10px 16px", float:"left", width:"120px" }}
+                        style={{ marginRight: "10px", padding: "10px 16px", float: "left", width: "120px" }}
                         onClick={() => {
                           getOnePlace(place._id);
                           showUpdateBox();
@@ -202,7 +206,7 @@ export function AllPlaces() {
                       <button
                         type="button"
                         className="btn btn-outline-dark"
-                        style={{ padding: "10px 24px", float:"right", width:"120px" }}
+                        style={{ padding: "10px 24px", float: "right", width: "120px" }}
                         onClick={() => {
                           deletePlace(place._id);
                         }}
@@ -305,7 +309,7 @@ export function AllPlaces() {
                         onChange={uploadImage}
                       />
                     </div>
-                    <button type="submit" className="btn btn-dark" style={{width:"200px"}}>
+                    <button type="submit" className="btn btn-dark" style={{ width: "200px" }}>
                       Update Place
                     </button>
                   </td>
