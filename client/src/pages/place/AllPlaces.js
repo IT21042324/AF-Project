@@ -88,7 +88,7 @@ export function AllPlaces() {
   //delete place function
   function deletePlace(id) {
     //Getting confirmation for delete
-    const confirmDel = window.confirm("Are your sure to this place details?");
+    const confirmDel = window.confirm("Are your sure to delete this place details?");
     if (confirmDel != true) {
       return;
     }
