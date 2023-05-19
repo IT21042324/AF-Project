@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
 import { Link } from "react-router-dom";
 import { UseProductContext } from "../../hooks/useProductContext";
 import { EntrepreneurDashBoard } from "./EntrepreneurDashBoard";
 import { DiscussionContainer } from "../../components/DiscussionContainer";
+import { UseUserContext } from "../../hooks/useUserContext";
 
 export const DiscussionRequest = () => {
   //Accessing necessary variables from the hooks
   const product = UseProductContext().products;
   const [products, setProducts] = useState([]);
+
+  const { getUser } = UseUserContext();
+  const merchant = getUser();
 
   useEffect(() => {
     setProducts(product);
@@ -19,6 +22,7 @@ export const DiscussionRequest = () => {
 
   useEffect(() => {
     const discussionsByUser = products
+      .filter((prod) => prod.userName === merchant.userName)
       .flatMap((product) =>
         product.discussion.map((discussion) => ({
           ...discussion,

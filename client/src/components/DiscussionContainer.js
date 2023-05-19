@@ -54,6 +54,7 @@ export function DiscussionContainer(props) {
                     style={{
                       float: diss.sender === "seller" ? "left" : "right",
                       fontWeight: 400,
+                      justifyContent: "end",
                     }}
                   >
                     {diss.message}
