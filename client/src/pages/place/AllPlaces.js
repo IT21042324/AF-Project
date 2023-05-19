@@ -81,7 +81,7 @@ export function AllPlaces() {
       .then(() => {
         alert("Place Details Updated");
         // window.location.reload();
-        navigate('admin/allPlaces', { replace: true });
+        navigate(0);
       })
       .catch((err) => {
         alert(err);
@@ -101,7 +101,7 @@ export function AllPlaces() {
       .then((res) => {
         alert("Place Deleted");
         // window.location.reload();
-        navigate('admin/allPlaces', { replace: true }); 
+        navigate(0); 
       })
       .catch((err) => {
         alert(err.message);
