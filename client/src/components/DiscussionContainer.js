@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { UseUserContext } from "../hooks/useUserContext";
 import { UseProductContext } from "../hooks/useProductContext";
 import { UseBackendAPI } from "../backendAPI/useBackendAPI";
@@ -17,9 +17,10 @@ export function DiscussionContainer(props) {
   const { sendMessage } = UseBackendAPI();
   const { dispatch } = UseProductContext();
 
-  const array = props.discussionArray.filter((dat) => {
-    return dat.chatWithName === userName;
-  });
+  // Create a new state variable to track the messages in the discussion
+  const [messages, setMessages] = useState(
+    props.discussionArray.filter((dat) => dat.chatWithName === userName)
+  );
 
   const sendMessageHandler = async (e) => {
     e.preventDefault();
@@ -33,6 +34,18 @@ export function DiscussionContainer(props) {
     });
 
     if (data) {
+      // Update the messages state variable with the new message
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        {
+          chatWithName: userName,
+          chatWith: userID,
+          sender: sender,
+          message: message.current.value,
+          time: new Date(),
+        },
+      ]);
+
       message.current.value = "";
       dispatch({ type: "UpdateProduct", payload: data });
     }
@@ -44,7 +57,7 @@ export function DiscussionContainer(props) {
         <div>
           <h6 className="review-name">{user.userName}</h6>
           <br />
-          {array
+          {messages
             .sort((a, b) => new Date(a.time) - new Date(b.time))
             .map((diss) => (
               <div key={diss.time}>
