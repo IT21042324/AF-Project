@@ -1,11 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import pic from "../assets/register.png";
 import { useState, useRef } from "react";
 import { UseBackendAPI } from "../backendAPI/useBackendAPI";
 import avatar from "../assets/addphoto.png";
 import { EncodedFile } from "../assets/encodedImage";
+import { UseUserContext } from "../hooks/useUserContext";
 
 export function Register() {
+  const { getUser } = UseUserContext();
+  const user = getUser();
+  const navigate = useNavigate();
+
   const { registerUser } = UseBackendAPI();
   const [profilePic, setProfilePic] = useState(avatar);
 
@@ -68,7 +73,9 @@ export function Register() {
         </div>
         <div className="login-c">
           <form style={{ minWidth: 400 }} onSubmit={(e) => signUpHandler(e)}>
-            <h3 className="text-center mb-4">Sign Up</h3>
+            <h3 className="text-center mb-4" style={{ color: "black" }}>
+              Sign Up
+            </h3>
 
             <div
               className="mb-3"

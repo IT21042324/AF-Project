@@ -12,8 +12,6 @@ export const UseUserListContext = () => {
     async function getAdminUserInfo() {
       const data = await getUsersForAdminPage();
 
-      console.log(data);
-
       dispatch({
         type: "SetUsers",
         payload: {

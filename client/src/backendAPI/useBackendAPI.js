@@ -26,14 +26,11 @@ export const UseBackendAPI = () => {
 
   return {
     login: async function (userDetails) {
-      console.log(backendUrl);
       try {
         const info = await axios.post(
           `${backendUrl}/api/users/login/`,
           userDetails
         );
-
-        console.log(info);
 
         if (info.status == 200) {
           if (info.data.userIsApprovedByAdmin || info.data.role === "User") {
@@ -43,10 +40,7 @@ export const UseBackendAPI = () => {
             }
             await configureUser();
 
-            if (user?.role === "User") navigate("/");
-            else if (user.role === "Entrepreneur")
-              navigate("/entrepreneurship");
-            else if (user?.role === "Admin") navigate("/admin");
+            if (info?.data.role === "User") navigate("/");
           } else
             alert("Your Account is under review. Check your email for updates");
         } else {
