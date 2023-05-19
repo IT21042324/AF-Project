@@ -3,6 +3,7 @@ import axios from "axios";
 import "../../styles/place.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from 'react-router-dom';
 
 export function AllPlaces() {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -12,6 +13,7 @@ export function AllPlaces() {
   const [placeName, setPlaceName] = useState("");
   const [placeDescription, setPlaceDescription] = useState("");
   // const [imageUrl, setUrl] = useState('')
+  const navigate = useNavigate();
 
   //function to display all the places
   useEffect(() => {
@@ -78,7 +80,8 @@ export function AllPlaces() {
       .patch(`${backendUrl}/api/protectedPlace/update/${id}`, newPlace)
       .then(() => {
         alert("Place Details Updated");
-        window.location.reload();
+        // window.location.reload();
+        navigate(0);
       })
       .catch((err) => {
         alert(err);
@@ -88,7 +91,7 @@ export function AllPlaces() {
   //delete place function
   function deletePlace(id) {
     //Getting confirmation for delete
-    const confirmDel = window.confirm("Are your sure to this place details?");
+    const confirmDel = window.confirm("Are your sure to delete this place details?");
     if (confirmDel != true) {
       return;
     }
@@ -97,7 +100,8 @@ export function AllPlaces() {
       .delete(`${backendUrl}/api/protectedPlace/delete/${id}`)
       .then((res) => {
         alert("Place Deleted");
-        window.location.reload();
+        // window.location.reload();
+        navigate(0); 
       })
       .catch((err) => {
         alert(err.message);
