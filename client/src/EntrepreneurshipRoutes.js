@@ -21,15 +21,11 @@ export function EntrepreneurshipRoutes() {
           <SideMenu />
           <Routes>
             <Route path="/" element={<EntrepreneurLandingPage />} />
-            {user.role === "Entrepreneur" && (
-              <>
-                <Route path="/add-product" element={<AddProductRequest />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/edit-profile" element={<ChangeProfile />} />
-                <Route path="/notifications" element={<Notification />} />
-                <Route path="/messages" element={<DiscussionRequest />} />
-              </>
-            )}
+            <Route path="/add-product" element={<AddProductRequest />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/edit-profile" element={<ChangeProfile />} />
+            <Route path="/notifications" element={<Notification />} />
+            <Route path="/messages" element={<DiscussionRequest />} />
           </Routes>
         </>
       ) : (

@@ -19,13 +19,17 @@ export const BaseRoutes = () => {
           <NavBar />
           <Routes>
             <Route path="/" element={<DisplayPlaces />} />
-            {!user?.role && (
-              <>
+          </Routes>
+          {!user?.role ? (
+            <>
+              <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-              </>
-            )}
-          </Routes>
+              </Routes>
+            </>
+          ) : (
+            <Navigate to="/" />
+          )}
         </div>
       )}
     </div>
