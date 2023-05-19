@@ -92,153 +92,6 @@ export function AddEvent() {
   }
 
   return (
-    //         <label for="title">Title:</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           id="title"
-    //           placeholder="Enter event title"
-    //           onChange={(e) => {
-    //             setname(e.target.value);
-    //           }}
-    //           required
-    //         />
-    //       </div>
-    //       <div className="form-group">
-    //         <label for="description">Description:</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           id="description"
-    //           placeholder="colombo 03 "
-    //           onChange={(e) => {
-    //             setdescription(e.target.value);
-    //           }}
-    //           required
-    //         />
-    //       </div>
-    //       <div className="form-group">
-    //         <label for="province">Location:</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           id="province"
-    //           placeholder="Ex:Central"
-    //           onChange={(e) => {
-    //             setlocation(e.target.value);
-    //           }}
-    //           required
-    //         />
-    //       </div>
-    //       <div className="form-group">
-    //         <label for="price">Price:</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           id="price"
-    //           placeholder="Rs."
-    //           onChange={(e) => {
-    //             setPrice(e.target.value);
-    //           }}
-    //           onBlur={(e) => {
-    //             validatePrice(e.target.value);
-    //           }}
-    //           required
-    //         />
-    //         {errorMessage && (
-    //           <div style={{ color: "red" }}>{errorMessage}</div>
-    //         )}
-    //       </div>
-    //       <div className="form-group">
-    //         <label for="date">Date:</label>
-    //         <input
-    //           type="date"
-    //           className="form-control"
-    //           id="date"
-    //           onChange={(e) => {
-    //             setDate(e.target.value);
-    //           }}
-    //           required
-    //         />
-    //       </div>
-    //       <div className="form-group">
-    //         <label for="category">category:</label>
-    //         <select
-    //           className="form-control"
-    //           id="category"
-    //           onChange={(e) => {
-    //             setCategory(e.target.value);
-    //           }}
-    //           required
-    //         >
-    //           <option value="">-- Select --</option>
-    //           <option value="music">Music</option>
-    //           <option value="dance">Dance</option>
-    //           <option value="theater">Theater</option>
-    //           <option value="art">Art</option>
-    //           <option value="festival">Festival</option>
-    //         </select>
-    //       </div>
-    //       <div className="form-group">
-    //         <label for="organizerName">organizer Name:</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           id="organizerName"
-    //           placeholder="Ex:20000"
-    //           onChange={(e) => {
-    //             setOrganizerName(e.target.value);
-    //           }}
-    //           required
-    //         />
-    //       </div>
-    //       <div className="form-group">
-    //         <label for="organizerContact">organizer Contact:</label>
-    //         <input
-    //           type="text"
-    //           className="form-control"
-    //           id="organizerContact"
-    //           placeholder="Ex:20000"
-    //           onChange={(e) => {
-    //             setOrganizerContact(e.target.value);
-    //           }}
-    //           required
-    //         />
-    //       </div>
-    //       <div className="form-group">
-    //         <label for="ticketAvailability">Ticket Availability:</label>
-    //         <select
-    //           className="form-control"
-    //           id="ticketAvailability"
-    //           onChange={(e) => setTicketAvailability(e.target.value)}
-    //           required
-    //         >
-    //           <option value="">-- Select --</option>
-    //           <option value="available">Available</option>
-    //           <option value="unavailable">Unavailable</option>
-    //         </select>
-    //       </div>
-    //       <div className="mb-3">
-    //         <label for="itemImage"> Image</label>
-    //         <input
-    //           type="file"
-    //           className="form-control"
-    //           id="itemImage"
-    //           onChange={(e) => convertToBase64(e)}
-    //           ref={imageInputRef}
-    //           required
-    //         />
-    //       </div>
-    //       <br></br>
-    //       <input type="checkbox" name="terms" required /> <br></br>
-    //       <br></br>
-    //       <button type="submit" className="btn btn-primary">
-    //         Submit
-    //       </button>
-    //     </form>
-    //   </div>
-    // </div>
-
     <div>
       <section className="main-wrap">
         <div
@@ -289,7 +142,7 @@ export function AddEvent() {
                     type="text"
                     className="form-control"
                     id="description"
-                    placeholder="colombo 03 "
+                    placeholder="Enter a description "
                     onChange={(e) => {
                       setdescription(e.target.value);
                     }}
@@ -300,13 +153,13 @@ export function AddEvent() {
               <div className="row">
                 <div className="col-md-4 mb-3">
                   <label htmlFor="eventTitle" style={{ float: "left" }}>
-                    Province
+                    Location
                   </label>
                   <input
                     type="text"
                     className="form-control"
                     id="province"
-                    placeholder="Ex:Central"
+                    placeholder="Ex: Queen's Hotel, Kandy"
                     onChange={(e) => {
                       setlocation(e.target.value);
                     }}
@@ -380,7 +233,7 @@ export function AddEvent() {
                     type="text"
                     className="form-control"
                     id="organizerName"
-                    placeholder="Ex:20000"
+                    placeholder="Enter name"
                     onChange={(e) => {
                       setOrganizerName(e.target.value);
                     }}
@@ -396,7 +249,7 @@ export function AddEvent() {
                     type="text"
                     className="form-control"
                     id="organizerContact"
-                    placeholder="Ex:20000"
+                    placeholder="Ex: 0715678492"
                     onChange={(e) => {
                       setOrganizerContact(e.target.value);
                     }}
