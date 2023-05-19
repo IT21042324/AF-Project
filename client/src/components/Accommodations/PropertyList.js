@@ -2,7 +2,11 @@ import useFetch from "../../hooks/useFetch";
 import "../../styles/propertyList.css";
 
 export const PropertyList = () => {
-  const { data, loading, error } = useFetch("http://localhost:8070/api/hotels/countByType");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+  const { data, loading, error } = useFetch(
+    `${backendUrl}/api/hotels/countByType`
+  );
 
   const images = [
     "https://media-cdn.tripadvisor.com/media/photo-s/16/4e/ab/cb/mount-blue-hotel.jpg",
@@ -18,16 +22,14 @@ export const PropertyList = () => {
       ) : (
         <>
           {data &&
-            images.map((img,i) => (
+            images.map((img, i) => (
               <div className="pListItem" key={i}>
-                <img
-                  src={img}
-                  alt=""
-                  className="pListImg"
-                />
+                <img src={img} alt="" className="pListImg" />
                 <div className="pListTitles">
                   <h1>{data[i]?.type}</h1>
-                  <h2>{data[i]?.count} {data[i]?.type}</h2>
+                  <h2>
+                    {data[i]?.count} {data[i]?.type}
+                  </h2>
                 </div>
               </div>
             ))}

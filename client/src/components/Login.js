@@ -31,7 +31,9 @@ export function Login(e) {
       >
         <div className="login-c">
           <form onSubmit={(e) => loginSubmitHandler(e)}>
-            <h3 className="text-center mb-4">User Login</h3>
+            <h3 className="text-center mb-4" style={{ color: "black" }}>
+              User Login
+            </h3>
             <div className="mb-3">
               <label>Username</label>
               <input

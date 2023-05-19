@@ -18,6 +18,9 @@ export function ProductRequestNotification() {
   const acceptRequest = async (e, productID) => {
     e.preventDefault();
 
+    const alertResponse = window.confirm("Are you sure you want to proceed?");
+    if (alertResponse !== true) return;
+
     const data = await acceptProductRequest(productID);
 
     if (data) dispatch({ type: "ApproveProduct", payload: { _id: data._id } });
@@ -56,7 +59,7 @@ export function ProductRequestNotification() {
       <>
         <div className="card mb-4">
           <header className="card-header">
-            <h4>Product Requests</h4>
+            <h4 style={{ color: "black" }}>Product Requests</h4>
           </header>
           <div className="card-body">
             <div className="table-responsive">
@@ -161,7 +164,7 @@ export function ProductRequestNotification() {
                 <div className="card mb-4">
                   <form onSubmit={(e) => rejectRequest(e)}>
                     <header className="card-header">
-                      <h4>User Rejection Form</h4>
+                      <h4 style={{ color: "black" }}>User Rejection Form</h4>
                       <div>
                         <input
                           className="btn btn-success"

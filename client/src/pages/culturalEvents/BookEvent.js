@@ -6,6 +6,8 @@ import "./BookTicket.css";
 import { SendEmail } from "../../components/SendEmail";
 
 function BookTicket() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const location = useLocation();
   const [title, setTitle] = useState("");
   const [name, setName] = useState("");
@@ -62,10 +64,7 @@ function BookTicket() {
 
       console.log("Data:", data);
       try {
-        const response = await axios.post(
-          "http://localhost:8070/api/ticket/add",
-          data
-        );
+        const response = await axios.post(`${backendUrl}/api/ticket/add`, data);
         console.log("Response:", response.data);
         if (response.status === 200) {
           SendEmail({

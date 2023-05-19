@@ -12,12 +12,6 @@ export const Notification = () => {
   //getting the user
   const user = getUser();
 
-  const [product, setProduct] = useState([]);
-
-  useEffect(() => {
-    setProduct(products);
-  }, [products]);
-
   const { markAsRead } = UseBackendAPI();
 
   const setNotifcationAsRead = async (e, productID) => {
@@ -37,7 +31,7 @@ export const Notification = () => {
       />
       <div className="card mb-4">
         <header className="card-header">
-          <h4>All Notifications</h4>
+          <h4 style={{ color: "black" }}>All Notifications</h4>
         </header>
 
         <div className="card-body">
@@ -52,8 +46,8 @@ export const Notification = () => {
                 </tr>
               </thead>
               <tbody>
-                {product
-                  .filter((itm) => itm.userID === user._id)
+                {products
+                  ?.filter((itm) => itm.userID === user._id)
                   .map((data) => {
                     return (
                       <>

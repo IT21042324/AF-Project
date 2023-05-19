@@ -12,14 +12,24 @@ export const BaseRoutes = () => {
     <div className="App">
       {user?.role === "Entrepreneur" ? (
         <Navigate to="/entrepreneurship" />
+      ) : user?.role === "Admin" ? (
+        <Navigate to="/admin" />
       ) : (
         <div>
           <NavBar />
           <Routes>
             <Route path="/" element={<DisplayPlaces />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
           </Routes>
+          {!user?.role ? (
+            <>
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+              </Routes>
+            </>
+          ) : (
+            <Navigate to="/" />
+          )}
         </div>
       )}
     </div>

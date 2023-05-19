@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../../styles/place.css"
+import "../../styles/place.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from 'react-router-dom';
 
 export function AllPlaces() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [places, setPlaces] = useState([]);
   const [placeID, setPlaceID] = useState("");
   const [placeName, setPlaceName] = useState("");
@@ -17,7 +19,7 @@ export function AllPlaces() {
   useEffect(() => {
     function getPlaces() {
       axios
-        .get("http://localhost:8070/api/place/")
+        .get(`${backendUrl}/api/place/`)
         .then((res) => {
           setPlaces(res.data);
         })
@@ -31,7 +33,7 @@ export function AllPlaces() {
   //function to get one place
   function getOnePlace(pid) {
     axios
-      .get("http://localhost:8070/api/place/" + pid)
+      .get(`${backendUrl}/api/place/${pid}`)
       .then((res) => {
         setPlaceID(res.data._id);
         setPlaceName(res.data.placeName);
@@ -75,7 +77,7 @@ export function AllPlaces() {
     setNewImageUrl("");
 
     axios
-      .patch("http://localhost:8070/api/protectedPlace/update/" + id, newPlace)
+      .patch(`${backendUrl}/api/protectedPlace/update/${id}`, newPlace)
       .then(() => {
         alert("Place Details Updated");
         // window.location.reload();
@@ -89,13 +91,13 @@ export function AllPlaces() {
   //delete place function
   function deletePlace(id) {
     //Getting confirmation for delete
-    const confirmDel = window.confirm("Are your sure to this place details?");
+    const confirmDel = window.confirm("Are your sure to delete this place details?");
     if (confirmDel != true) {
       return;
     }
 
     axios
-      .delete("http://localhost:8070/api/protectedPlace/delete/" + id)
+      .delete(`${backendUrl}/api/protectedPlace/delete/${id}`)
       .then((res) => {
         alert("Place Deleted");
         // window.location.reload();
@@ -134,7 +136,7 @@ export function AllPlaces() {
     setLoading(true);
     console.log(base64);
     axios
-      .post("http://localhost:8070/uploadImage", { image: base64 })
+      .post(`${backendUrl}/uploadImage`, { image: base64 })
       .then((res) => {
         console.log(res.data);
         setNewImageUrl(res.data);
@@ -195,7 +197,12 @@ export function AllPlaces() {
                       <button
                         type="button"
                         className="btn btn-dark"
-                        style={{ marginRight: "10px", padding: "10px 16px", float: "left", width: "120px" }}
+                        style={{
+                          marginRight: "10px",
+                          padding: "10px 16px",
+                          float: "left",
+                          width: "120px",
+                        }}
                         onClick={() => {
                           getOnePlace(place._id);
                           showUpdateBox();
@@ -206,7 +213,11 @@ export function AllPlaces() {
                       <button
                         type="button"
                         className="btn btn-outline-dark"
-                        style={{ padding: "10px 24px", float: "right", width: "120px" }}
+                        style={{
+                          padding: "10px 24px",
+                          float: "right",
+                          width: "120px",
+                        }}
                         onClick={() => {
                           deletePlace(place._id);
                         }}
@@ -309,7 +320,11 @@ export function AllPlaces() {
                         onChange={uploadImage}
                       />
                     </div>
-                    <button type="submit" className="btn btn-dark" style={{ width: "200px" }}>
+                    <button
+                      type="submit"
+                      className="btn btn-dark"
+                      style={{ width: "200px" }}
+                    >
                       Update Place
                     </button>
                   </td>

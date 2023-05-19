@@ -75,6 +75,9 @@ export function EntrepreneurLandingPage() {
   const removeProduct = async (e, itemID) => {
     e.preventDefault();
 
+    const alertResponse = window.confirm("Are you sure you want to delete?");
+    if (alertResponse !== true) return;
+
     const data = await removeProductDetails(itemID);
 
     if (data) {
@@ -92,7 +95,7 @@ export function EntrepreneurLandingPage() {
 
       <div className="card mb-4">
         <header className="card-header">
-          <h4>Approved Products</h4>
+          <h4 style={{ color: "black" }}>Approved Products</h4>
 
           <Link
             className="btn btn-success"
@@ -200,7 +203,7 @@ export function EntrepreneurLandingPage() {
               <div className="card mb-4">
                 <form onSubmit={(e) => onSubmitHandler(e)}>
                   <header className="card-header">
-                    <h4>Product</h4>
+                    <h4 style={{ color: "black" }}>Product</h4>
                     <div>
                       <input
                         className="btn btn-success"

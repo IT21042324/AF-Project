@@ -31,11 +31,6 @@ export function ChangeProfile() {
       contact: contact.current.value,
       image,
     });
-
-    //To clear the form after submission
-    // bio.current.value = "";
-    // contact.current.value = "";
-    // imageInputRef.current.value = "";
   };
 
   return (
@@ -60,7 +55,7 @@ export function ChangeProfile() {
         <div className="card mb-4">
           <form onSubmit={(e) => onSubmitHandler(e)}>
             <header className="card-header">
-              <h4>Profile</h4>
+              <h4 style={{ color: "black" }}>Profile</h4>
               <div>
                 <input
                   className="btn btn-success"

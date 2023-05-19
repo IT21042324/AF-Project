@@ -8,6 +8,8 @@ import SearchItem from "../../components/Accommodations/SearchItem";
 import useFetch from "../../hooks/useFetch";
 
 export const HotelList = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
   const [dates, setDates] = useState(location.state.dates);
@@ -17,7 +19,9 @@ export const HotelList = () => {
   const [max, setMax] = useState(undefined);
 
   const { data, loading, error, reFetch } = useFetch(
-    `http://localhost:8070/api/hotels?city=${destination}&min=${min || 0 }&max=${max || 100000}`
+    `${backendUrl}/api/hotels?city=${destination}&min=${min || 0}&max=${
+      max || 100000
+    }`
   );
 
   const handleClick = () => {
@@ -34,11 +38,10 @@ export const HotelList = () => {
             <div className="lsItem">
               <label>Destination</label>
               <input
-                    placeholder={destination}
-                    type="text"
-                    onChange={(e) => setDestination(e.target.value)}
-                    
-                  />
+                placeholder={destination}
+                type="text"
+                onChange={(e) => setDestination(e.target.value)}
+              />
             </div>
             <div className="lsItem">
               <label>Check-in Date</label>

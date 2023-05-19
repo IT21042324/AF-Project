@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 import picture from "../../assets/placeMain.png";
-import { useNavigate } from 'react-router-dom';
-import {validateForm} from './AddPlaceValidations';
+import { useNavigate } from "react-router-dom";
+import { validateForm } from "./AddPlaceValidations";
 
 export function AddPlace() {
-  //ImageUpload
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const [placeName, setName] = useState("");
   const [placeDescription, setDescription] = useState("");
@@ -48,7 +48,7 @@ export function AddPlace() {
     };
 
     axios
-      .post("http://localhost:8070/api/protectedPlace/add", newPlace)
+      .post(`${backendUrl}/api/protectedPlace/add`, newPlace)
       .then(() => {
         alert("Place added");
         navigate("../allPlaces");
@@ -67,7 +67,7 @@ export function AddPlace() {
     setLoading(true);
     console.log(base64);
     axios
-      .post("http://localhost:8070/uploadImage", { image: base64 })
+      .post(`${backendUrl}/uploadImage`, { image: base64 })
       .then((res) => {
         console.log(res.data);
         setImageUrl(res.data);
@@ -81,47 +81,66 @@ export function AddPlace() {
 
   return (
     <>
-    <section className="main-dashboard">
-      <table style={{marginLeft:"auto", marginRight:"auto", marginTop:"5%"}}>
-        <tr>
-          <td>
-            <div>
-              <br></br>
-              <form onSubmit={sendData}>
-              <h3 style={{fontFamily: "cursive", color:"green"}}>Add New Place</h3>
-              <br></br>
-                <div className="mb-3">
-                  <label htmlFor="placeName">Place Name</label>
-                  <input type="text" class="form-control" id="placeName" placeholder="Enter Place Name"
-                    onChange={(e) => {
-                      setName(e.target.value);
-                    }} />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="placeDescription">Place Description</label>
-                    <textarea style={{height: 150 }} class="form-control" id="placeDescription" placeholder="Enter Place Description"
-                    onChange={(e) => {
-                      setDescription(e.target.value);
-                    }} />
-                </div>
+      <section className="main-dashboard">
+        <table
+          style={{ marginLeft: "auto", marginRight: "auto", marginTop: "5%" }}
+        >
+          <tr>
+            <td>
+              <div>
+                <br></br>
+                <form onSubmit={sendData}>
+                  <h3 style={{ fontFamily: "cursive", color: "green" }}>
+                    Add New Place
+                  </h3>
+                  <br></br>
+                  <div className="mb-3">
+                    <label htmlFor="placeName">Place Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="placeName"
+                      placeholder="Enter Place Name"
+                      onChange={(e) => {
+                        setName(e.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="placeDescription">Place Description</label>
+                    <textarea
+                      style={{ height: 150 }}
+                      class="form-control"
+                      id="placeDescription"
+                      placeholder="Enter Place Description"
+                      onChange={(e) => {
+                        setDescription(e.target.value);
+                      }}
+                    />
+                  </div>
 
-                <div className="mb-3">
-                  <label for="placeImage">Place Image</label>
-                  <input type="file" class="form-control" id="placeImage"
-                    onChange={uploadImage} />
-                </div>
-                <button type="submit" class="btn btn-dark">Add Place</button>
-              </form>
-            </div>
-
-          </td>
-          <td>
-            <div>
-              <img src={picture} alt="" style={{ width: 400, height: 470 }} />
-            </div>
-          </td>
-        </tr>
-      </table>
+                  <div className="mb-3">
+                    <label for="placeImage">Place Image</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="placeImage"
+                      onChange={uploadImage}
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-dark">
+                    Add Place
+                  </button>
+                </form>
+              </div>
+            </td>
+            <td>
+              <div>
+                <img src={picture} alt="" style={{ width: 400, height: 470 }} />
+              </div>
+            </td>
+          </tr>
+        </table>
       </section>
     </>
   );

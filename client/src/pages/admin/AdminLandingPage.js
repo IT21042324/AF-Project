@@ -21,6 +21,9 @@ export function AdminLandingPage() {
   const removeUser = async (e, userID) => {
     e.preventDefault();
 
+    const alertResponse = window.confirm("Are you sure you want to delete?");
+    if (alertResponse !== true) return;
+
     const data = await deleteUser(userID);
 
     if (data) {
@@ -36,7 +39,7 @@ export function AdminLandingPage() {
       />
       <div className="card mb-4">
         <header className="card-header">
-          <h4>Accepted Users</h4>
+          <h4 style={{ color: "black" }}>Accepted Users</h4>
           <select
             onChange={(e) => setUserRole(e.target.value)}
             style={{

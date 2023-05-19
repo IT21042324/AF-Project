@@ -23,6 +23,9 @@ export function ProductListPage() {
   const removeProduct = async (e, itemID) => {
     e.preventDefault();
 
+    const alertResponse = window.confirm("Are you sure you want to delete?");
+    if (alertResponse !== true) return;
+
     const data = await removeProductDetails(itemID);
 
     if (data) {
@@ -38,7 +41,7 @@ export function ProductListPage() {
       />
       <div className="card mb-4">
         <header className="card-header">
-          <h4>Product Requests</h4>
+          <h4 style={{ color: "black" }}>Product Requests</h4>
         </header>
         <div className="card-body">
           <div className="table-responsive">

@@ -4,6 +4,8 @@ import "./BookTicket.css";
 import { Link } from "react-router-dom";
 
 function EditInfo() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const imageInputRef = useRef(null);
@@ -12,7 +14,7 @@ function EditInfo() {
   useEffect(() => {
     async function getEventInfo() {
       try {
-        const response = await axios.get("http://localhost:8070/api/events/");
+        const response = await axios.get(`${backendUrl}/api/events/`);
         setEvents(response.data);
       } catch (error) {
         console.error(error);

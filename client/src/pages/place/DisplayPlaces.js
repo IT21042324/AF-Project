@@ -6,6 +6,8 @@ import cover from "../../assets/PlaceCoverPic.jpg";
 import "../../styles/place.css";
 
 export function DisplayPlaces() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [places, setPlaces] = useState([]);
   const [url, setUrl] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,7 +21,7 @@ export function DisplayPlaces() {
   useEffect(() => {
     function getPlaces() {
       axios
-        .get("http://localhost:8070/api/place/")
+        .get(`${backendUrl}/api/place/`)
         .then((res) => {
           setPlaces(res.data);
         })
@@ -35,7 +37,7 @@ export function DisplayPlaces() {
     e.preventDefault();
 
     axios
-      .get(`http://localhost:8070/api/place/search/${searchTerm}`)
+      .get(`${backendUrl}/api/place/search/${searchTerm}`)
       .then((res) => {
         setSearchResults(res.data);
         if (res.data.length < 1) {
@@ -86,7 +88,7 @@ export function DisplayPlaces() {
   //function to get one place
   function getOnePlace(pid) {
     axios
-      .get("http://localhost:8070/api/place/" + pid)
+      .get(`${backendUrl}/api/place/${pid}`)
       .then((res) => {
         setPlaceName(res.data.placeName);
         setPlaceDescription(res.data.placeDescription);

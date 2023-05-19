@@ -3,8 +3,8 @@ const axios = require("axios");
 require("dotenv").config({ path: "../.env" });
 
 const requireAuth = async (req, res, next) => {
+  const backendUrl = process.env.BACKENDURL;
   const { authorization } = req.headers;
-
   console.log(authorization);
 
   // Check if authorization token is provided in the request header
@@ -22,7 +22,7 @@ const requireAuth = async (req, res, next) => {
 
     // Retrieve user data from API using the id and role from the token
     const { data } = await axios.get(
-      `http://localhost:8070/api/users/getUserWithoutImage/${id}`
+      `${backendUrl}/api/users/getUserWithoutImage/${id}`
     );
 
     // Attach user data to the request object

@@ -18,6 +18,9 @@ export const EntrepreneurDashBoard = (props) => {
   }, [mechantIsLoggedIn]);
 
   const logoutFunction = () => {
+    const lgout = window.confirm("Are you sure you want to logout?");
+    if (lgout !== true) return;
+
     setMerchantIsLoggedIn(false);
     alert("Logged Out");
   };
@@ -40,7 +43,7 @@ export const EntrepreneurDashBoard = (props) => {
 
     const discussionsByUser = product
       .flatMap((prod) =>
-        prod.discussion.map((discussion) => ({
+        (prod.discussion || []).map((discussion) => ({
           ...discussion,
           productId: prod._id,
         }))

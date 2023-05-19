@@ -1,6 +1,8 @@
-
 #update-box {
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .backdropEvent-black {
@@ -26,10 +28,14 @@ td {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}.form-container {
-  position: relative;
-  height: 100px;
-  padding: 20px;
+}
+
+.form-container {
+  padding-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 
 .form-style2 {
@@ -62,22 +68,22 @@ select {
 select option {
   color: #555;
 }
+
 .form-styleEvent {
   width: 700px;
-  height: 1000px;
   padding: 40px 60px;
-  box-shadow:0px 0px 10px rgba(0, 80, 0, 0.8);
+  box-shadow: 0px 0px 10px rgba(0, 80, 0, 0.8);
   color: black;
-  position: absolute;
-  /* top: 50%; 
-  left: 50%; */
-  margin-top: 100px;
-  margin-left: 500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 9999; 
-  overflow-y: scroll; /* add scroll property to enable scrolling */
+  z-index: 9999;
+  overflow: auto;
+  max-height: 80vh; /* Added */
 }
+
 
 input[type="submit"] {
   background-color: #3f51b5;

@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "../../styles/newHotel.css";
-import { useNavigate } from "react-router-dom";
 
 export function AddHotelForm() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [hotel, setHotel] = useState([]);
   const [id, setid] = useState("");
   const [name, setname] = useState("");
@@ -14,7 +15,6 @@ export function AddHotelForm() {
   const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
   const [cheapestPrice, setcheapestprice] = useState("");
-  
 
   //image
 
@@ -35,7 +35,7 @@ export function AddHotelForm() {
     };
 
     axios
-      .post("http://localhost:8070/api/hotels/add", NewHotel)
+      .post(`${backendUrl}/api/hotels/add`, NewHotel)
       .then(() => {
         alert("Hotel Successfully added");
         setname("");
@@ -47,7 +47,7 @@ export function AddHotelForm() {
         setdescription("");
         setcheapestprice("");
       })
-      
+
       .catch((err) => {
         alert(err);
       });
@@ -121,10 +121,11 @@ export function AddHotelForm() {
                       setdistance(value);
                     }
                   }}
-
                   onInvalid={(e) => {
-                    e.target.setCustomValidity("Please enter a valid Distance.");
-                      alert("Please enter a valid Distance.");
+                    e.target.setCustomValidity(
+                      "Please enter a valid Distance."
+                    );
+                    alert("Please enter a valid Distance.");
                   }}
                 />
               </div>
@@ -166,12 +167,11 @@ export function AddHotelForm() {
                   }}
                   onInvalid={(e) => {
                     e.target.setCustomValidity("Please enter a valid Price.");
-                      alert("Please enter a valid Price.");
+                    alert("Please enter a valid Price.");
                   }}
                   required
                 />
               </div>
-
 
               <div className="formInput">
                 <br></br>

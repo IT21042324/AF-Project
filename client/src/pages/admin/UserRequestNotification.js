@@ -21,6 +21,9 @@ export function UserRequestNotification() {
   const acceptRequest = async (e, userID, userName) => {
     e.preventDefault();
 
+    const alertResponse = window.confirm("Are you sure you want to proceed?");
+    if (alertResponse !== true) return;
+
     const data = await acceptUserRequest(userID, userName);
 
     if (data) {
@@ -62,7 +65,7 @@ export function UserRequestNotification() {
       />
       <div className="card mb-4">
         <header className="card-header">
-          <h4>Users Requests</h4>
+          <h4 style={{ color: "black" }}>Users Requests</h4>
         </header>
         <div className="card-body">
           <div className="table-responsive">
@@ -175,7 +178,7 @@ export function UserRequestNotification() {
               <div className="card mb-4">
                 <form onSubmit={(e) => rejectRequest(e)}>
                   <header className="card-header">
-                    <h4>User Rejection Form</h4>
+                    <h4 style={{ color: "black" }}>User Rejection Form</h4>
                     <div>
                       <input
                         className="btn btn-success"
