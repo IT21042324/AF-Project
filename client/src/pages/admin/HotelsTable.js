@@ -240,7 +240,7 @@ export function EditHotel() {
             <button
               onClick={handleClose}
               className="btn11 btn-outline-danger"
-              style={{ width: "40px", height: "40px", float: "right" }}
+              style={{ width: "40px", height: "40px", float: "right", marginLeft:"700px" }}
             >
               X
             </button>
@@ -249,7 +249,7 @@ export function EditHotel() {
 
             <br></br>
 
-            <form onSubmit={sendData}>
+            <form style={{ width: "600px", height: "900px", float: "right", marginTop: "0px"}} onSubmit={sendData}>
               <div className="mb-3">
                 <label htmlFor="name" className="form-label">
                   Hotel Name
