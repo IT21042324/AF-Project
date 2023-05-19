@@ -1,8 +1,11 @@
-.hotelContainer {
+.hotelsContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hotelWrapper {
@@ -12,6 +15,7 @@
   flex-direction: column;
   gap: 10px;
   position: relative;
+  margin-left: 20px;
 }
 
 .bookNow {

@@ -90,15 +90,15 @@ export function Profile() {
               style={{ display: "flex", justifyContent: "space-evenly" }}
             >
               <div className="col-sm-6 col-lg-4 col-xl-3">
-                <h4>User Name</h4>
+                <h4 style={{ color: "black" }}>User Name</h4>
                 <p>Email: {user.userName}</p>
               </div>
               <div className="col-sm-6 col-lg-4 col-xl-3">
-                <h4>Contact</h4>
+                <h4 style={{ color: "black" }}>Contact</h4>
                 <p>Phone: {user.contact}</p>
               </div>
               <div className="col-sm-6 col-lg-4 col-xl-3">
-                <h4>Address</h4>
+                <h4 style={{ color: "black" }}>Address</h4>
                 <p>
                   Country: Sri Lanka <br />
                 </p>

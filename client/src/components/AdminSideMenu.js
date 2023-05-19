@@ -4,7 +4,6 @@ import {
   faUser,
   faPlus,
   faEdit,
-  faTrash,
   faGift,
   faBox,
   faGlobe,
@@ -141,9 +140,7 @@ export function AdminSideMenu(props) {
                   }
                   onMouseLeave={(e) => (e.target.style.backgroundColor = "")}
                 >
-                  <FontAwesomeIcon icon={faEdit} /> &nbsp;&nbsp;
-                  <FontAwesomeIcon icon={faTrash} />
-                  &nbsp;&nbsp; Edit/Delete event
+                  <FontAwesomeIcon icon={faEdit} /> &nbsp; Edit/Delete event
                 </Link>
               </li>
               <li>

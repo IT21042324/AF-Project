@@ -4,11 +4,12 @@ import axios from "axios";
 
 import "../../styles/hotelList.css";
 
-
-
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AdminDashBoardDetails } from "../../components/AdminDashBoardDetails";
 
 export function EditRoom() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [room, setRoom] = useState([]);
   const [id, setid] = useState("");
   const [title, settitle] = useState("");
@@ -16,14 +17,13 @@ export function EditRoom() {
   const [maxPeople, setmaxPeople] = useState("");
   const [desc, setdesc] = useState("");
   const [roomNumbers, setroomnumbers] = useState([]);
-  
-//   
 
+  //
 
   useEffect(() => {
     function getRoominfo() {
       axios
-        .get("http://localhost:8070/api/rooms/")
+        .get(`${backendUrl}/api/rooms/`)
         .then((res) => {
           //console.log(res.data); // debug
 
@@ -41,7 +41,7 @@ export function EditRoom() {
 
   function getOneRoom(did) {
     axios
-      .get("http://localhost:8070/api/rooms/get/" + did)
+      .get(`${backendUrl}/api/rooms/get/${did}`)
       .then((res) => {
         // console.log(res.data);
         setid(res.data._id);
@@ -77,7 +77,7 @@ export function EditRoom() {
     };
 
     axios
-      .put("http://localhost:8070/api/rooms/update/" + id, NewRoom)
+      .put(`${backendUrl}/api/rooms/update/${id}`, NewRoom)
       .then(() => {
         alert("Room information Updated");
 
@@ -92,7 +92,7 @@ export function EditRoom() {
 
   function deleteRoom(ID) {
     axios
-      .delete("http://localhost:8070/api/rooms/delete/" + ID)
+      .delete(`${backendUrl}/api/rooms/delete/${ID}`)
       .then((res) => {
         alert("Room Information Deleted");
 
@@ -104,161 +104,167 @@ export function EditRoom() {
   }
   const navigate = useNavigate();
 
-  function handlenew(){
-      navigate('/admin/addRoom')
+  function handlenew() {
+    navigate("/admin/addRoom");
   }
-  
-
 
   return (
     <>
-      <div className="hotelContainer">
+      <section className="main-dashboard">
+        <AdminDashBoardDetails
+          title={"Manage Rooms"}
+          subTitle={"Manage All Rooms From Here.."}
+        />
 
-        <h2>Rooms</h2>
-        <button className="btn btn-primary" onClick={handlenew}> Add New Room </button>
-        <table
-          className="table"
-          style={{
-            width: "100%",
-            border: "1px solid black",
-            backgroundColor: "white",
-          }}
-        >
-          <thead>
-            <tr>
-              <th scope="col">Room ID</th>
+        <div className="card mb-4">
+          <header className="card-header">
+            <h2>Rooms</h2>
+            <button className="btn btn-primary" onClick={handlenew}>
+              {" "}
+              Add New Room{" "}
+            </button>
+          </header>
 
-              <th scope="col">Title</th>
+          <div className="card-body">
+            <div className="table-responsive">
+              <table className="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Room ID</th>
 
-              <th scope="col">Price</th>
+                    <th scope="col">Title</th>
 
-              <th scope="col">Maximum number of people</th>
+                    <th scope="col">Price</th>
 
-              <th scope="col">Description</th>
+                    <th scope="col">Maximum number of people</th>
 
-            </tr>
-          </thead>
+                    <th scope="col">Description</th>
+                  </tr>
+                </thead>
 
-          <tbody>
-            {room.map((room) => (
-              <tr key={room._id}>
-                <td>{room._id}</td>
+                <tbody>
+                  {room.map((room) => (
+                    <tr key={room._id}>
+                      <td>{room._id}</td>
 
-                <td>{room.title}</td>
+                      <td>{room.title}</td>
 
-                <td>{room.price}</td>
+                      <td>{room.price}</td>
 
-                <td>{room.maxPeople}</td>
+                      <td>{room.maxPeople}</td>
 
-                <td>{room.desc}</td>
-                <td>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => {
-                      getOneRoom(room._id);
-                      showUpdateBox();
-                    }}
-                  >
-                    Edit
-                  </button>
+                      <td>{room.desc}</td>
+                      <td>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => {
+                            getOneRoom(room._id);
+                            showUpdateBox();
+                          }}
+                        >
+                          Edit
+                        </button>
 
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => deleteRoom(room._id)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div id="backdrop" className="backdrop-black">
-        <div id="update-box" className="container form-style3 ">
-          <button
-            onClick={handleClose}
-            className="btn btn-outline-danger"
-            style={{ width: "40px", height: "40px", float: "right" }}
-          >
-            X
-          </button>
-
-          <br></br>
-
-          <br></br>
-
-          <form onSubmit={sendData}>
-            <div className="mb-3">
-              <label htmlFor="title" className="form-label">
-                Room Title
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="title"
-                value={title}
-                onChange={(e) => settitle(e.target.value)}
-                required
-              />
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteRoom(room._id)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-
-            <div className="mb-3">
-              <label htmlFor="price" className="form-label">
-                Price per Night
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="price"
-                value={price}
-                onChange={(e) => setprice(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="maxPeople" className="form-label">
-                Maximum number of people per room
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="maxPeople"
-                value={maxPeople}
-                onChange={(e) => setmaxPeople(e.target.value)}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="desc" className="form-label">
-                Description
-              </label>
-
-              <input
-                type="text"
-                className="form-control"
-                id="desc"
-                value={desc}
-                onChange={(e) => setdesc(e.target.value)}
-                required
-              />
-            </div>
-            
-            <div className="mb-3">
-              <input type="checkbox" name="terms" required /> <br></br>
-              <br></br>
-              <button type="submit" className="btn btn-primary">
-                Update Details
-              </button>
-            </div>
-          </form>
+          </div>
         </div>
-      </div>
+
+        <div id="backdrop" className="backdrop-black">
+          <div id="update-box" className="container form-style3 ">
+            <button
+              onClick={handleClose}
+              className="btn btn-outline-danger"
+              style={{ width: "40px", height: "40px", float: "right" }}
+            >
+              X
+            </button>
+
+            <br></br>
+
+            <br></br>
+
+            <form onSubmit={sendData}>
+              <div className="mb-3">
+                <label htmlFor="title" className="form-label">
+                  Room Title
+                </label>
+
+                <input
+                  type="text"
+                  className="form-control"
+                  id="title"
+                  value={title}
+                  onChange={(e) => settitle(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="price" className="form-label">
+                  Price per Night
+                </label>
+
+                <input
+                  type="text"
+                  className="form-control"
+                  id="price"
+                  value={price}
+                  onChange={(e) => setprice(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="mb-3">
+                <label htmlFor="maxPeople" className="form-label">
+                  Maximum number of people per room
+                </label>
+
+                <input
+                  type="text"
+                  className="form-control"
+                  id="maxPeople"
+                  value={maxPeople}
+                  onChange={(e) => setmaxPeople(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="desc" className="form-label">
+                  Description
+                </label>
+
+                <input
+                  type="text"
+                  className="form-control"
+                  id="desc"
+                  value={desc}
+                  onChange={(e) => setdesc(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="mb-3">
+                <input type="checkbox" name="terms" required /> <br></br>
+                <br></br>
+                <button type="submit" className="btn btn-primary">
+                  Update Details
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
     </>
   );
 }

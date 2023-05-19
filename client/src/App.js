@@ -19,8 +19,6 @@ function App() {
         <Route path="/Accommodations/*" element={<AccommodationRoutes />} />
 
         <Route path="/cultural/*" element={<CulturalEventsRoutes />} />
-
-        {/* <Route path="/placeRoutesAdmin/*" element={<PlaceRoutesAdmin />} /> */}
       </Routes>
     </div>
   );

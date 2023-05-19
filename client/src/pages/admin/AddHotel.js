@@ -1,8 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "../../styles/newHotel.css";
 
 export function AddHotelForm() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [hotel, setHotel] = useState([]);
   const [id, setid] = useState("");
   const [name, setname] = useState("");
@@ -12,11 +14,7 @@ export function AddHotelForm() {
   const [distance, setdistance] = useState("");
   const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
-  const [rating, setrating] = useState("");
-  const [rooms, setrooms] = useState([]);
   const [cheapestPrice, setcheapestprice] = useState("");
-  const [featured, setfeatured] = useState("");
-  const imageInputRef = useRef(null);
 
   //image
 
@@ -37,7 +35,7 @@ export function AddHotelForm() {
     };
 
     axios
-      .post("http://localhost:8070/api/hotels/add", NewHotel)
+      .post(`${backendUrl}/api/hotels/add`, NewHotel)
       .then(() => {
         alert("Hotel Successfully added");
         setname("");
@@ -49,6 +47,7 @@ export function AddHotelForm() {
         setdescription("");
         setcheapestprice("");
       })
+
       .catch((err) => {
         alert(err);
       });
@@ -117,7 +116,16 @@ export function AddHotelForm() {
                   type="text"
                   id="distance"
                   onChange={(e) => {
-                    setdistance(e.target.value);
+                    const value = parseInt(e.target.value);
+                    if (!isNaN(value) && value >= 0) {
+                      setdistance(value);
+                    }
+                  }}
+                  onInvalid={(e) => {
+                    e.target.setCustomValidity(
+                      "Please enter a valid Distance."
+                    );
+                    alert("Please enter a valid Distance.");
                   }}
                 />
               </div>
@@ -149,17 +157,23 @@ export function AddHotelForm() {
                   Cheapest Price $ per night
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="cheapestPrice"
                   onChange={(e) => {
-                    setcheapestprice(e.target.value);
+                    const value = parseFloat(e.target.value);
+                    if (!isNaN(value) && value >= 0) {
+                      setcheapestprice(value);
+                    }
                   }}
+                  onInvalid={(e) => {
+                    e.target.setCustomValidity("Please enter a valid Price.");
+                    alert("Please enter a valid Price.");
+                  }}
+                  required
                 />
               </div>
 
               <div className="formInput">
-                <input type="checkbox" name="terms" required />
-                Above information is valid<br></br>
                 <br></br>
                 <button type="submit" className="btn btn-primary">
                   Insert Hotel

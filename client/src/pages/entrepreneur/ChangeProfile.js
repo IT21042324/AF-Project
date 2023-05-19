@@ -60,7 +60,7 @@ export function ChangeProfile() {
         <div className="card mb-4">
           <form onSubmit={(e) => onSubmitHandler(e)}>
             <header className="card-header">
-              <h4>Profile</h4>
+              <h4 style={{ color: "black" }}>Profile</h4>
               <div>
                 <input
                   className="btn btn-success"

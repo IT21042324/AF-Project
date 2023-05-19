@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../../styles/place.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import cover from "../../assets/PlaceCoverPic.jpg";
 import "../../styles/place.css";
 
 export function DisplayPlaces() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [places, setPlaces] = useState([]);
   const [url, setUrl] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -20,7 +21,7 @@ export function DisplayPlaces() {
   useEffect(() => {
     function getPlaces() {
       axios
-        .get("http://localhost:8070/api/place/")
+        .get(`${backendUrl}/api/place/`)
         .then((res) => {
           setPlaces(res.data);
         })
@@ -36,7 +37,7 @@ export function DisplayPlaces() {
     e.preventDefault();
 
     axios
-      .get(`http://localhost:8070/api/place/search/${searchTerm}`)
+      .get(`${backendUrl}/api/place/search/${searchTerm}`)
       .then((res) => {
         setSearchResults(res.data);
         if (res.data.length < 1) {
@@ -56,11 +57,11 @@ export function DisplayPlaces() {
   };
 
   const showUpdateBox = () => {
-    document.getElementById("backdrop").style.display = "block";
+    document.getElementById("backdropPlace").style.display = "block";
   };
 
   const handleClose = () => {
-    document.getElementById("backdrop").style.display = "none";
+    document.getElementById("backdropPlace").style.display = "none";
     setNewImageUrl("");
   };
 
@@ -87,7 +88,7 @@ export function DisplayPlaces() {
   //function to get one place
   function getOnePlace(pid) {
     axios
-      .get("http://localhost:8070/api/place/" + pid)
+      .get(`${backendUrl}/api/place/${pid}`)
       .then((res) => {
         setPlaceName(res.data.placeName);
         setPlaceDescription(res.data.placeDescription);
@@ -288,10 +289,10 @@ export function DisplayPlaces() {
       </div>
 
       {/* View */}
-      <div id="backdrop" className="backdrop-black">
+      <div id="backdropPlace" className="backdropPlace-black">
         <div
-          id="update-box"
-          className="container, form-style"
+          //id="update-box"
+          className="container"
           style={{ position: "relative", marginLeft: "10%" }}
         >
           <br></br>
@@ -299,8 +300,8 @@ export function DisplayPlaces() {
             onClick={handleClose}
             style={{
               position: "absolute",
-              right: "280px",
-              top: "30px",
+              right: "215px",
+              top: "10px",
               border: "none",
               backgroundColor: "transparent",
               color: "red",

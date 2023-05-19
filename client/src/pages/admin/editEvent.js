@@ -39,9 +39,11 @@ function EditInfo() {
   }
 
   useEffect(() => {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     function getEventinfo() {
       axios
-        .get("http://localhost:8070/api/events/")
+        .get(`${backendUrl}/api/events/`)
         .then((res) => {
           //console.log(res.data); // debug
 
@@ -58,8 +60,10 @@ function EditInfo() {
   //function to get one item
 
   function getOneItem(did) {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     axios
-      .get("http://localhost:8070/api/events/get/" + did)
+      .get(`${backendUrl}/api/events/get/${did}`)
       .then((res) => {
         // console.log(res.data);
         setid(res.data._id);
@@ -102,9 +106,10 @@ function EditInfo() {
       organizerContact,
       ticketAvailability,
     };
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     axios
-      .put("http://localhost:8070/api/events/update/" + id, newEvent)
+      .put(`${backendUrl}/api/events/update/${id}`, newEvent)
       .then(() => {
         alert("Event information Updated");
 
@@ -118,8 +123,10 @@ function EditInfo() {
   //delete function
 
   function deleteItem(ID) {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     axios
-      .delete("http://localhost:8070/api/events/delete/" + ID)
+      .delete(`${backendUrl}/api/events/delete/${ID}`)
       .then((res) => {
         alert("Event Information Deleted");
 
@@ -133,10 +140,14 @@ function EditInfo() {
   return (
     <section className="main-dashboard">
       <>
-        <h1>Event Details</h1>
+        <AdminDashBoardDetails
+          title={"Manage Events"}
+          subTitle={"Manage All Events From Here.."}
+        />
+
         <div className="card mb-4">
           <header className="card-header">
-            <h4>Edit or Delete an event here</h4>
+            <h4 style={{ color: "black" }}>Event Details</h4>
           </header>
           <div className="card-body">
             <div className="table-responsive">
@@ -242,7 +253,7 @@ function EditInfo() {
                 <br></br>
 
                 <br></br>
-                <h3>Edit information here</h3>
+                <h3 style={{ color: "black" }}>Edit information here</h3>
                 <form onSubmit={sendData}>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">

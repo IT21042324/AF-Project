@@ -14,13 +14,17 @@ import { SearchContext } from "../../context/SearchContext";
 import Reserve from "../../components/Accommodations/Reserve";
 
 export const Hotel = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const location = useLocation();
   const id = location.pathname.split("/")[3];
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
-  const { data, loading, error } = useFetch(`http://localhost:8070/api/hotels/get/${id}`);
+  const { data, loading, error } = useFetch(
+    `${backendUrl}/api/hotels/get/${id}`
+  );
   console.log(data);
   console.log(loading);
   console.log(error);
@@ -54,8 +58,7 @@ export const Hotel = () => {
   };
 
   const handleClick = () => {
-      setOpenModal(true);
-    
+    setOpenModal(true);
   };
   return (
     <div>
@@ -63,7 +66,7 @@ export const Hotel = () => {
       {loading ? (
         "loading"
       ) : (
-        <div className="hotelContainer">
+        <div className="hotelsContainer">
           {open && (
             <div className="slider">
               <FontAwesomeIcon
@@ -123,7 +126,7 @@ export const Hotel = () => {
               </div>
               <div className="hotelDetailsPrice">
                 <h1>Perfect for a {days}-night stay!</h1>
-                
+
                 <h2>
                   <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
                   nights)
@@ -134,7 +137,7 @@ export const Hotel = () => {
           </div>
         </div>
       )}
-      {openModal && <Reserve setOpen={setOpenModal} hotelId={id}/>}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
     </div>
   );
 };

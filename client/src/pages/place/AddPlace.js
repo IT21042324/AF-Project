@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import picture from "../../assets/placeMain.png";
 import { useNavigate } from "react-router-dom";
+import { validateForm } from "./AddPlaceValidations";
 
 export function AddPlace() {
-  //ImageUpload
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const [placeName, setName] = useState("");
   const [placeDescription, setDescription] = useState("");
@@ -31,35 +32,12 @@ export function AddPlace() {
     });
   };
 
-  //form validation
-  function validateForm() {
-    //validation for place name
-    if (placeName.length < 3 || placeName.length > 30) {
-      alert("Place Name should be between 3 and 30 characters.");
-      return false;
-    }
-
-    //validation for place description
-    if (placeDescription.length < 25) {
-      alert("Place Description should be at least 25 characters.");
-      return false;
-    }
-
-    //validation for place image
-    if (!imageUrl) {
-      alert("Place Image should be uploaded.");
-      return false;
-    }
-
-    return true;
-  }
-
   //function for sending data
   function sendData(e) {
     e.preventDefault();
 
     //calling validation function
-    if (!validateForm()) {
+    if (!validateForm(placeName, placeDescription, imageUrl)) {
       return;
     }
 
@@ -70,7 +48,7 @@ export function AddPlace() {
     };
 
     axios
-      .post("http://localhost:8070/api/protectedPlace/add", newPlace)
+      .post(`${backendUrl}/api/protectedPlace/add`, newPlace)
       .then(() => {
         alert("Place added");
         navigate("../allPlaces");
@@ -89,7 +67,7 @@ export function AddPlace() {
     setLoading(true);
     console.log(base64);
     axios
-      .post("http://localhost:8070/uploadImage", { image: base64 })
+      .post(`${backendUrl}/uploadImage`, { image: base64 })
       .then((res) => {
         console.log(res.data);
         setImageUrl(res.data);
@@ -117,10 +95,10 @@ export function AddPlace() {
                   </h3>
                   <br></br>
                   <div className="mb-3">
-                    <label for="placeName">Place Name</label>
+                    <label htmlFor="placeName">Place Name</label>
                     <input
                       type="text"
-                      className="form-control"
+                      class="form-control"
                       id="placeName"
                       placeholder="Enter Place Name"
                       onChange={(e) => {
@@ -129,10 +107,10 @@ export function AddPlace() {
                     />
                   </div>
                   <div className="mb-3">
-                    <label for="placeDescription">Place Description</label>
+                    <label htmlFor="placeDescription">Place Description</label>
                     <textarea
                       style={{ height: 150 }}
-                      className="form-control"
+                      class="form-control"
                       id="placeDescription"
                       placeholder="Enter Place Description"
                       onChange={(e) => {
@@ -145,12 +123,12 @@ export function AddPlace() {
                     <label for="placeImage">Place Image</label>
                     <input
                       type="file"
-                      className="form-control"
+                      class="form-control"
                       id="placeImage"
                       onChange={uploadImage}
                     />
                   </div>
-                  <button type="submit" className="btn btn-dark">
+                  <button type="submit" class="btn btn-dark">
                     Add Place
                   </button>
                 </form>

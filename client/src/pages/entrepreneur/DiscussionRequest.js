@@ -82,7 +82,7 @@ export const DiscussionRequest = () => {
 
         <div className="card mb-4">
           <header className="card-header">
-            <h4>All Notifications</h4>
+            <h4 style={{ color: "black" }}>All Notifications</h4>
           </header>
 
           <div className="card-body">
@@ -153,7 +153,7 @@ export const DiscussionRequest = () => {
                 alt={productForPopUp.productName}
               />
               <h4 style={{ color: "black" }}>{productForPopUp.productName}</h4>
-              <h3>Discussion</h3>
+              <h3 style={{ color: "black" }}>Discussion</h3>
               <div>
                 <DiscussionContainer
                   discussionArray={productForPopUp.discussion}

@@ -62,7 +62,7 @@ export function UserRequestNotification() {
       />
       <div className="card mb-4">
         <header className="card-header">
-          <h4>Users Requests</h4>
+          <h4 style={{ color: "black" }}>Users Requests</h4>
         </header>
         <div className="card-body">
           <div className="table-responsive">
@@ -175,7 +175,7 @@ export function UserRequestNotification() {
               <div className="card mb-4">
                 <form onSubmit={(e) => rejectRequest(e)}>
                   <header className="card-header">
-                    <h4>User Rejection Form</h4>
+                    <h4 style={{ color: "black" }}>User Rejection Form</h4>
                     <div>
                       <input
                         className="btn btn-success"

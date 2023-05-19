@@ -40,7 +40,7 @@ export const EntrepreneurDashBoard = (props) => {
 
     const discussionsByUser = product
       .flatMap((prod) =>
-        prod.discussion.map((discussion) => ({
+        (prod.discussion || []).map((discussion) => ({
           ...discussion,
           productId: prod._id,
         }))

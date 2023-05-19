@@ -1,0 +1,25 @@
+{
+  "name": "af-project",
+  "version": "1.0.0",
+  "description": "This repository contains the source code for a project developed as part of the AF module during the 1st semester of our 3rd year. The project is built using the MERN stack, which includes MongoDB, Express.js, React.js, and Node.js.",
+  "main": "index.js",
+  "scripts": {
+    "install-server": "cd backend && npm install",
+    "start-server": "cd backend && node server.js",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "start-client": "cd client && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IT21042324/AF-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IT21042324/AF-Project/issues"
+  },
+  "homepage": "https://github.com/IT21042324/AF-Project#readme"
+}
+

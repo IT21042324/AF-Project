@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { UseBackendAPI } from "../../backendAPI/useBackendAPI";
 import { UseProductContext } from "../../hooks/useProductContext";
+import { validateForm } from "./assets/AddProductValidator";
 
 export function AddProductRequest() {
   const { dispatch } = UseProductContext();
@@ -27,22 +28,32 @@ export function AddProductRequest() {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
 
-    const data = await makeProductRequest({
-      productName: productName.current.value,
-      description: description.current.value,
-      price: price.current.value,
-      quantity: quantity.current.value,
-      image,
-    });
+    if (
+      validateForm(
+        productName.current.value,
+        description.current.value,
+        price.current.value,
+        quantity.current.value,
+        image
+      )
+    ) {
+      const data = await makeProductRequest({
+        productName: productName.current.value,
+        description: description.current.value,
+        price: price.current.value,
+        quantity: quantity.current.value,
+        image,
+      });
 
-    dispatch({ type: "CreateProduct", payload: data });
+      dispatch({ type: "CreateProduct", payload: data });
 
-    //To clear the form after submission
-    productName.current.value = "";
-    description.current.value = "";
-    price.current.value = "";
-    quantity.current.value = "";
-    imageInputRef.current.value = "";
+      //To clear the form after submission
+      productName.current.value = "";
+      description.current.value = "";
+      price.current.value = "";
+      quantity.current.value = "";
+      imageInputRef.current.value = "";
+    }
   };
 
   return (
@@ -67,7 +78,7 @@ export function AddProductRequest() {
         <div className="card mb-4">
           <form onSubmit={(e) => onSubmitHandler(e)}>
             <header className="card-header">
-              <h4>Product</h4>
+              <h4 style={{ color: "black" }}>Product</h4>
               <div>
                 <input
                   className="btn btn-success"
@@ -88,7 +99,6 @@ export function AddProductRequest() {
                     id="validationCustom01"
                     placeholder="Type here"
                     ref={productName}
-                    required
                   />
                 </div>
                 <div className="col">
@@ -101,7 +111,6 @@ export function AddProductRequest() {
                     id="validationCustom01"
                     placeholder="Type here"
                     ref={description}
-                    required
                   />
                 </div>
               </div>
@@ -112,12 +121,13 @@ export function AddProductRequest() {
                     Quantity
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
                     id="validationCustom01"
                     placeholder="0"
+                    min={0}
+                    max={40}
                     ref={quantity}
-                    required
                   />
                 </div>
                 <div className="col">
@@ -140,12 +150,12 @@ export function AddProductRequest() {
                 <div className="col-md-4 mb-3">
                   <label for="validationCustom01">Unit Price</label>
                   <input
-                    type="text"
+                    type="number"
                     className="form-control"
                     id="validationCustom01"
                     placeholder="0.00"
+                    min={10}
                     ref={price}
-                    required
                   />
                 </div>
               </div>

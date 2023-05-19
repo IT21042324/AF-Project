@@ -6,6 +6,7 @@ import { UseProductContext } from "../hooks/useProductContext";
 import { EmailJSKeyWords } from "../pages/entrepreneur/EmailJSKeyWords";
 
 export const UseBackendAPI = () => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const { dispatch, setUser, getUser } = UseUserContext();
   const user = getUser();
 
@@ -23,12 +24,12 @@ export const UseBackendAPI = () => {
     account_registered_title,
   } = EmailJSKeyWords();
 
-  console.log(user_accepted_message);
   return {
     login: async function (userDetails) {
+      console.log(backendUrl);
       try {
         const info = await axios.post(
-          "http://localhost:8070/api/users/login/",
+          `${backendUrl}/api/users/login/`,
           userDetails
         );
 
@@ -59,7 +60,7 @@ export const UseBackendAPI = () => {
     registerUser: async function (userDetails) {
       try {
         const info = await axios.post(
-          "http://localhost:8070/api/users/signup/",
+          `${backendUrl}/api/users/signup/`,
           userDetails
         );
 
@@ -103,7 +104,7 @@ export const UseBackendAPI = () => {
       userDetailsToUpdate.userId = user._id;
       try {
         const info = await axios.patch(
-          "http://localhost:8070/api/users/update/",
+          `${backendUrl}/api/users/update/`,
           userDetailsToUpdate
         );
 
@@ -125,7 +126,7 @@ export const UseBackendAPI = () => {
     },
 
     getUsersForAdminPage: async function () {
-      const { data } = await axios.get("http://localhost:8070/api/users/");
+      const { data } = await axios.get(`${backendUrl}/api/users/`);
 
       console.log(data);
       return data;
@@ -134,8 +135,7 @@ export const UseBackendAPI = () => {
     deleteUser: async function (userID) {
       try {
         await axios.delete(
-          "http://localhost:8070/api/protected/products/deleteAllUserProducts/" +
-            userID,
+          `${backendUrl}/api/protected/products/deleteAllUserProducts/${userID}`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -145,7 +145,7 @@ export const UseBackendAPI = () => {
 
         //To delete the user
         const info = await axios.delete(
-          "http://localhost:8070/api/users/deleteUser/" + userID
+          `${backendUrl}/api/users/deleteUser/${userID}`
         );
 
         if (info.status == 200) {
@@ -165,7 +165,7 @@ export const UseBackendAPI = () => {
     acceptUserRequest: async function (userID, userName) {
       try {
         const info = await axios.patch(
-          "http://localhost:8070/api/users/approveUser/" + userID
+          `${backendUrl}/api/users/approveUser/${userID}`
         );
 
         if (info.status == 200) {
@@ -189,7 +189,7 @@ export const UseBackendAPI = () => {
     rejectUserRequest: async function (details) {
       try {
         const info = await axios.patch(
-          "http://localhost:8070/api/users/rejectUser/",
+          `${backendUrl}/api/users/rejectUser/`,
           details
         );
 
@@ -217,7 +217,7 @@ export const UseBackendAPI = () => {
 
       try {
         const info = await axios.post(
-          "http://localhost:8070/api/protected/products/addProduct/",
+          `${backendUrl}/api/protected/products/addProduct/`,
           product,
           {
             headers: {
@@ -245,7 +245,7 @@ export const UseBackendAPI = () => {
     updateProductDetails: async function (product) {
       try {
         const info = await axios.patch(
-          "http://localhost:8070/api/protected/products/updateProduct/",
+          `${backendUrl}/api/protected/products/updateProduct/`,
           product,
           {
             headers: {
@@ -271,9 +271,7 @@ export const UseBackendAPI = () => {
     removeProductDetails: async function (itemID) {
       try {
         const info = await axios.delete(
-          "http://localhost:8070/api/protected/products/deleteProduct/" +
-            itemID,
-          {},
+          `${backendUrl}/api/protected/products/deleteProduct/${itemID}`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -298,7 +296,7 @@ export const UseBackendAPI = () => {
     markAsRead: async function (details) {
       try {
         const info = await axios.patch(
-          "http://localhost:8070/api/protected/products/markAsRead/",
+          `${backendUrl}/api/protected/products/markAsRead/`,
           details,
           {
             headers: {
@@ -325,8 +323,7 @@ export const UseBackendAPI = () => {
         console.log(user);
 
         const info = await axios.patch(
-          "http://localhost:8070/api/protected/products/approveProduct/" +
-            productID,
+          `${backendUrl}/api/protected/products/approveProduct/${productID}`,
           {},
           {
             headers: {
@@ -351,7 +348,7 @@ export const UseBackendAPI = () => {
     rejectProductRequest: async function (details) {
       try {
         const info = await axios.patch(
-          "http://localhost:8070/api/protected/products/rejectProduct/",
+          `${backendUrl}/api/protected/products/rejectProduct/`,
           details,
           {
             headers: {
@@ -375,7 +372,7 @@ export const UseBackendAPI = () => {
     sendMessage: async function (details) {
       try {
         const info = await axios.patch(
-          "http://localhost:8070/api/protected/products/discussion/addOrUpdateDiscussion/",
+          `${backendUrl}/api/protected/products/discussion/addOrUpdateDiscussion/`,
           details,
           {
             headers: {
