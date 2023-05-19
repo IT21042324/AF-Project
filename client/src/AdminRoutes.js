@@ -11,11 +11,10 @@ import { ProductRequestNotification } from "./pages/admin/ProductRequestNotifica
 import { AddPlace } from "./pages/place/AddPlace";
 import { AllPlaces } from "./pages/place/AllPlaces";
 import { AdminMainPage } from "./pages/place/AdminMainPage";
-import {EditHotel} from "./pages/admin/HotelsTable";
-import {AddHotelForm} from "./pages/admin/AddHotel";
-import {NewRoom} from "./pages/admin/NewRoom";
+import { EditHotel } from "./pages/admin/HotelsTable";
+import { AddHotelForm } from "./pages/admin/AddHotel";
+import { NewRoom } from "./pages/admin/NewRoom";
 import { EditRoom } from "./pages/admin/RoomsTable";
-
 
 export function AdminRoutes() {
   const { getUser } = UseUserContext();
@@ -36,7 +35,6 @@ export function AdminRoutes() {
               element={<ProductRequestNotification />}
             />
 
-
             {/* Cultural Events related pages */}
             <Route path="/addEvent" element={<AddEvent />} />
             <Route path="/editEvent" element={<EditInfo />} />
@@ -49,7 +47,6 @@ export function AdminRoutes() {
             <Route path="/addHotel" element={<AddHotelForm />} />
             <Route path="/rooms" element={<EditRoom />} />
             <Route path="/addRoom" element={<NewRoom />} />
-
           </Routes>
         </>
       ) : (
