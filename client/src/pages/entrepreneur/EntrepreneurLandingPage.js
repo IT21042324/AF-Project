@@ -75,6 +75,9 @@ export function EntrepreneurLandingPage() {
   const removeProduct = async (e, itemID) => {
     e.preventDefault();
 
+    const alertResponse = window.confirm("Are you sure you want to delete?");
+    if (alertResponse !== true) return;
+
     const data = await removeProductDetails(itemID);
 
     if (data) {

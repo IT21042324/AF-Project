@@ -18,6 +18,9 @@ export const EntrepreneurDashBoard = (props) => {
   }, [mechantIsLoggedIn]);
 
   const logoutFunction = () => {
+    const lgout = window.confirm("Are you sure you want to logout?");
+    if (lgout !== true) return;
+
     setMerchantIsLoggedIn(false);
     alert("Logged Out");
   };

@@ -21,6 +21,9 @@ export function UserRequestNotification() {
   const acceptRequest = async (e, userID, userName) => {
     e.preventDefault();
 
+    const alertResponse = window.confirm("Are you sure you want to proceed?");
+    if (alertResponse !== true) return;
+
     const data = await acceptUserRequest(userID, userName);
 
     if (data) {

@@ -31,11 +31,6 @@ export function ChangeProfile() {
       contact: contact.current.value,
       image,
     });
-
-    //To clear the form after submission
-    // bio.current.value = "";
-    // contact.current.value = "";
-    // imageInputRef.current.value = "";
   };
 
   return (

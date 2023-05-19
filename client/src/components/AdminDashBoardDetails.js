@@ -30,15 +30,14 @@ export const AdminDashBoardDetails = (props) => {
 
   // Use useEffect to logout user if adminIsLoggedIn state changes
   useEffect(() => {
-    if (!adminIsLoggedIn) {
-      // Call the logoutUser function from the context
-      logoutUser();
-    }
+    if (!adminIsLoggedIn) logoutUser();
   }, [adminIsLoggedIn]);
 
   //The function to logout
   const logoutFunction = () => {
-    //To logout the user
+    const lgout = window.confirm("Are you sure you want to logout?");
+    if (lgout !== true) return;
+
     setAdminIsLoggedIn(false);
   };
 

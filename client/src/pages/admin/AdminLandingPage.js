@@ -21,6 +21,9 @@ export function AdminLandingPage() {
   const removeUser = async (e, userID) => {
     e.preventDefault();
 
+    const alertResponse = window.confirm("Are you sure you want to delete?");
+    if (alertResponse !== true) return;
+
     const data = await deleteUser(userID);
 
     if (data) {

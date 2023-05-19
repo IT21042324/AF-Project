@@ -18,6 +18,9 @@ export function ProductRequestNotification() {
   const acceptRequest = async (e, productID) => {
     e.preventDefault();
 
+    const alertResponse = window.confirm("Are you sure you want to proceed?");
+    if (alertResponse !== true) return;
+
     const data = await acceptProductRequest(productID);
 
     if (data) dispatch({ type: "ApproveProduct", payload: { _id: data._id } });
